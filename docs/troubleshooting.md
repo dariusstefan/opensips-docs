@@ -1,12 +1,18 @@
 ---
-title: "Troubleshooting"
-description: ""
+title: Troubleshooting
 ---
+## [OpenSIPS does not start](/docs/troubleshooting-doesnotstart)
 
-[OpenSIPS does not start](/docs/troubleshooting-doesnotstart) - where to look and what do to if your **OpenSIPS** does not start
+where to look and what do to if your **OpenSIPS** does not start
 
-[Memory error troubleshooting (updated for 3.x)](/docs/troubleshooting-outofmem) - how to troubleshoot certain memory manager errors you get from **OpenSIPS**
+## [Memory error troubleshooting (updated for 3.x)](/docs/troubleshooting-outofmem)
 
-[Increasing memory size](/docs/troubleshooting-increasemem) - how to increase the memory (shared or private) that **OpenSIPS** uses.
+How to troubleshoot certain memory manager errors you get from **OpenSIPS**
 
-[My OpenSIPS is crashing](/docs/troubleshooting-crash) - how to provide more information to the OpenSIPS developers
+## [Increasing memory size](/docs/troubleshooting-increasemem)
+
+How to increase the memory (shared or private) that **OpenSIPS** uses.
+
+## [My OpenSIPS is crashing](/docs/troubleshooting-crash)
+
+How to provide more information to the OpenSIPS developers
