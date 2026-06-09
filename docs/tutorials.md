@@ -18,32 +18,32 @@ Unveils how SIP accounting works in OpenSIPS, from basic to complex scenarios wi
 
 ---
 
-## [Easier scripting with the script_helper module](/docs/tutorials-scripthelper-1-11)
+## [Easier scripting with the script_helper module](/docs/tutorials-scripthelper)
 Module description and a complete usage example.
 
 ---
 
-## [Call Recording using SIPREC](/docs/tutorials-siprec-2-4)
+## [Call Recording using SIPREC](/docs/tutorials-siprec)
 This tutorial shows you how you can do call recording using the SIPREC standard.
 
 ---
 
-## [Fraud detection with OpenSIPS](/docs/tutorials-frauddetection-3-1)
+## [Fraud detection with OpenSIPS](/docs/tutorials-frauddetection)
 Description of the new module along with a complete usage example.
 
 ---
 
-## [Message compression and compaction](/docs/tutorials-compression-2-1)
+## [Message compression and compaction](/docs/tutorials-compression)
 Module description and a complete usage example.
 
 ---
 
-## [Emergency calls using OpenSIPS](/docs/tutorials-emergency-2-2)
+## [Emergency calls using OpenSIPS](/docs/tutorials-emergency)
 Architecture design and complete usage examples.
 
 ---
 
-## [WebSocket and WebSocketSecure Integration with OpenSIPS](/docs/tutorials-websocket-2-2)
+## [WebSocket and WebSocketSecure Integration with OpenSIPS](/docs/tutorials-websocket)
 How to add Websocket, and Websocket Secure (2.2+ only) capabilities to your existing OpenSIPS deployment.
 
 ---
@@ -53,7 +53,7 @@ How to configure OpenSips to route phone calls based on the dialed number.  This
 
 ---
 
-## [B2BUA](/docs/tutorials-b2bua-3-2)
+## [B2BUA](/docs/tutorials-b2bua)
 Which is the architecture of the B2BUA implementation, how to define service scenario documents and how to configure OpenSIPS to offer B2BUA services.
 
 ---
@@ -63,7 +63,7 @@ Presence Agent - design and configuration of Presence Agent in **OpenSIPS**.
 
 ---
 
-## [Load-Balancing](/docs/tutorials-loadbalancing-1-9)
+## [Load-Balancing](/docs/tutorials-loadbalancing)
 How to use the load-balancing module from **OpenSIPS** to do traffic routing based on the real load of the destinations.
 
 ---
@@ -88,7 +88,7 @@ This tutorial presents the concept and implementation of a realtime integration 
 
 ---
 
-## [Realtime OpenSIPS - Asterisk Integration](/docs/tutorials-opensipsasteriskintegration-1-8)
+## [Realtime OpenSIPS - Asterisk Integration](/docs/tutorials-opensipsasteriskintegration)
 How to implement a realtime integration of OpenSIPS SIP server and Asterisk media server for Voicemail, conference and announcement services.
 
 ---
@@ -98,7 +98,7 @@ How to control in **OpenSIPS** how many concurrent calls a user is allow to do.
 
 ---
 
-## [TLS setup](/docs/tutorials-tls-2-2)
+## [TLS setup](/docs/tutorials-tls)
 How to compile and configure the TLS support in **OpenSIPS** - script example included.
 
 ---

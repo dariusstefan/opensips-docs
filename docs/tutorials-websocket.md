@@ -1,74 +1,457 @@
 ---
-title: "Deploying Websocket support with OpenSIPS and OverSIP"
-description: "The purpose of this tutorial is to show how to easily add WebRTC functionalities to any existing OpenSIPS deployment."
+title: "WebSocket Transport using OpenSIPS"
+subtitle: "WebSocket Transport"
+subtitleHref: "/docs/modules/2-2/proto_ws"
+description: "This document describes how to use OpenSIPS as the core component of a SIP platform that connects both SIP clients (over UDP, TCP or TLS) as well as browser..."
 ---
 
-## Introduction
+## Tutorial Overview
 
-The purpose of this tutorial is to show how to easily add WebRTC functionalities to any existing OpenSIPS deployment. 
+[WebSocket](http://tools.ietf.org/html/rfc6455) is a protocol that provides full-duplex communication between web clients and servers over TCP connections. Using the WebSocket protocol, browsers can connect to web servers and exchange data, regardless the type or nature of the application protocol. [RFC 7118](https://tools.ietf.org/html/rfc7118) leveraged this protocol in order to allow browsers to make VoIP calls using the SIP protocol. [WebSocketSecure](/docs/modules/2-2/proto_wss) (WSS) overlays TLS onto the Websocket protocol making the connection secure, a requirement for many browsers if you want to do WebRTC.
 
-  
+This document describes how to use **OpenSIPS** as the core component of a SIP platform that connects both SIP clients (over UDP, TCP or TLS) as well as browser based clients using SIP over WebSockets and WebSocketsSecure. While OpenSIPS handles the SIP signalling part, media is handled by [RTPengine](https://github.com/sipwise/rtpengine), a high performance media proxy that is able to handle both RTP and SRTP media streams, as well as bridging between them.
 
-The solution below requires no changes at all on the OpenSIPS side ( because it relies on a WebSocket to SIP gateway ), thus it can be easily integrated with **0** side-effects to your existing deployment.
-Secondly, the solution uses entirely open source components ( both for the server and the client side ) - which gives you great flexibility on the server side, as well as on the client side - since you can easily integrate the client into your existing client portals.
+## Setup
 
-## Platform Components
+### RTPengine
 
-* We will be using OpenSIPS as the core part of the platform, handling all the SIP traffic. For a basic tutorial of setting up OpenSIPS see the [getting started tutorial](/docs/tutorials-gettingstarted)
-* [OverSIP](http://oversip.net) will be used as a WebSocket to SIP gateway - all the websocket traffic will reach OverSIP, which will decapsulate the SIP traffic and relay it to the OpenSIPS proxy. OverSIP packages are available for Debian based systems and detailed installation instructions are available for other operating systems as well - see OverSIP deployment tutorial [here](http://oversip.net/documentation/1.3.x/installation/)
+#### Installation
 
-* For the SIP client for testing purposes, we will be using [sipML5](http://sipml5.org/) . It can be downloaded from [here](http://code.google.com/p/sipml5/source/checkout) and installation is very straight-forward : just copy the sources to your /var/www/ folder. The client's media stack relies on WebRTC and the client can be used to connect to any SIP or IMS network from your preferred browser to make and receive audio/video calls and instant messages. Furthermore, sipML5 should work on any web browser supporting WebRTC but we highly recommend using [Google Chrome](https://www.google.com/intl/en/chrome/browser/) or [Firefox Nightly](http://nightly.mozilla.org/) for testing.
+The RTPengine consists of two main components: a kernel module used to efficiently route the RTP packets directly in kernel, and a daemon used to communicate with OpenSIPS. You can find more details [here](https://github.com/sipwise/rtpengine#overview). Both components can be installed from debs (on Debian based systems) or directly from sources. Simply follow the [official documentation](https://github.com/sipwise/rtpengine#compiling-and-installing) to install RTPengine.
 
----
+You must generate certificates to use with TLS and WSS.  For this example we are generating certificates using [LetsEncrypt](https://letsencrypt.org/) 
 
-## OpenSIPS Configuration
+Also important to note that as of 2.2, certificate management has been split out into a new module, [TLS_MGM](/docs/modules/2-2/tls_mgm).  Setting appropriate modparams for the tls_mgm module is how we will manage our certificates for both WSS and TLS.
 
-OpenSIPS will have to be configured with NAT support. If you do not have NAT support in your OpenSIPS script, or if you want to generate a brand new script, you should use the menuconfig tool and generate a new Residential type script, with NAT support enabled. For more information on generating scripts see [this manual page](/docs/manual/devel/generating-configs) 
+#### Usage
 
-  
+After installing the kernel module and the additional libraries, the rtpengine daemon has to be configured. This can be done from `/etc/default/ngcp-rtpengine-daemon` if installed from debs, or from the command line if the daemon is started manually. On systemd based OSes, Eric Tamme created some [startup scripts](https://github.com/etamme/federated-sip/tree/master/scripts).
 
-[Here](http://opensips.org/uploads/Resources/opensips_residential_nat.cfg) you will find attached a very basic OpenSIPS Residential script with NAT support that should work very well for our scenario.
+The interesting parameters we are using are as follows:
 
----
+* `-i`: the listening interface for RTP/SRTP
+* `-n`: the listening IP and port that is used by OpenSIPS to communicate with the RTPengine (**NOTE:** the rtpengine module only works with the rtpengine NG protocol, so you must use `-n`/`--listen-ng`; Using `-u`/`--listen-udp` or `-l`/`--listen-tcp` will not work!)
+* `-c`: the IP and port of the CLI - this is used to gather statistics for the RTP/SRTP sessions
+* `-m, -M`: both take an integer as argument and together define the local port range from which rtpengine will allocate UDP ports for media traffic relay. Default to 30000 and 40000 respectively.
+* `-L`: indicates the debugging level
 
-## OverSIP Configuration
+You can find all the parameters available [here](https://github.com/sipwise/rtpengine#userspace-daemon).
 
-OverSIP has two basic configuration files that will need to changed in order to achieve our desired functionality :
+Here is an example that runs `rtpengine` from cli that talks with OpenSIPS over localhost and RTP using the 1.1.1.1 IP:
 
-**oversip.conf** ( by default located in /etc/oversip/oversip.conf ) contains the Main Configuration part of the server ( no routing logic here - just configuration parameters ).   
+```text
 
-The parameters that are of interest for our configuration would be :
-* sip: section
-  * listen_ipv4 - IP address where OverSIP will listen on SIP traffic. This will be the IP with which OverSIP will communicate with OpenSIPS on UDP and/or TCP
-  * listen_port - we should be editing the listen port in case the default port conflicts with other applications on the server. This will be the port on which OverSIP will communicate with OpenSIPS on UDP and/or TCP
-* websocket: section
-  * sip_ws: yes - should be enabled
-  * listen_ipv4: - IP address where OverSIP will be listening for requests for Websocket clients ( should be a public IP address here )
-  * listen_port: - we should be editing the websocket listen port in case the default port conflicts with other applications on the server
-  
+./rtpengine -p /var/run/rtpengine.pid -i eth0/1.1.1.1 -n 127.0.0.1:60000 -c 127.0.0.0.1:60001 -m 50000 -M 55000 -E -L 7
 
-**server.rb** ( by default located in /etc/oversip/server.rb ) contains the actual routing logic for the OverSIP server - written in Ruby. The default server.rb script is suitable for the purpose of WS to SIP gateway, so you shouldn't do any changes to it, with one single exception :
+```
 
-* If you are using a pre 1.3.8 OverSIP version, you need to edit the file and add **request.fix_nat** right after the **def (OverSIP::SipEvents).on_request request** line - basically we're forcing OverSIP to consider all requests as NAT-ed ( since we'll be using it only for Websocket clients, and they are considered NATed by default due to browser considerations )
+#### Troubleshoot
 
-  
+First make sure the `rtpengine` daemon is started:
+```bash
 
-[Here](http://opensips.org/uploads/Resources/oversip.conf) you will find attached an oversip.conf file that works well with our scenario. The config file assumes that OverSIP will listen on 192.168.2.13
+ps -ef | grep rtpengine
 
----
+```
 
-## sipML5 Configuration
+If the `rtpengine` daemon does not start, make sure the `xt_RTPENGINE` kernel module is loaded:
+```bash
 
-Deploy the sipML5 client on your web server, and access it in your browser. Go to expert mode and edit the **WebSocket Server URL** to match the OverSIP IP address and port that you entered in the **websocket** section of the oversip.conf file. Hit save and then return to the first page of the sipML5 client.
+lsmod | grep xt_RTPENGINE
 
-  
+```
 
-Then simply insert your OpenSIPS username credentials and hit login. You should then be able to call other users registered on a webRTC capable SIP client.
+If the module is not loaded, make sure the `ip_tables` and `x_tables` kernel modules are loaded. Also, check the logs for the last errors of the system
+```text
 
-  
+dmesg
 
-Assuming that we have an account on our OpenSIPS box with the opensips-domain.com domain, and that our OverSIP is listening on IP 192.168.2.13 port 10080 for WebSocket traffic, here are two screenshots that show the proper configuration of sipML5 for the [SIP user configuration](http://www.opensips.org/uploads/Resources/user_config.png) and for the [WebSocket server configuration](http://www.opensips.org/uploads/Resources/websocket_config.png) ( accessible from the expert mode options of sipML5 )
+```
 
-  
+### OpenSIPS
 
-Because sipML5 is fully open-source, the configuration of the WebSocket Server URL can be hard-coded into the client, and the actual SIP client can be easily embedded into an existing web interface.
+In order to use WebSocket and WebSocketSecure in OpenSIPS, one has to load the [proto_ws](/docs/modules/2-2/proto_ws) and [proto_wss](/docs/modules/2-2/proto_wss) into its configuration file and define a listener for the WebSocket and WebSocketSecure protocol.  We also must load the [tls_mgm](/docs/modules/2-2/tls_mgm) module in order to manage our certificates.
+
+```c
+
+# set listeners for all protocols
+listen=ws:127.0.0.1:8080
+listen=wss:127.0.0.1:443
+listen=tls:127.0.0.1:5061
+listen=udp:127.0.0.1:5060
+
+# load our certificate management module
+loadmodule "tls_mgm.so"
+
+#load all protocol modules
+loadmodule "proto_udp.so"
+loadmodule "proto_tls.so"
+loadmodule "proto_wss.so"
+loadmodule "proto_ws.so"
+
+# modparam our certificate information
+modparam("tls_mgm", "certificate","/etc/letsencrypt/live/acme.com/cert.pem")
+modparam("tls_mgm", "private_key","/etc/letsencrypt/live/acme.com/privkey.pem")
+
+```
+
+Next, the [rtpengine](/docs/modules/2-2/rtpengine) module has to be loaded and configured to communicate with the `rtpengine` daemon.
+```c
+
+loadmodule "rtpengine.so"
+modparam("rtpengine", "rtpengine_sock", "udp:127.0.0.1:60000")
+
+```
+
+Note that the [rtpengine_sock](/docs/modules/2-2/rtpengine#rtpengine.p.rtpengine_sock) parameter should be the same as the `-n` parameter sent to the `rtpengine` daemon, and OpenSIPS should have IP connectivity to that socket.
+
+Next, the routing logic has to be changed in order to treat different the clients that use DTLS-SRTP, from the ones that use plain RTP and enable bridging if necessary. To do that, one can check if the request message was received over the WebSocket protocol. This can be achieved using the following code:
+
+```bash
+
+if (proto == WS || proto == WSS)
+    setflag(SRC_WS);
+
+```
+
+In case the request is a REGISTER, we want to store this information in the *location* table, so that we know then the user is called. To do that, we can set a branch flag before calling the [save()](/docs/modules/2-2/registrar#id294034) function. This way, when the [lookup()](/docs/modules/2-2/registrar#id294366) method returns, we will be able to determine whether the client uses WebSocket or not.
+
+```text
+
+    if (is_method("REGISTER")) {
+        if (isflagset(SRC_WS))
+            setbflag(DST_WS);
+
+        fix_nated_register();
+        if (!save("location"))                                                                                                                                 
+            sl_reply_error();
+
+        exit;
+    }
+
+```
+
+When a call is placed, based on the two flags (`STR_WS` and `DST_WS`) we can determine what our caller and callee can "speak" (either RTP or DTLS-SRTP) and instruct the `rtpengine` daemon how to handle the call. We can do that by tuning the parameters passed to the  [rtpengine_offer()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_offer) function.
+```text
+
+    if (isflagset(SRC_WS) && isbflagset(DST_WS))
+        $var(rtpengine_flags) = "ICE=force-relay DTLS=passive";
+    else if (isflagset(SRC_WS) && !isbflagset(DST_WS))
+        $var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+    else if (!isflagset(SRC_WS) && isbflagset(DST_WS))
+        $var(rtpengine_flags) = "UDP/TLS/RTP/SAVPF ICE=force";
+    else if (!isflagset(SRC_WS) && !isbflagset(DST_WS))
+        $var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+
+    rtpengine_offer("$var(rtpengine_flags)");
+
+```
+
+The [rtpengine_answer()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_answer) function logic should look like this:
+
+```text
+
+    if (isflagset(SRC_WS) && isbflagset(DST_WS))
+        $var(rtpengine_flags) = "ICE=force-relay DTLS=passive";
+    else if (isflagset(SRC_WS) && !isbflagset(DST_WS))
+        $var(rtpengine_flags) = "UDP/TLS/RTP/SAVPF ICE=force";
+    else if (!isflagset(SRC_WS) && isbflagset(DST_WS))
+        $var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+    else if (!isflagset(SRC_WS) && !isbflagset(DST_WS))
+        $var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+
+    rtpengine_answer("$var(rtpengine_flags)");
+
+```
+
+Now, all we have to do is to close the RTP/SRTP session when the call is ended. To do that, we use the [rtpengine_delete()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_delete) function:
+
+```text
+
+    if (is_method("BYE|CANCEL")) {                                                                                                                      
+        rtpengine_delete();
+
+```
+
+Having done all these settings should provide a full setup for interconnecting SIP clients over both UDP, TCP, etc. protocols, as well as browser based SIP clients over WebSocket.
+
+## Configuration file
+
+### Normal SDP negotiation
+
+The [following](http://www.opensips.org/pub/docs/tutorials/websockets/opensips.cfg) configuration file is a minimal working example of a Residential script that can handle clients connections over both UDP and Websocket transports.  This example assumes that the SDP offer is present in the INVITE from the UAC and the SDP answer is in the 200 OK from the UAS.
+
+> [!NOTE]
+> the default port for WSS (443) is privileged, so if you are running this script, you should start OpenSIPS with super-user rights (as user root).
+
+```c
+
+#
+# OpenSIPS residential configuration script
+#     by OpenSIPS Solutions <team@opensips-solutions.com>
+#
+# Please refer to the Core CookBook at:
+#      http://www.opensips.org/Resources/DocsCookbooks
+# for a explanation of possible statements, functions and parameters.
+#
+
+####### Global Parameters #########
+
+debug=3
+log_stderror=no
+log_facility=LOG_LOCAL0
+
+fork=yes
+children=4
+auto_aliases=no
+
+# Set up listeners
+listen=ws:127.0.0.1:8080
+listen=wss:127.0.0.1:443
+listen=tls:127.0.0.1:5061
+listen=udp:127.0.0.1:5060
+
+####### Modules Section ########
+
+# set module path
+mpath="/usr/local/lib/opensips/modules/"
+
+#### SIGNALING module
+loadmodule "signaling.so"
+
+#### StateLess module
+loadmodule "sl.so"
+
+#### Transaction Module
+loadmodule "tm.so"
+modparam("tm", "fr_timeout", 5)
+modparam("tm", "fr_inv_timeout", 30)
+modparam("tm", "restart_fr_on_each_reply", 0)
+modparam("tm", "onreply_avp_mode", 1)
+
+#### Record Route Module
+loadmodule "rr.so"
+modparam("rr", "append_fromtag", 0)
+
+#### MAX ForWarD module
+loadmodule "maxfwd.so"
+
+#### SIP MSG OPerationS module
+loadmodule "sipmsgops.so"
+
+#### FIFO Management Interface
+loadmodule "mi_fifo.so"
+modparam("mi_fifo", "fifo_name", "/tmp/opensips_fifo")
+modparam("mi_fifo", "fifo_mode", 0666)
+
+#### URI module
+loadmodule "uri.so"
+modparam("uri", "use_uri_table", 0)
+
+#### USeR LOCation module
+loadmodule "usrloc.so"
+modparam("usrloc", "nat_bflag", "NAT")
+modparam("usrloc", "db_mode",   0)
+
+#### REGISTRAR module
+loadmodule "registrar.so"
+
+#### RTPengine protocol
+loadmodule "rtpengine.so"
+modparam("rtpengine", "rtpengine_sock", "udp:127.0.0.0:60000")
+
+#### Nathelper protocol
+loadmodule "nathelper.so"
+modparam("registrar|nathelper", "received_avp", "$avp(rcv)")
+
+#### UDP protocol
+loadmodule "proto_udp.so"
+
+#### TLS protocol
+loadmodule "proto_tls.so"
+
+#### WebSocket and WebSocketSecure protocol
+loadmodule "proto_wss.so"
+loadmodule "proto_ws.so"
+
+# Certificate management
+loadmodule "tls_mgm.so"
+modparam("tls_mgm", "certificate","/etc/letsencrypt/live/acme.com/cert.pem")
+modparam("tls_mgm", "private_key","/etc/letsencrypt/live/acme.com/privkey.pem")
+
+####### Routing Logic ########
+
+# main request routing logic
+route{
+	if (!mf_process_maxfwd_header("10")) {
+		sl_send_reply("483","Too Many Hops");
+		exit;
+	}
+
+	if (has_totag()) {
+		# sequential requests within a dialog should
+		# take the path determined by record-routing
+		if (loose_route()) {
+			if (is_method("INVITE")) {
+				# even if in most of the cases is useless, do RR for
+				# re-INVITEs alos, as some buggy clients do change route set
+				# during the dialog.
+				record_route();
+			}
+
+			# route it out to whatever destination was set by loose_route()
+			# in $du (destination URI).
+			route(relay);
+		} else {
+			if ( is_method("ACK") ) {
+				if ( t_check_trans() ) {
+					# non loose-route, but stateful ACK; must be an ACK after
+					# a 487 or e.g. 404 from upstream server
+					t_relay();
+					exit;
+				} else {
+					# ACK without matching transaction ->
+					# ignore and discard
+					exit;
+				}
+			}
+			sl_send_reply("404","Not here");
+		}
+		exit;
+	}
+
+	# CANCEL processing
+	if (is_method("CANCEL")) {
+		if (t_check_trans())
+			t_relay();
+		exit;
+	}
+
+	t_check_trans();
+
+	if (!is_method("REGISTER")) {
+		if (from_uri!=myself) {
+			# if caller is not local, then called number must be local
+			if (!uri==myself) {
+				send_reply("403","Rely forbidden");
+				exit;
+			}
+		}
+	}
+
+	# preloaded route checking
+	if (loose_route()) {
+		xlog("L_ERR",
+		"Attempt to route with preloaded Route's [$fu/$tu/$ru/$ci]");
+		if (!is_method("ACK"))
+			sl_send_reply("403","Preload Route denied");
+		exit;
+	}
+
+	# record routing
+	if (!is_method("REGISTER|MESSAGE"))
+		record_route();
+
+	if (!uri==myself) {
+		append_hf("P-hint: outbound\r\n");
+		route(relay);
+	}
+
+	# requests for my domain
+	if (is_method("PUBLISH|SUBSCRIBE")) {
+		sl_send_reply("503", "Service Unavailable");
+		exit;
+	}
+
+	# check if the clients are using WebSockets or WebSocketSecure
+	if (proto == WS || proto == WSS)
+		setflag(SRC_WS);
+
+	# consider the client is behind NAT - always fix the contact
+	fix_nated_contact();
+
+	if (is_method("REGISTER")) {
+
+		# indicate that the client supports DTLS
+		# so we know when he is called
+		if (isflagset(SRC_WS))
+			setbflag(DST_WS);
+
+		fix_nated_register();
+		if (!save("location"))
+			sl_reply_error();
+
+		exit;
+	}
+
+	if ($rU==NULL) {
+		# request with no Username in RURI
+		sl_send_reply("484","Address Incomplete");
+		exit;
+	}
+
+	# do lookup with method filtering
+	if (!lookup("location","m")) {
+		t_newtran();
+		t_reply("404", "Not Found");
+		exit;
+	}
+
+	route(relay);
+}
+
+route[relay] {
+	# for INVITEs enable some additional helper routes
+	if (is_method("INVITE")) {
+		t_on_branch("handle_nat");
+		t_on_reply("handle_nat");
+	} else if (is_method("BYE|CANCEL")) {
+		rtpengine_delete();
+	}
+
+	if (!t_relay()) {
+		send_reply("500","Internal Error");
+	};
+	exit;
+}
+
+branch_route[handle_nat] {
+
+	if (!is_method("INVITE") || !has_body("application/sdp"))
+		return;
+
+	if (isflagset(SRC_WS) && isbflagset(DST_WS))
+		$var(rtpengine_flags) = "ICE=force-relay DTLS=passive";
+	else if (isflagset(SRC_WS) && !isbflagset(DST_WS))
+		$var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+	else if (!isflagset(SRC_WS) && isbflagset(DST_WS))
+		$var(rtpengine_flags) = "UDP/TLS/RTP/SAVPF ICE=force";
+	else if (!isflagset(SRC_WS) && !isbflagset(DST_WS))
+		$var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+
+	rtpengine_offer("$var(rtpengine_flags)");
+}
+
+onreply_route[handle_nat] {
+
+	fix_nated_contact();
+	if (!has_body("application/sdp"))
+		return;
+
+	if (isflagset(SRC_WS) && isbflagset(DST_WS))
+		$var(rtpengine_flags) = "ICE=force-relay DTLS=passive";
+	else if (isflagset(SRC_WS) && !isbflagset(DST_WS))
+		$var(rtpengine_flags) = "UDP/TLS/RTP/SAVPF ICE=force";
+	else if (!isflagset(SRC_WS) && isbflagset(DST_WS))
+		$var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+	else if (!isflagset(SRC_WS) && !isbflagset(DST_WS))
+		$var(rtpengine_flags) = "RTP/AVP replace-session-connection replace-origin ICE=remove";
+
+	rtpengine_answer("$var(rtpengine_flags)");
+}
+
+```
+
+### Late SDP negotiation
+
+[Here](http://www.opensips.org/pub/docs/tutorials/websockets/opensips-late.cfg) you can find a more complex configuration file, that also includes support for late SDP negotiation (SDP is exchanged between 200 OK and ACK).

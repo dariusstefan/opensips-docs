@@ -5,7 +5,7 @@ description: "This tutorial presents the concept and implementation of a realtim
 
 ## Realtime **OpenSIPS - Asterisk** Integration
 
-**This tutorial is made for OpenSIPS 1.8.x and Asterisk 1.8.x**
+**Version 1.0**
 
 ---
 
@@ -35,7 +35,7 @@ The following services will be offered by this integrated configuration:
 
 ### OpenSIPS
 
-Install OpenSIPS 1.8.x with mysql DB support (db_mysql module). if you use sources (tarballs or svn checkouts) do the following:
+Install OpenSIPS 1.5 with mysql DB support (db_mysql module). if you use sources (tarballs or svn checkouts) do the following:
 ```bash
 
    $ make include_modules="db_mysql" prefix="/" all
@@ -45,64 +45,11 @@ Install OpenSIPS 1.8.x with mysql DB support (db_mysql module). if you use sourc
 
 ### Asterisk
 
-Install Asterisk 1.8 from local repository:
+Use Asterisk 1.4. With 1.6, the DB scheme is a bit different and some additional fields may be required.
 
-```bash
+You need to have the voicemail support with DB support, so take care and install the **unixodbc** support in Asterisk.
 
-   # apt-get install asterisk
-
-```
-
-> [!NOTE]
-> if your repository does not have the Asterisk 1.8 version, you must install a backported version of Asterisk, by following these steps:
-
- * add the following line in the */etc/apt/sources.lst* file:
-```text
-
-deb http://backports.debian.org/debian-backports squeeze-backports main
-
-```
- * update the repository:
-```bash
-
-apt-get update
-
-```
- * install asterisk from backports repository
-```bash
-
-apt-get -t squeeze-backports install asterisk
-
-```
-
-Install UnixODBC interface:
-
-```bash
-
-   # apt-get install unixodbc-dev libmyodbc
-   # apt-get install asterisk-voicemail-odbcstorage
-
-```
-
-The latest version of the Meetme application needs the DAHDI telephony interface. Install the Asterisk Dahdi application:
-
-```bash
-
-   # apt-get install asterisk-dahdi dahdi
-
-```
-
-If a module package is not available for your platform, you must create your own package from dahdi sources, by issuing the following commands:
-
-```bash
-
-   # apt-get install dahdi-linux dahdi-source
-   # cd /usr/src
-   # m-a a-i dahdi
-   # dpkg -i dahdi-modules-*.deb
-   # modprobe dahdi
-
-```
+Also for the conferencing part (**meetme** module) you need the zaptel support (**ztdummy** kernel module).
 
 ---
 
@@ -166,18 +113,15 @@ Create the Asterisk tables which are exclusively used only by Asterisk (as mysql
 ```sql
 
 # create table for the meetme service
-
 CREATE TABLE `meetme` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `confno` varchar(80) NOT NULL DEFAULT '0',
-  `username` varchar(64) NOT NULL DEFAULT '',
-  `domain` varchar(128) NOT NULL DEFAULT '',
-  `pin` varchar(20) DEFAULT NULL,
-  `adminpin` varchar(20) DEFAULT NULL,
-  `members` int(11) DEFAULT NULL,
-  PRIMARY KEY (`confno`),
-  UNIQUE KEY `id` (`id`)
-);
+  `confno` varchar(80) NOT NULL default '0',
+  `username` varchar(64) NOT NULL default '',
+  `domain` varchar(128) NOT NULL default '',
+  `pin` varchar(20) default NULL,
+  `adminpin` varchar(20) default NULL,
+  `members` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`confno`)
+) ENGINE=MyISAM
 
 # create table to store the voicemail massages
 CREATE TABLE `voicemessages` (
@@ -194,7 +138,7 @@ CREATE TABLE `voicemessages` (
   `recording` longblob,
   PRIMARY KEY  (`id`),
   KEY `dir` (`dir`)
-);
+) ENGINE=MyISAM
 
 ```
 
@@ -202,9 +146,10 @@ Create the Asterisk tables (as mysql views) that import the information from Ope
 ```bash
 
 # create the asterisk users tables as a view over the OpenSIPS subscriber table
-CREATE VIEW `sipusers` AS select
-  `opensips`.`subscriber`.`username` AS `name`
-  ,_latin1'friend' AS `type`,
+CREATE VIEW `asterisk`.`sipusers` AS select
+  `opensips`.`subscriber`.`username` AS `name`,
+  `opensips`.`subscriber`.`username` AS `username`,
+  _latin1'friend' AS `type`,
   NULL AS `secret`,
   `opensips`.`subscriber`.`domain` AS `host`,
   concat(`opensips`.`subscriber`.`rpid`,_latin1' ',_latin1'<',`opensips`.`subscriber`.`username`,_latin1'>') AS `callerid`,
@@ -223,22 +168,17 @@ CREATE VIEW `sipusers` AS select
   `opensips`.`subscriber`.`domain` AS `defaultip`,
   `opensips`.`subscriber`.`domain` AS `ipaddr`,
   _latin1'5060' AS `port`,
-  NULL AS `regseconds`,
-  `opensips`.`subscriber`.`username` AS `defaultuser`,
-  NULL AS `fullcontact`,
-  `opensips`.`subscriber`.`domain` AS `regserver`,
-  NULL AS `useragent`,
-  0 AS `lastms`
+  NULL AS `regseconds`
 from `opensips`.`subscriber`;
 
 # create the asterisk voceimail users table as a view over the OpenSIPS subscriber table
-CREATE VIEW `vmusers` AS select
+CREATE VIEW `asterisk`.`vmusers` AS select
   concat(`opensips`.`subscriber`.`username`,`opensips`.`subscriber`.`domain`) AS `uniqueid`,
   `opensips`.`subscriber`.`username` AS `customer_id`,
   _latin1'default' AS `context`,
   `opensips`.`subscriber`.`username` AS `mailbox`,
   `opensips`.`subscriber`.`vmail_password` AS `password`,
-  _latin1'joe' AS `fullname`,
+  concat(`opensips`.`subscriber`.`first_name`,_latin1' ',`opensips`.`subscriber`.`last_name`) AS `fullname`,
   `opensips`.`subscriber`.`email_address` AS `email`,
   NULL AS `pager`,
   `opensips`.`subscriber`.`datetime_created` AS `stamp`
@@ -444,6 +384,8 @@ loadmodule "domain.so"
 modparam("mi_fifo", "fifo_name", "/tmp/opensips_fifo")
 
 # ----- rr params -----
+# add value to ;lr param to cope with most of the UAs
+modparam("rr", "enable_full_lr", 1)
 # do not append from tag to the RR (no need for this script)
 modparam("rr", "append_fromtag", 0)
 
@@ -459,6 +401,7 @@ modparam("uri_db", "db_url", "")
 # ----- acc params -----
 /* what sepcial events should be accounted ? */
 modparam("acc", "early_media", 1)
+modparam("acc", "report_ack", 1)
 modparam("acc", "report_cancels", 1)
 /* account triggers (flags) */
 modparam("acc", "failed_transaction_flag", 3)
@@ -618,19 +561,19 @@ route{
 		#identify the services and translate to Asterisk extensions
 		if ($rU=="*1111") {
 			# access to own voicemail IVR
-			$ru = "sip:VM_pickup@ASTERISK_IP:ASTERISK_PORT";
+			seturi("sip:VM_pickup@ASTERISK_IP:ASTERISK_PORT");
 		} else
 		if ($rU=="*2111") {
 			# access to the "say time" announcement 
-			$ru = "sip:AN_time@ASTERISK_IP:ASTERISK_PORT";
+			seturi("sip:AN_time@ASTERISK_IP:ASTERISK_PORT");
 		} else
 		if ($rU=="*2112") {
 			# access to the "say date" announcement 
-			$ru = "sip:AN_date@ASTERISK_IP:ASTERISK_PORT";
+			seturi("sip:AN_date@ASTERISK_IP:ASTERISK_PORT");
 		} else
 		if ($rU=="*2113") {
 			# access to the "echo" service
-			$ru = "sip:AN_echo@ASTERISK_IP:ASTERISK_PORT";
+			seturi("sip:AN_echo@ASTERISK_IP:ASTERISK_PORT");
 		} else
 		if ($rU=~"\*3[0-9]{3}") {
 			# access to the conference service 
@@ -640,7 +583,7 @@ route{
 			rewritehostport("ASTERISK_IP:ASTERISK_PORT");
 		} else {
 			# unknown service
-			$ru = "sip:AN_notavailable@ASTERISK_IP:ASTERISK_PORT";
+			seturi("sip:AN_notavailable@ASTERISK_IP:ASTERISK_PORT");
 		}
 		# after setting the proper RURI (to point to corresponding ASTERISK extension),
 		# simply forward the call
