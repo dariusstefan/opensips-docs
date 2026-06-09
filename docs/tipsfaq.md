@@ -1,9 +1,6 @@
 ---
 title: Tips and FAQ
-description: >-
-  HA1 is a MD5 hash of "username:domain:password". For example, if you have
-  created a SIP account 1000@mydomain.com using password 123456, then HA1 is the
-  MD5...
+description: How to do certain things.
 ---
 ## Tips
 
