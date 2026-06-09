@@ -61,7 +61,7 @@ The second is that the list definition exists on the server( in fact on the XCAP
 Using the means conform to the mode of operation, the RLS server will look for the list definition. If none is found, the RLS server will assume that the SUBSCRIBE message is not for him, even though it contains 'eventlist' in Supported header, and should forward the message to the presence server (from the script file). The rls_handle_suscribe function will return a code( the default one is '10', but it can also be configured through the parameter 'to_presence_code') when it deduces that the SUBSCRIBE message might be for the presence server. As you will see in the configuration file example, in this case the message should be handled by the presence server( calling handle_subscribe method if the server is collocated with the RLS server, or forwarding it to the presence server).
 
 * To continue with our example, let's consider that the list has the following description:  
-```sql
+```text
 
 <?xml version="1.0" encoding="UTF-8"?>
    <rls-services xmlns="urn:ietf:params:xml:ns:rls-services"
@@ -77,46 +77,51 @@ Using the means conform to the mode of operation, the RLS server will look for t
            </packages>
         </service>
    </rls-services> 
-@]\\
-\\
-The second step is to send an immediate Notify with the presence information of the entries in the list. The RLS will check to see if it has any information stored and will send that in a Notify with a multi-part body. For the first SUBSCRIBE message, the server will not have any information stored and The Notify will contain no presence state. \\
-\\
 
-# The RLS server has to get the presence information from the presence servers. The next step is to send SUBSCRIBE messages on behalf of alice for the presence state of the entries in the list: bob and claire. The reason for which the RLS server sends for entry in the list a Subscribe message on behalf of the requester is related to the privacy authorization rules. Let's consider that there is another subscription from 'tom' to a list that also contains 'bob' as an entry. The RLS server might already have stored the presence state of bob due to the subscription that it already sent on behalf of alice, but it can not use this. The reason for this is that the RLS server does not know if tom is allowed to see the presence state of bob, or if this should be transformed according to some rules that bob has defined. Therefore, the RLS server has to send a SUBSCRIBE for each entry in every list and use only those responses when constructing the aggregated Notify.\\
-\\
+```
+  
+
+The second step is to send an immediate Notify with the presence information of the entries in the list. The RLS will check to see if it has any information stored and will send that in a Notify with a multi-part body. For the first SUBSCRIBE message, the server will not have any information stored and The Notify will contain no presence state.   
+
+  
+
+* The RLS server has to get the presence information from the presence servers. The next step is to send SUBSCRIBE messages on behalf of alice for the presence state of the entries in the list: bob and claire. The reason for which the RLS server sends for entry in the list a Subscribe message on behalf of the requester is related to the privacy authorization rules. Let's consider that there is another subscription from 'tom' to a list that also contains 'bob' as an entry. The RLS server might already have stored the presence state of bob due to the subscription that it already sent on behalf of alice, but it can not use this. The reason for this is that the RLS server does not know if tom is allowed to see the presence state of bob, or if this should be transformed according to some rules that bob has defined. Therefore, the RLS server has to send a SUBSCRIBE for each entry in every list and use only those responses when constructing the aggregated Notify.  
+  
+
 For this case, the OpenSIPS RLS server will send two SUBSCRIBE messages: to bob and claire, to the presence server in the local domain. If you set the 'presence_sever' parameter, the address in there will be used as an outbound proxy for the Subscribe messages. It will the receive Notifies from the presence server. It is easy to detect this in the configuration file, since they have as a target the RLS server( have the RLS's server address in R-URI). This should be handled by the rls module by calling rls_handle_notify function.
 
-# Constructing Notify messages when receiving Notifies from presence servers with status updates. \\
+* Constructing Notify messages when receiving Notifies from presence servers with status updates.   
 Due to a performance considerations, the RLS server will not send immediate RL Notifies when receiving a status update. It will wait a configurable amount of time( through the module parameter 'waitn_time') hoping to receive some more updates in the mean time and send more information in one Notify.
 
-----
-[[#rls_configuration]]
-!!! Configuration
-The server is implemented in '''rls''' module. To understand the parameters required by this module, read the [[ http://www.opensips.org/html/docs/modules/1.11.x/rls.html| modules readme here]].
+---
 
-See a [[Documentation/Tutorials-RLSConfig | configuration file example]].
+## Configuration {#rls_configuration}
+The server is implemented in **rls** module. To understand the parameters required by this module, read the [modules readme here](/docs/modules/1-11/rls).
 
-----
-[[#rls_database]]
-!!! Database
+See a [configuration file example](/docs/tutorials-rlsconfig).
 
-It uses 2 tables in database: '''rls_presentity''' and '''rls_watchers'''  
+---
 
-'''rls_presentity'''
+## Database {#rls_database}
 
-|| border=1
-||! Field          ||! Type             ||! Null ||! Key ||! Default ||! Extra          ||
-|| id             || int(10) unsigned || NO   || PRI || NULL    || auto_increment ||
-|| rlsubs_did     || varchar(512)     || NO   || MUL || NULL    ||                ||
-|| resource_uri   || varchar(128)     || NO   ||     || NULL    ||                ||
-|| content_type   || varchar(64)      || NO   ||     || NULL    ||                ||
-|| presence_state || blob             || NO   ||     || NULL    ||                ||
-|| expires        || int(11)          || NO   ||     || NULL    ||                ||
-|| updated        || int(11)          || NO   || MUL || NULL    ||                ||
-|| auth_state     || int(11)          || NO   ||     || NULL    ||                ||
-|| reason         || varchar(64)      || NO   ||     || NULL    ||		  ||
+It uses 2 tables in database: **rls_presentity** and **rls_watchers**  
 
-[@
+**rls_presentity**
+
+| Field | Type | Null | Key | Default | Extra |
+| --- | --- | --- | --- | --- | --- |
+| id | int(10) unsigned | NO | PRI | NULL | auto_increment |
+| rlsubs_did | varchar(512) | NO | MUL | NULL |  |
+| resource_uri | varchar(128) | NO |  | NULL |  |
+| content_type | varchar(64) | NO |  | NULL |  |
+| presence_state | blob | NO |  | NULL |  |
+| expires | int(11) | NO |  | NULL |  |
+| updated | int(11) | NO | MUL | NULL |  |
+| auth_state | int(11) | NO |  | NULL |  |
+| reason | varchar(64) | NO |  | NULL |  |
+
+```sql
+
 CREATE TABLE `rls_presentity` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `rlsubs_did` varchar(512) NOT NULL,
