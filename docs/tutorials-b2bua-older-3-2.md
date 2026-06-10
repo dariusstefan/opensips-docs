@@ -41,7 +41,8 @@ The function that can be called from the script has the name **b2b_init_request*
 
 **b2b_init_request** ( scenario_name, param1, param2, param3, param4, param5)
 
-@@orange|NOTE: This function has to be called on the initial Invite only ( the B2BUA must be in the middle of the call from the beginning).@@
+> [!NOTE]
+> This function has to be called on the initial Invite only (the B2BUA must be in the middle of the call from the beginning).
 
 The first parameter is the name of the scenario to be instantiated. So it is the job of the script writer to decide when a certain scenario should be applied . The next arguments are parameters needed by the scenario. As it shall be seen later, a scenario can require some values to be given as parameters in contrast to hard coding them, making the scenario configurable. 
 
