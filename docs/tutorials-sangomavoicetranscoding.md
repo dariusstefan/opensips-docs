@@ -12,7 +12,8 @@ This tutorial illustrates the required steps in order to perform audio transcodi
 
   
 
-@@red|As mentioned in the [module documentation](/docs/modules/2-2/sngtc), transcoding may only be done if the UAC performs early SDP negotiation and the UAS supports late SDP negotiation.@@
+> [!WARNING]
+> As mentioned in the [module documentation](/docs/modules/2-2/sngtc), transcoding may only be done if the UAC performs early SDP negotiation and the UAS supports late SDP negotiation.
 
 ---
 
