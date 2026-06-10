@@ -43,7 +43,8 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Global Parameters
 
-* @@red|due to the newly introduced **xlog_level** global parameter (default value: L_NOTICE (2)), you may need to set an **xlog_level = 3** value before any of your *xlog("L_INFO", ...)* statements can work as before@@
+> [!WARNING]
+> Due to the newly introduced **xlog_level** global parameter (default value: L_NOTICE (2)), you may need to set an **xlog_level = 3** value before any of your *xlog("L_INFO", ...)* statements can work as before.
 
 * the **children** parameter is replaced by **udp_workers** parameter. The old name is marked as obsolete, but it still can be used (it will be effectively removed in the next release)
 

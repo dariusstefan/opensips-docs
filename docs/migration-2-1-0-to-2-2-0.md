@@ -50,7 +50,10 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ```
 * **debug** MI command was replaced by **log_level** MI command - the entire functionality, input and out were preserved.
-* [fork](/docs/manual/2-2/script-coreparameters#fork) options is outdated and needs to be replaced with new [debug_mode](/docs/manual/2-2/script-coreparameters#debug_mode) parameter. @@red|Please read carefully the documentation of the **debug_mode** option and its behavior is not 100% similar to **fork**@@.
+* [fork](/docs/manual/2-2/script-coreparameters#fork) options is outdated and needs to be replaced with new [debug_mode](/docs/manual/2-2/script-coreparameters#debug_mode) parameter.
+
+> [!WARNING]
+> Please read carefully the documentation of the **debug_mode** option and its behavior is not 100% similar to **fork**.
 * as **user/uid** and **group/gid** global parameters were removed, use the **-u** and **-g** command line parameters instead.
 * **script flags were removed** (setsflag(), issflagset(), resetsflag()) - former logic must be rewritten using message flags
 * **bin_children** became obsolete as the BIN protocol implementation is now provided by the [proto_bin](/docs/modules/2-2/proto_bin) module.
@@ -62,7 +65,10 @@ The following is the full list of backwards-incompatible syntax or functional ch
 * **table_avp** has been removed; the table name is now a parameter to **do_accounting()**;
 
 ### AVPOPS module
-* if **avp_db_query** is used in multi-fields queries, note than `@@red|DB NULL fields are reported as string "<null>" AVPs@@` . You need to reconsider your checks for the return data as NULL AVPs may be reported as "`<null>`" AVPs now.
+* if **avp_db_query** is used in multi-fields queries, note than **DB NULL fields are reported as string "`<null>`" AVPs**.
+
+> [!WARNING]
+> You need to reconsider your checks for the return data as NULL AVPs may be reported as "`<null>`" AVPs now.
 
 ### CPL-C module
 * as the module was renamed to **cpl_c**, be sure an update the *loadmodule* and *modparam* statements related to this module. The name of the functions and parameters did not change.

@@ -48,7 +48,10 @@ The following is the full list of backwards-incompatible syntax or functional ch
 Removed the concept of **core keywords**. Some keywords were dropped entirely (as they were redundant) and others were replaced as functionality by other means (
 new core function, new core variable etc.).
 
-* removed **myself**, use the new [is_myself()](/docs/manual/3-0/script-corefunctions) core function instead. @@red|**NOTICE:**@@The meaning of **is_myself()** is slightly different. Rather than comparing against a SIP URI as before, *is_myself()* now compares against a hostname, alias or IP which is given as a parameter. For example, **!(uri == myself)** is now equivalent to **!is_myself("`$rd`")**. This little migration detail may save you hours of script troubleshooting :)
+* removed **myself**, use the new [is_myself()](/docs/manual/3-0/script-corefunctions) core function instead.
+
+> [!NOTE]
+> The meaning of **is_myself()** is slightly different. Rather than comparing against a SIP URI as before, *is_myself()* now compares against a hostname, alias or IP which is given as a parameter. For example, **!(uri == myself)** is now equivalent to **!is_myself("`$rd`")**. This little migration detail may save you hours of script troubleshooting :)
 * removed **af** keyword along with *INET*, *INET6* core values, use the new [`$af`](/docs/manual/3-0/script-corevar) core variable instead and test it's value against "INET" or "INET6" string values;
 * removed **dst_ip** and **src_ip**, use [`$Ri`](/docs/manual/3-0/script-corevar) and [`$si`](/docs/manual/3-0/script-corevar) core variables instead;
 * removed **dst_port** and **src_port**, use [`$Rp`](/docs/manual/3-0/script-corevar) and [`$sp`](/docs/manual/3-0/script-corevar) core variables instead;

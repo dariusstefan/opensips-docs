@@ -37,7 +37,8 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 * In 2.1, for each type of listener, you must load its corresponding module (e.g. **loadmodule "proto_tcp.so"** if you are using TCP listeners or **loadmodule "proto_udp.so"** if you are using UDP listeners). Additional info [here](http://www.opensips.org/About/Version-2-1-0#toc3)...
 * All **tcp_xxx** and **tls_xxx** core parameters have been moved to their respective modules ([proto_tcp](/docs/modules/2-1/proto_tcp), respectively [proto_tls](/docs/modules/2-1/proto_tls))
-* **@@red|all tcp_ and tls_ global timeout parameters are now given in milliseconds, instead of seconds/useconds@@**
+> [!WARNING]
+> All tcp_ and tls_ global timeout parameters are now given in milliseconds, instead of seconds/useconds.
 * Fix: **"opensips fifo t_uac_dlg"** and **t_new_request()** now properly handle any **force_send_socket()** operation done inside the local_route ([d37ae66](https://github.com/OpenSIPS/opensips/commit/d37ae66))
 * Fix: **acc_evi_request()** now properly reports E_ACC_CDR, E_ACC_EVENT and E_ACC_MISSED_EVENT ([24bd3a8](https://github.com/OpenSIPS/opensips/commit/24bd3a8))
 * Advertised address with mutiple branches: if the advertised address of the *first* branch is changed, *all* new branches will start off with the last changed value ([ad92fa6](https://github.com/OpenSIPS/opensips/commit/ad92fa6))
@@ -56,7 +57,8 @@ The following is the full list of backwards-incompatible syntax or functional ch
 ## List of MI input/output changes
 The following is the full list of backwards-incompatible changes in the output of the OpenSIPS Management Interface commands:
 
-* **@@red|MI output structure changed: ([34576f5](https://github.com/OpenSIPS/opensips/commit/34576f5) and [459dffb](https://github.com/OpenSIPS/opensips/commit/459dffb))@@** - make sure your MI parsing scripts are still working correctly!
+> [!WARNING]
+> MI output structure changed ([34576f5](https://github.com/OpenSIPS/opensips/commit/34576f5) and [459dffb](https://github.com/OpenSIPS/opensips/commit/459dffb)) - make sure your MI parsing scripts are still working correctly!
 * MI output: **"opensipsctl fifo list_tcp_conns"** - "Timeout" field is now a human-readable date instead of UNIX timestamp ([6ac1dc8251](https://github.com/OpenSIPS/opensips/commit/6ac1dc8251))
 * MI output: **"opensipsctl fifo subs_phtable_list"** - "expires" field is now a human-readable date instead of UNIX timestamp ([ddaf004](https://github.com/OpenSIPS/opensips/commit/ddaf004))
 * MI output: **"opensipsctl fifo dp_translate"** may now return "404 - No translation" ([f517529](https://github.com/OpenSIPS/opensips/commit/f517529))

@@ -79,7 +79,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 ### DROUTING module
 
 * the **carrier flags** have shifted as seen below.  This breaks the code of any provisioning UIs written for OpenSIPS 3.0 which are using the old flags (e.g. OpenSIPS Control Panel 8.3.0).
-  * **WEIGHT_ROUTING** (@@red|removed@@, replaced by the new *sort_alg* column)
+  * **WEIGHT_ROUTING** (**removed**, replaced by the new *sort_alg* column)
   * **USE_FIRST_GW** (*2* -> *1*)
   * **DISABLED** (*4* -> *2*)
   * **DIRTY** (*8* -> *4*)

@@ -64,7 +64,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ## Deprecated functions / parameters
 
-The following functions / parameters are marked as @@red|deprecated@@ - they still work 100% as before, but they will be removed in the future releases, being replaced by new functions / parameters.
+The following functions / parameters are marked as **deprecated** - they still work 100% as before, but they will be removed in the future releases, being replaced by new functions / parameters.
 
 So heads up and consider replacing them in time:
 
