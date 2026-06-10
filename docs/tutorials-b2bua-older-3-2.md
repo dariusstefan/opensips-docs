@@ -588,7 +588,8 @@ The scenario document that describes this service is:
 
 ## Configuration file {#Configuration_file_example}
 
-@@orange|You must note that, a call that is handled by the B2B will not have the normal ‘proxy like’ interaction with the script.@@
+> [!NOTE]
+> A call that is handled by the B2B will not have the normal ‘proxy like’ interaction with the script.
 
 Once you ask b2b to handle a call, you **won't see the future in-dialog request in the normal route**. The reason is that in the normal route you do proxy operations - changes on the message, routing decisions, but for the b2b calls those requests will have the b2b as an endpoint. The b2b will then generate new messages that will be sent on the other side. It will not forward the received ones. Those new generated can be accessed in local_route.
 
@@ -604,7 +605,8 @@ As a conclusion, when a call is handled by the b2bua, SIP messages for that call
 * **b2b_reply route**  : the received replies. The same as with the requests, it has no effect to do changes on it.
 * **local_route** : the SIP requests that are sent out by the b2bua. Here changes on the message can be performed.
 
-@@orange|Also, note that **dialog** module does not work with B2BUA. The reason is that this module was designed to handle proxy dialogs.@@
+> [!NOTE]
+> The **dialog** module does not work with B2BUA. The reason is that this module was designed to handle proxy dialogs.
 
 ### Writing the configuration file
 

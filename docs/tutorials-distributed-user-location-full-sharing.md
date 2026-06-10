@@ -23,7 +23,8 @@ The *"full sharing"* clustering strategy for the OpenSIPS 2.4+ user location ser
 
   
 
-@@red|IMPORTANT@@: a mandatory requirement of the *full sharing* clustering strategy is that **any node must be able to route to any registered SIP UA**.  With simple *full sharing* setups, such as active/passive, this can be achieved by using a shared virtual IP address between the two nodes.  If dealing with larger cluster sizes or if the endpoints register via TCP/TLS, then a front-ending entity (e.g. a SIP load balancer) must be placed in front of the cluster, with enabled [Path header](https://tools.ietf.org/html/rfc3327) support, so any network routing restrictions are alleviated.
+> [!IMPORTANT]
+> A mandatory requirement of the *full sharing* clustering strategy is that **any node must be able to route to any registered SIP UA**. With simple *full sharing* setups, such as active/passive, this can be achieved by using a shared virtual IP address between the two nodes. If dealing with larger cluster sizes or if the endpoints register via TCP/TLS, then a front-ending entity (e.g. a SIP load balancer) must be placed in front of the cluster, with enabled [Path header](https://tools.ietf.org/html/rfc3327) support, so any network routing restrictions are alleviated.
 
   
 
