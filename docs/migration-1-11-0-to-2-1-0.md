@@ -27,7 +27,8 @@ where:
 
   
 
-@@red|NOTE that the migration tool is only available for MYSQL databases!@@
+> [!NOTE]
+> The migration tool is only available for MYSQL databases!
 
 In order to migrate other SQL backends, the complete list of structural changes may be found below. However, if possible, we recommend re-creating the databases from scratch using the [DB deployment tutorial](/docs/manual/2-1/install-dbdeployment).
 

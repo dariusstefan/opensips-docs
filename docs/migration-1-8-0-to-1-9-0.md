@@ -36,7 +36,8 @@ where :
 > [!NOTE]
 > * Due to some improvements in the Dialplan module, the *match_len* column that was specifying the length of the match column has been removed. Also, a new column, named *match_flags*, has been added to indicate whether the pattern matching should be done case sensitive or insensitive. The default value is 0 - *case sensitive*).
 
-@@red|NOTE that the migration tool is available only for MYSQL databases!@@
+> [!NOTE]
+> The migration tool is available only for MYSQL databases!
 
 ---
 

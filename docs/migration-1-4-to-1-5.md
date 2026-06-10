@@ -36,7 +36,8 @@ where :
 
 Take care and edit (if necessary) the **opensipsctlrc** /  **osipsconsolerc** files if you want to customize the DB users used for accessing the new DB.
 
-@@red|NOTE that the migration tool is available only for MYSQL databases!@@
+> [!NOTE]
+> The migration tool is available only for MYSQL databases!
 
 ---
 

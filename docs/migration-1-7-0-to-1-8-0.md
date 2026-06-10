@@ -35,7 +35,8 @@ where :
 
 In order to create gateway groups, use the carriers addition. The migration tool will give out warnings regarding this, but there is no way to automatically migrate this information, so manual migration will be needed for this.
 
-@@red|NOTE that the migration tool is available only for MYSQL databases!@@
+> [!NOTE]
+> The migration tool is available only for MYSQL databases!
 
 ---
 

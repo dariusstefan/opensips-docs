@@ -27,9 +27,11 @@ where :
 > * the old database will not be deleted, altered or changed - it will not be touched at all
 > * new database will be created and data from old DB will be imported into it
 
-@@red|NOTE that the migration tool is available only for MYSQL databases!@@
+> [!NOTE]
+> The migration tool is available only for MYSQL databases!
 
-@@red|NOTE that the default MySQL DB engine is now InnoDB!@@
+> [!NOTE]
+> The default MySQL DB engine is now InnoDB!
 
 ---
 
