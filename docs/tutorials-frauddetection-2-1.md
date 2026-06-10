@@ -68,13 +68,13 @@ sequential_calls_warning, sequential_calls_critical) VALUES(1, '99', '09:00', '1
 
 Data interpretation:
 
-* **Rule 1** will match from **09:00 to 17:00**, **Monday to Friday**. It will trigger a @@orange|**fraud warning**@@ event/error each time a user either:
+* **Rule 1** will match from **09:00 to 17:00**, **Monday to Friday**. It will trigger a **fraud warning** event/error each time a user either:
   * makes **between 3 and 4 calls within one minute**
   * makes one call lasting **between 7200 and 13119 seconds**
   * makes **between 16 and 34 calls** in the current interval
   * makes **between 3 and 4 simultaneous calls**
   * makes **between 6 and 19 consecutive calls** to the same destination
-* The same **Rule 1** will trigger a @@red|**fraud critical**@@ event/error each time a user either:
+* The same **Rule 1** will trigger a **fraud critical** event/error each time a user either:
   * makes **5 or more calls within one minute**
   * makes one call lasting **13120 or more seconds**
   * makes **35 or more calls** in the current interval

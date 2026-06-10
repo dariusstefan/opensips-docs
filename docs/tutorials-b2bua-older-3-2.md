@@ -48,7 +48,7 @@ The first parameter is the name of the scenario to be instantiated. So it is the
 
 The MI command has the name **b2b_trigger_scenario** and takes exactly the same parameters as the script function.
 
-@@orange|Ex:@@**Fifo MI command**
+**Example: Fifo MI command**
 ```text
 :b2b_trigger_scenario:fifo_reply
 marketing
@@ -61,7 +61,7 @@ There is one predefined service that works without any scenario definition and f
 
 This service can only be selected from the script, because it has sense only when a dialog is initiated. It does not require any parameter. The id for this scenario is **top hiding**.
 
-@@orange|Ex:@@ **Calling top hiding service**
+**Example: Calling top hiding service**
 ```text
 if(is_method("INVITE") && src_ip=="10.10.10.10")
    b2b_init_request("top hiding");
@@ -73,7 +73,7 @@ Other services must be defined in scenario documents and loaded at startup by pr
 
 The scenario documents are loaded at startup and their paths in the system must be provided through module parameters that belong to the b2b_logic module. There are two parameters, one of each type of scenario: **scenario_script** and **scenario_extern**. 
 
-@@orange|Ex:@@ **Loading B2BUA scenarios**
+**Example: Loading B2BUA scenarios**
 ```c
 modparam("b2b_logic", "script_scenario", "/usr/local/opensips/etc/b2bua/scenario_script.xml")
 modparam("b2b_logic", "extern_scenario", "/usr/local/opensips/etc/b2bua/scenario_extern.xml")
@@ -89,7 +89,7 @@ The scenario is not rigid, but configurable through some parameters that will ha
 ### Scenario root
 The **root** element has the tag 'scenario'. 
 
-@@orange|Ex:@@**Scenario root node example**
+**Example: Scenario root node**
 ```text
 <scenario id="prepaid" name="MS start and end" param="2" type="script">
 ```
@@ -120,14 +120,14 @@ For the client entities it is compulsory to define the destination where the mes
 
 The destination value can be provided in more ways 
 
-@@orange|Ex:@@**Scenario destination node example**
+**Example: Scenario destination node**
 ```text
 <destination>
    <value type="_value_type_">_value_</value>
 </destination>
 ```
 
-@@orange|**Scenario destination node structure**@@
+**Scenario destination node structure**
 
 * **Inline URI** — "uri"
 
@@ -168,7 +168,7 @@ In addition to the bridging node, you can also define a state node. The meaning 
 Below there are two examples of scenario init parts, one that creates entities based on a received message and in 
 which the dialog is initiated by the b2bua that puts two entities in contact.
 
-@@orange|**Scenario init node examples**@@
+**Scenario init node examples**
 
 * **Script scenario**
 
@@ -232,7 +232,7 @@ The condition part decides whether a rule should be applied for the current even
 
 In the scenario document, the rules node has two children, requests and replies, separating the two types of events. Then both replies and requests have children with names of the possible requests inside dialog: 'invite', 'ack', 'bye' and for each more rules can be defined.
 
-@@orange|Ex:@@**Scenario rules node structure**
+**Example: Scenario rules node structure**
 
 ```text
 <rules>
@@ -256,7 +256,7 @@ A condition will be matched if the scenario instantiation is in the same state a
 
 The direction of a message is specified with a **sender** node. The sender can be a certain entity specified with a type and an id, or a entity category, being sufficient to specify only the type.
 
-@@orange|Ex:@@**Scenario condition node**
+**Example: Scenario condition node**
 ```text
 <condition>
    <state>1</state>
@@ -270,7 +270,7 @@ The direction of a message is specified with a **sender** node. The sender can b
 #### Rules action part
 In this first version there are four possible actions, with the possibility to extend them in the future. The actions are described in the table bellow. 
 
-@@orange|**Scenario rules node structure**@@
+**Scenario rules node structure**
 
 * **send_reply** — This node tells the B2BUA to send a reply to the sender of the current message. A code and reason sub node must be defined.
 
@@ -319,7 +319,7 @@ In this first version there are four possible actions, with the possibility to e
 
 Bellow is an action example:
 
-@@orange|Ex:@@**Scenario action node**
+**Example: Scenario action node**
 ```text
 <action>
     <send_reply>
