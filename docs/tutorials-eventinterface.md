@@ -3,6 +3,9 @@ title: "Event Interface"
 description: "The OpenSIPS Event Interface provides an easy way to notify external applications whenever certain events occur inside OpenSIPS. Basically it provides two in..."
 ---
 
+> [!NOTE]
+> Other versions: [OpenSIPS 1.8 version](/docs/tutorials-eventinterface-1-8).
+
 **This tutorial is for OpenSIPS trunk/devel version**
 
 ## Event Interface

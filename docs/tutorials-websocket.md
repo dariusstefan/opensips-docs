@@ -5,6 +5,9 @@ subtitleHref: "/docs/modules/2-2/proto_ws"
 description: "This document describes how to use OpenSIPS as the core component of a SIP platform that connects both SIP clients (over UDP, TCP or TLS) as well as browser..."
 ---
 
+> [!NOTE]
+> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-websocket-2-1), [older than OpenSIPS 2.1](/docs/tutorials-websocket-older).
+
 ## Tutorial Overview
 
 [WebSocket](http://tools.ietf.org/html/rfc6455) is a protocol that provides full-duplex communication between web clients and servers over TCP connections. Using the WebSocket protocol, browsers can connect to web servers and exchange data, regardless the type or nature of the application protocol. [RFC 7118](https://tools.ietf.org/html/rfc7118) leveraged this protocol in order to allow browsers to make VoIP calls using the SIP protocol. [WebSocketSecure](/docs/modules/2-2/proto_wss) (WSS) overlays TLS onto the Websocket protocol making the connection secure, a requirement for many browsers if you want to do WebRTC.

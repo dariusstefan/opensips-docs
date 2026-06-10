@@ -5,6 +5,9 @@ subtitleHref: "/docs/modules/2-1/fraud_detection"
 description: "Fraudulent calls have been a part of VoIP since its very beginnings. Typically, there are two ways through which a malicious user can gain permission to plac..."
 ---
 
+> [!NOTE]
+> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-frauddetection-2-1).
+
 ## Introduction
 
 Fraudulent calls have been a part of VoIP since its very beginnings. Typically, there are two ways through which a malicious user can gain permission to place calls through a VoIP platform: *account hijacking* and *weak platform security*.

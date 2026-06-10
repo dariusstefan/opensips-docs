@@ -3,6 +3,9 @@ title: "Load Balancing 1.9"
 description: "This tutorial applied for OpenSIP versions 1.9"
 ---
 
+> [!NOTE]
+> This tutorial applies to OpenSIPS 1.9. For older setups, see the [OpenSIPS 1.5, 1.6 and 1.7 version](/docs/tutorials-loadbalancing-older-1-9).
+
 This tutorial applied for OpenSIP versions 1.9
 
 ## Load Balancing in **OpenSIPS**

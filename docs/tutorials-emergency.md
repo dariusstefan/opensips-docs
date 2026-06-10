@@ -5,6 +5,9 @@ subtitleHref: "/docs/modules/2-2/emergency"
 description: "The emergency module provides emergency call treatment for OpenSIPS, following the architecture i2 specification of the american entity NENA(National Emergen..."
 ---
 
+> [!NOTE]
+> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-emergency-2-1).
+
 **Authors**
 
 * **Evandro Villaron Franceschinelli** -  electrical engineer with large experience in the telecommunications area, worked among others in development of Digital Switches, notedly telephonic signalling protocol (TDM - SS#7, E&M, R2 DIG and NGN - MEGCO MGCP, SIP), as well as with BSS system for telephonic enterprises, deployment of a SIP routing system and implantation VoIP PBX.

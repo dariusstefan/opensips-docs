@@ -3,6 +3,9 @@ title: "Realtime OpenSIPS - Asterisk Integration"
 description: "This tutorial presents the concept and implementation of a realtime integration of OpenSIPS SIP server and Asterisk media server."
 ---
 
+> [!NOTE]
+> Other versions: [older than OpenSIPS 1.8](/docs/tutorials-opensipsasteriskintegration-older-1-8).
+
 ## Realtime **OpenSIPS - Asterisk** Integration
 
 **This tutorial is made for OpenSIPS 1.8.x and Asterisk 1.8.x**

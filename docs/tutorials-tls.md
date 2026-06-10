@@ -4,6 +4,9 @@ author: "by Ionut-Razvan Ionita"
 description: "Configuring TLS can sometimes be time consuming, most times because of badly generated or used certificates. What this tutorial is trying to do is providing..."
 ---
 
+> [!NOTE]
+> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-tls-2-1).
+
 ## Introduction
 
 Configuring TLS can sometimes be time consuming, most times because of badly generated or used certificates. What this tutorial is trying to do is providing a basic TLS configuration for OpenSIPS which we know for sure that will work and be the entry point for future, more complicated, TLS setups. At first we will be trying to do the most important thing of all: generating some certificates which we can use to later configure OpenSIPS. If all you want to do is testing the TLS, you can always skip to section [**2.4 Using OpenSIPS built-in certificates**](/docs/tutorials-tls-2-2). The next step will be writing a script for OpenSIPS which will use TLS. After starting OpenSIPS, what we must do is testing that OpenSIPS works fine listening for TLS connections from UACs and creating new connections with UACs and debugging the handshake.
