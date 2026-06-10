@@ -2,12 +2,12 @@
 title: "Using the Compression module"
 subtitle: "Compression"
 subtitleHref: "/docs/modules/2-1/compression"
-description: "The purpose of this tutorial is to help you understand how the @@blue|compression@@ module works and also how it should be used. After reading this tutorial..."
+description: "The purpose of this tutorial is to help you understand how the **compression** module works and also how it should be used. After reading this tutorial..."
 ---
 
 ## Tutorial Overview
 
-The purpose of this tutorial is to help you understand how the @@blue|compression@@ module works and also how it should be used. After reading
+The purpose of this tutorial is to help you understand how the **compression** module works and also how it should be used. After reading
 this tutorial you should understand which functions this module provides and also how to use it in order to reduce the size of your SIP message.
 
 ## Current features
@@ -35,7 +35,7 @@ SIP logic provided for compressing server:
 SIP logic provided for decompressing server:
 * message decompression
 
-@@blue|The compressing server@@
+**The compressing server**
 
 Must load the module
 
@@ -90,7 +90,7 @@ route {
 
 ```
 
-@@blue|Now let's go to the receiving server, the one doing the decompression.@@
+**Now let's go to the receiving server, the one doing the decompression.**
 
 Let's assume that he loaded the "compression.so" and go directly to script logic. The compressor did it for invites so the decompressor will do the same. Also keep in mind that this is one of the first things you want to do, because this function will change the sip message so all the changes to the message you have done before this will not be taken into consideration.
 

@@ -93,7 +93,7 @@ INSERT INTO clusterer(id, cluster_id, node_id, url, state, no_ping_retries, prio
 |  14 | 1 | 1 | bin:10.0.0.177 | 1 | 3 | 50 | 10.0.0.177 | seed | NULL |
 |  15 | 1 | 3 | bin:10.0.0.179 | 1 | 3 | 50 | 10.0.0.179 | seed | NULL |
 
-@@green|**clusterer table example (no HA)**@@
+**clusterer table example (no HA)**
 
   
 
@@ -120,7 +120,7 @@ INSERT INTO clusterer(id, cluster_id, node_id, url, state, no_ping_retries, prio
 |  16 | 1 | 3 | bin:10.0.0.179 | 1 | 3 | 50 | 10.0.0.224 | seed | NULL |
 |  17 | 1 | 4 | bin:10.0.0.180 | 1 | 3 | 50 | 10.0.0.224 | NULL | NULL |
 
-@@green|**clusterer table example (with HA)**@@
+**clusterer table example (with HA)**
 
   
 

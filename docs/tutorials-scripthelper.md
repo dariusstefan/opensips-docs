@@ -2,12 +2,12 @@
 title: "Using the Script Helper module"
 subtitle: "Script Helper"
 subtitleHref: "/docs/modules/1-12/script_helper"
-description: "The purpose of this new module is to help you @@blue|start in an easy way with the OpenSIPS script@@. @@blue|The learning curve gets milder@@ as the beginner..."
+description: "The purpose of this new module is to help you start in an easy way with the OpenSIPS script. The learning curve gets milder as the beginner..."
 ---
 
 ## Tutorial Overview
 
-The purpose of this new module is to help you @@blue|start in an easy way with the OpenSIPS script@@. @@blue|The learning curve gets milder@@ as the beginners can start with a simplified format of the script - the idea is to @@blue|shift the main focus on routing the SIP initial requests@@ (which define the service logic), while transparently handling a lot of "standard" SIP scripting logic, in order to both save script coding time and mitigate potential SIP scripting errors. This tutorial offers both a brief overview on the features of the new module and an example script.
+The purpose of this new module is to help you start in an easy way with the OpenSIPS script. The learning curve gets milder as the beginners can start with a simplified format of the script - the idea is to shift the main focus on routing the SIP initial requests (which define the service logic), while transparently handling a lot of "standard" SIP scripting logic, in order to both save script coding time and mitigate potential SIP scripting errors. This tutorial offers both a brief overview on the features of the new module and an example script.
 
 ## Current features
 
@@ -34,7 +34,7 @@ SIP logic provided:
 
   
 
-@@green|**Scripting examples**@@
+**Scripting examples**
 
 * **With Script Helper**
 

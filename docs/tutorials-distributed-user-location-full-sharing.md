@@ -80,7 +80,7 @@ INSERT INTO clusterer(id, cluster_id, node_id, url, state, no_ping_retries, prio
 |  14 | 1 | 1 | bin:10.0.0.177 | 1 | 3 | 50 | NULL | seed | NULL |
 |  15 | 1 | 2 | bin:10.0.0.178 | 1 | 3 | 50 | NULL | NULL | NULL |
 
-@@green|**Native "full sharing" clusterer table**@@
+**Native "full sharing" clusterer table**
 
 ### NAT pinging
 
@@ -203,7 +203,7 @@ INSERT INTO clusterer(id, cluster_id, node_id, url, state, no_ping_retries, prio
 |  14 | 1 | 1 | bin:10.0.0.177 | 1 | 3 | 50 | NULL | NULL | NULL |
 |  15 | 1 | 2 | bin:10.0.0.178 | 1 | 3 | 50 | NULL | NULL | NULL |
 
-@@green|**NoSQL "full sharing" clusterer table**@@
+**NoSQL "full sharing" clusterer table**
 
 ### Shared NAT pinging
 

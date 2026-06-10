@@ -57,7 +57,7 @@ sequential_calls_warning, sequential_calls_critical) VALUES(1, '99', '09:00', '1
 |  3 | 1 | 99 | 00:00 | 09:00 | Mon-Fri | 3 | 4 | 4800 | 9600 | 10 | 20 | 3 | 4 | 5 | 15 |
 |  4 | 1 | 99 | 00:00 | 23:59 | Sat,Sun | 3 | 5 | 11400 | 17400 | 24 | 40 | 3 | 5 | 12 | 30 |
 
-@@green|**fraud_detection table example**@@
+**fraud_detection table example**
 
   
 

@@ -18,7 +18,7 @@ The "load-balancing" functionality comes to enhance the "dispatcher" one. The di
 
 * **Load-balancer is load driven** - LB routing logic is based primary on the load information. The LB module is using the DIALOG module in order to keep trace of the load (ongoing calls).
 
-@@blue|[A Workshop on this topic](http://www.amoocon.de/talks/8) was held at Amoocon (former AsteriskTag) in Rostock, 4-5 May 2009@@
+[A Workshop on this topic](http://www.amoocon.de/talks/8) was held at Amoocon (former AsteriskTag) in Rostock, 4-5 May 2009.
 
 ---
 
