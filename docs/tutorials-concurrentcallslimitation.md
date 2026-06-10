@@ -6,8 +6,6 @@ description: "This scripting is valid for OpenSIPS versions 1.8 up to 2.1 ."
 > [!NOTE]
 > This tutorial applies to OpenSIPS 1.8 through 2.1. For older setups, see the [OpenSIPS 1.5 version](/docs/tutorials-concurrentcallslimitation-1-5).
 
-This scripting is valid for OpenSIPS versions **1.8 up to 2.1** .
-
 OpenSIPS server can implement concurrent calls limitation by using the *call profiles* support provided by the *dialog* module.  The call profiles are a simple mechanism that allows to group certain calls and to count them. The grouping can be extended by using *labels* (values inside a group). This allows a better granularity when comes to counting calls. 
 
 Different keys can be used to group calls (like the incoming IP address, the caller user, the outbound GW, etc). Once we create a profile for such a group of call, when handling the call in the OpenSIPS script, we add the call to such a group, eventually with an extra label (where the label is the actual value of the incoming IP or of the caller or of the GW).

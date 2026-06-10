@@ -6,8 +6,6 @@ description: "This tutorial applied for OpenSIP versions 1.9"
 > [!NOTE]
 > This tutorial applies to OpenSIPS 1.9. For older setups, see the [OpenSIPS 1.5, 1.6 and 1.7 version](/docs/tutorials-loadbalancing-older-1-9).
 
-This tutorial applied for OpenSIP versions 1.9
-
 ## Load Balancing in **OpenSIPS**
 
 The "load-balancing" module comes to provide traffic routing based on load. Shortly, when **OpenSIPS** routes calls to a set of destinations, it is able to keep the load status (as number of ongoing calls) of each destination and to choose to route to the less loaded destination (at that moment).
