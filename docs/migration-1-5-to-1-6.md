@@ -1,8 +1,7 @@
 ---
-title: "Migration from 1.5.x to 1.6.x"
-description: "This section is to provide useful help in migrating your OpenSIPS installations from any release from 1.5 branch to any release from 1.6 branch."
+title: Migration from 1.5.x to 1.6.x
+description: ""
 ---
-
 This section is to provide useful help in migrating your OpenSIPS installations from any release from 1.5 branch to any release from 1.6 branch.
 
 You can find the all the new additions in 1.6.x release compiled [under this page](https://www.opensips.org/About/Version-1-6-0). Reading it may help you understand the migration / update process.
