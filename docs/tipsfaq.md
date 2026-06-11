@@ -133,8 +133,8 @@ modparam("httpd", "port", 8080)
 modparam("httpd", "buf_size", 524288)
 
 ```
-
-**Notice:** the `reply_option` and `log_file` parameters have no equivalent for the new module, so if you were using these options, you have to revise your scripts logic.
+> [!Note]
+> The `reply_option` and `log_file` parameters have no equivalent for the new module, so if you were using these options, you have to revise your scripts logic.
 
 ### Migrate from CLOSEDDIAL to DIALPLAN module
 
