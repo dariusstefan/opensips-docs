@@ -1,6 +1,7 @@
 ---
-title: "Migration from 1.4.x to 1.5.x"
-description: "This section is to provide useful help in migrating your OpenSIPS installations from any release from 1.4 branch to any release from 1.5 branch."
+title: Migration from 1.4.x to 1.5.x
+description: This section is to provide useful help in migrating your OpenSIPS
+  installations from any release from 1.4 branch to any release from 1.5 branch.
 ---
 
 This section is to provide useful help in migrating your OpenSIPS installations from any release from 1.4 branch to any release from 1.5 branch.
@@ -136,7 +137,7 @@ In other words, if you use one of the following module, you will need to load al
 
 ## RADIUS support
 
-All the RADIUS module do require a new RADIUS AVP to be available in the RADIUS dictionary : "**Acct-Session-Id**"
+All the RADIUS module do require a new RADIUS AVP to be available in the RADIUS dictionary : **Acct-Session-Id**
 
 This AVP should be provided by the radius client lib you are using as it is a standard SIP RADIUS AVP. IF not, add to your dictionary AVP:
 ```text
