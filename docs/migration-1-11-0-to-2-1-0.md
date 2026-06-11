@@ -1,6 +1,8 @@
 ---
-title: "Migration from 1.11.x to 2.1.0"
-description: "This section is meant to provide useful help in migrating OpenSIPS installations from the 1.11 version to the latest 2.1 release."
+title: Migration from 1.11.x to 2.1.0
+description: ""
+sidebar:
+  hidden: false
 ---
 
 This section is meant to provide useful help in migrating OpenSIPS installations from the **1.11** version to the latest **2.1** release.
