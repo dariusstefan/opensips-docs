@@ -276,7 +276,7 @@ Here it is the [full OpenSIPS config file](http://www.opensips.org/pub/docs/tuto
 
 ### Multi-leg accounting
 
-Sometimes the extra values are not enough. One such scenarios is when user Alice calls to user Bob, but Bob doesn't not respond and he's got a redirect to user Charlie. In this case we have two logical legs, from Alice to Bob and from Bob to Charlie. And we want to get separate accounting information for each of these legs. In OpenSIPS, this is called *multi-leg accounting* or *per-leg accounting*.
+Sometimes the extra values are not enough. One such scenario is when user Alice calls to user Bob, but Bob doesn't not respond and he's got a redirect to user Charlie. In this case we have two logical legs, from Alice to Bob and from Bob to Charlie. And we want to get separate accounting information for each of these legs. In OpenSIPS, this is called *multi-leg accounting* or *per-leg accounting*.
 
 In our example, we want to account the caller and callee usernames for each leg (as they we differ for the two legs). Depending on the accounting backend, when using multi-leg accounting, a single accounting records may translate into multiple backend records (one for each leg). For example, if using **db** backend, you will have one row per leg in the accounting table (this is because in SQL the format of the table is fixed, and it cannot vary with the number of legs).
 
