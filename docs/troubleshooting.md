@@ -3,7 +3,7 @@ title: Troubleshooting
 ---
 ## [OpenSIPS does not start](/docs/troubleshooting-doesnotstart)
 
-where to look and what do to if your **OpenSIPS** does not start
+where to look and what do to if your **OpenSIPS** does not start at all
 
 ## [Memory error troubleshooting (updated for 3.x)](/docs/troubleshooting-outofmem)
 
