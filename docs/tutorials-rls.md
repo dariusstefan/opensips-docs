@@ -7,21 +7,21 @@ description: "OpenSIPS has a Resource List Server implementation following the s
 
 OpenSIPS has a Resource List Server implementation following the specification in RFC 4662 and RFC 4826. 
 
-* [Features](#rls_features)
+* [Features](#features)
 * [Description](#description)
-* [Configuration](#rls_configuration)
-* [Database](#rls_database)
+* [Configuration](#configuration)
+* [Database](#database)
 
 ---
 
-## Features: {#rls_features}
+## Features:
 * independent from presence servers ( retrieves information using Subscribe- Notify mechanism )
 * works with XCAP servers for storage 
 * can handle any event; 'presence' is enabled by default
 
 ---
 
-## Description {#description}
+## Description
 
 As mentioned in the previous section, the RLS server is independent from the presence server. Its task is to handle Subscribe messages that have as a target a list and generate Notifies for them with the aggregated state of the entries in the list.
 For example, The RLS server might get a Subscribe message from 'alice' to her buddy list named 'alice-list'.
@@ -95,14 +95,14 @@ Due to a performance considerations, the RLS server will not send immediate RL N
 
 ---
 
-## Configuration {#rls_configuration}
+## Configuration
 The server is implemented in **rls** module. To understand the parameters required by this module, read the [modules readme here](/docs/modules/1-11/rls).
 
 See a [configuration file example](/docs/tutorials-rlsconfig).
 
 ---
 
-## Database {#rls_database}
+## Database
 
 It uses 2 tables in database: **rls_presentity** and **rls_watchers**  
 

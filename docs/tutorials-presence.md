@@ -20,9 +20,9 @@ II. [Presence User Agent Extensions](/docs/tutorials-puaextensions)
 * [pua_dialoginfo](/docs/tutorials-puaextensions#pua_dialoginfo)
 
 III.[Resource List Server](/docs/tutorials-rls)
-* [Features](/docs/tutorials-rls#rls_features)
+* [Features](/docs/tutorials-rls#features)
 * [Description](/docs/tutorials-rls#description)
-* [Configuration](/docs/tutorials-rls#rls_configuration)
-* [Database](/docs/tutorials-rls#rls_database)
+* [Configuration](/docs/tutorials-rls#configuration)
+* [Database](/docs/tutorials-rls#database)
 
 IV. [Slides from the presentation held at VON San Jose, 2008](http://www.opensips.org/pub/docs/Presence-Anca_Vamanu-Von_SAN_JOSE_2008.pdf) describing with schemes and examples all presence features in OpenSIPS.

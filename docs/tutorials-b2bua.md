@@ -8,7 +8,7 @@ description: "OpenSIPS has many features but in the way it behaves when a media 
 
 ## Back-to-Back User Agent
 
-### Overview {#Overview}
+### Overview
 
 OpenSIPS has many features but in the way it behaves when a media session is established, it is not more than a proxy, meaning that it only takes the messages from one side and passes them on the other side. However, this has proven not to be enough to provide certain services required for the server to be aware of the state of the sessions, monitor and control them. A Back-to-Back User Agent is exactly this, a entity in the SIP network which has the ability to control or start media sessions. The name comes from the behavior, since in fact what is required is for the B2BUA to stand in the middle and establish two dialogs with both end points that will eventually exchange media. 
 
@@ -23,7 +23,7 @@ B2B entities are internal OpenSIPS records corresponding to the dialogs in which
 * b2b server entity, if it is created for a received initial INVITE;
 * b2b client entity, if OpenSIPS will have to start a dialog itself by sending an initial message.
 
-### Implementing B2BUA services {#Implementing_B2BUA_services}
+### Implementing B2BUA services
 
 #### Initiating B2B sessions
 There are two ways to trigger a new B2B session corresponding to a desired B2BUA scenario:
@@ -36,7 +36,7 @@ After initializing a B2B session, the call legs will be handled by the b2b_logic
 
 Some messages will be handled automatically by the module and will not enter the b2b_logic routes at all (BYE requests received while in the process of bridging two entities, ACKs/BYEs/replies for disconnected entities). Also, if no dedicated b2b_logic reply route is defined, replies will be handled internally by the module, with the same effects as calling the **b2b_handle_reply** function from such a route if it were defined.
 
-### Scenario Examples {#Scenario_examples}
+### Scenario Examples
 #### Topology Hiding
 No scenario document must be defined for this usage case. This is a built in mechanism and it
 can be requested to the B2B Logic by specifying the name "top hiding".
@@ -62,7 +62,7 @@ same media server is used):
 
 ![ppaid](/images/docs/tutorials/ppaid.jpeg)
 
-##### Scenario Document {#prepaid_cfg_scenario}
+##### Scenario Document
 The relevant part of an OpenSIPS config that implements this scenario is shown below:
 ```c
 

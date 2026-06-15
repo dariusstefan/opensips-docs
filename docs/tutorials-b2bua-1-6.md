@@ -5,7 +5,7 @@ author: "by Anca Vamanu"
 description: "OpenSIPS has many features but in the way it behaves when a media session is established, it is not more than a proxy, meaning that it only takes the message..."
 ---
 
-## Overview {#Overview}
+## Overview
 
 OpenSIPS has many features but in the way it behaves when a media session is established, it is not more than a proxy, meaning that it only takes the messages from one side and pass them on the other side. However, this has proven not to be enough as to provide certain services it is required for the server to be aware of the state of the sessions, monitor and control them. A Back-to-Back User Agent is exactly this, a entity in the SIP network which has the ability to control or start media sessions. The name comes from the behavior, since in fact what is required is for the B2BUA to stand in the middle and establish two dialogs with both end points that will eventually exchange media.
 
@@ -31,7 +31,7 @@ The services are defined in documents called scenarios. A scenario instantiation
 ### Communication with the exterior
 As can be seen in the picture, the b2b_entities module is the bottom half part of B2BUA and it deals with the actual network message exchange. To achieve this it uses directly the functions provided by the **tm** module for sending requests and replies and for receiving replies. Also the tm module announce it when a reply for a request that it has sent is received. For requests inside dialog, the b2b_entities module registers a prescript function that catches this requests. In the current implementation, this requests don't go into the script because the prescript function returns '0'. As mentioned earlier, when receiving a reply or request that is matched to a known dialog, the b2b_entities module does no further action but notifies the b2b_logic module about this event. The b2b_logic module which is the upper half, will then decide what actions should be taken and sends back control commands to the b2b_entities module. 
 
-## Initiating B2B services {#Initiating_B2B_services}
+## Initiating B2B services
 
 There are two ways to trigger a B2B service.
 * from script
@@ -66,7 +66,7 @@ if(is_method("INVITE") && src_ip=="10.10.10.10")
 
 Other services must be defined in scenario documents and loaded at startup by providing the path towards them as module parameters as presented in the following chapter.
 
-## Loading scenarios {#Loading_scenarios}
+## Loading scenarios
 
 The scenario documents are loaded at startup and their paths in the system must be provided through module parameters that belong to the b2b_logic module. There are two parameters, one of each type of scenario: **scenario_script** and **scenario_extern**. 
 
@@ -76,7 +76,7 @@ modparam("b2b_logic", "script_scenario", "/usr/local/opensips/etc/b2bua/scenario
 modparam("b2b_logic", "extern_scenario", "/usr/local/opensips/etc/b2bua/scenario_extern.xml")
 ```
 
-## Scenario format {#B2BUA_scenario_format}
+## Scenario format
 The scenarios are defined as XML documents because of their adaptability and because they are easy to understand and write. 
 
 A scenario is a predefined behavior that will be interpreted by the B2B Logic. The decision when the the scenario will be applied must be taken by the server administrator in the configuration file or triggered by an extern application with an MI command.
@@ -325,7 +325,7 @@ Bellow is an action example:
 </action>
 ```
 
-## Scenario Examples {#Scenario_examples}
+## Scenario Examples
 ### Topology Hiding
 No scenario document must be defined for this usage case. This is a built in mechanism and it
 can be requested to the B2B Logic by specifying the name "top hiding".
@@ -517,7 +517,7 @@ The scenario document that describes this service is:
 </scenario>
 ```
 
-## Configuration file {#Configuration_file_example}
+## Configuration file
 
 There are some requirements for a configuration file that enables the B2BUA services.
 

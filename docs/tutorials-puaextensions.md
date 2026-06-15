@@ -21,7 +21,7 @@ They are implemented as presence user agent in modules named pua_`<extension>`:
 
 ---
 
-## pua_usrloc {#pua_usrloc}
+## pua_usrloc
 
 There are still many SIP phones( especially hard phones) that do not implement presence, or not presence with a 
 central server. Even so, the server is aware if the phone is online or not from whether the phone is registered or
@@ -43,7 +43,7 @@ You can read the [modules readme here](/docs/modules/1-11/pua_usrloc).
 
 ---
 
-## pua_mi {#pua_mi}
+## pua_mi
 
 OpenSIPS offers the possibility to publish any kind of information to the Presence Server or subscribe to the 
 presence state of a resource through the MI interface. This module requires the **pua** core and at least one [MI backend module](/docs/manual/1-11/interface-mi).
@@ -94,7 +94,7 @@ You can read the [modules readme here](/docs/modules/1-11/pua_mi).
 
 ---
 
-## pua_xmpp {#pua_xmpp}
+## pua_xmpp
 
 This module implements a presence gateway between XMPP and SIP. It requires **pua** and **xmpp** modules.
 You have to respect the uri format rules described in [link| xmpp-sip tutorial]. 
@@ -118,7 +118,7 @@ You can read the [module readme here](/docs/modules/1-11/pua_xmpp).
 
 ---
 
-## pua_bla {#pua_bla}
+## pua_bla
 
 This module implements BLA( Bridge Line Appearance ) according to draft [draft-anil-sipping-bla-03.txt](http://tools.ietf.org/draft/draft-anil-sipping-bla/draft-anil-sipping-bla-03.txt).
 The implementation is compatible with Polycom phones SoundPoint IP430 SIP.
@@ -148,7 +148,7 @@ You can read the [module readme here](/docs/modules/1-11/pua_bla).
 
 ---
 
-## pua_dialoginfo {#pua_dialoginfo}
+## pua_dialoginfo
 
 This module enables BLF feature in the server by monitoring and publishing dialog information to the presence server. Basically this module uses the 'dialog' module, which is a tracker for dialogs and registers callback that are called whenever a call dialog SIP message is received. These callbacks code the new state of the dialog into an application/dialog-info+xml data format text and send these to the presence server as a body for a Publish message.
 

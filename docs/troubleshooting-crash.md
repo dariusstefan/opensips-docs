@@ -40,7 +40,7 @@ or you do not see anything logs, you just notice the OpenSIPS suddenly dying, th
 
 If you see the 'exited by a signal 11' then your OpenSIPS has crashed and you should proceed into investigating the core file. Usually, the 'exited by a signal 11' is accompanied by a 'core was generated' message, which tells you that OpenSIPS was succesful in dumping a core file
 
-## How to make sure OpenSIPS dumps a proper core file {#enabling-corefiles}
+## Enabling core dumps
 
 Typically, in a crash scenario, OpenSIPS should dump a core file which contains the full memory contents at the moment of the crash.
 
@@ -71,7 +71,7 @@ $ echo "core.%p" > /proc/sys/kernel/core_pattern
 * For more customization of the core file name, you can run setup your own core name pattern with something like : echo 'core.%e.%t.sig%s.%p' > /proc/sys/kernel/core_pattern 
   * This will have the core file contain the process name ( % e ), the timestamp ( % t ), the received signal ( % s ) and the pid file ( % p )
 
-## Extracting a back trace from the core file {#extracting-backtraces}
+## Extracting a back trace
 
 Browse the logs for a "signal 11" notification from one of the OpenSIPS workers. This means that it has crashed (invalid memory access):
 

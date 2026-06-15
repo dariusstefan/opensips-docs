@@ -26,7 +26,7 @@ The accounting may have different scopes and it may be in-line with different SI
 
 To conclude, if you do SIP stateless processing or if you need to manually account some really custom corner-cases, you should use the **SIP message level accounting**. Otherwise, if in stateful mode, for non-INVITE traffic, the **SIP transaction level accounting** gives you the best results - a single accounting record aggregating all the transaction related information. For INVITE based sessions, the **SIP dialog level accounting** is the easiest and most powerful way to get ready to use CDRs.
 
-### Accounting events {#accounting_events}
+### Accounting events
 
 OpenSIPS can account different events during the accounting scope, such as:
 
