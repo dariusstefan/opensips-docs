@@ -29,7 +29,7 @@ As mentioned above, an external application can subscribe for an event either us
 
 ### MI Subscription
 
-An external application should subscribe for an event using MI commands when the subscription nature is very dynamic: it subscribes for a short period, receives notifications, then decides to unsubscribe and so on. The MI function used to subscribe for an event is [event_subscribe](/docs/manual/1-8/interface-coremi#toc15).
+An external application should subscribe for an event using MI commands when the subscription nature is very dynamic: it subscribes for a short period, receives notifications, then decides to unsubscribe and so on. The MI function used to subscribe for an event is [event_subscribe](/docs/manual/1-8/interface-coremi#event_subscribe).
 
 For example, to subscribe for the E_PIKE_BLOCKED event for only 1200 seconds, an external application that listens on localhost, UDP port 8888, has to issue the following MI command:
 
@@ -51,7 +51,7 @@ In order to unsubscribe for an event, the external application has to use the sa
 
 ### Script Subscription
 
-The Event Interface allows the script writer to subscribe for an event directly from the OpenSIPS configuration script. This is usually used when a subscription is permanent, that never expires. For example a server that is continuously listening from events from OpenSIPS and process them accordingly. The command used to subscribe for an event from script is [subscribe_event](/docs/manual/1-8/script-corefunctions#toc154).
+The Event Interface allows the script writer to subscribe for an event directly from the OpenSIPS configuration script. This is usually used when a subscription is permanent, that never expires. For example a server that is continuously listening from events from OpenSIPS and process them accordingly. The command used to subscribe for an event from script is [subscribe_event](/docs/manual/1-8/script-corefunctions#subscribe_event).
 
 Usually these kind of subscriptions are permanent, therefore they should be registered at when OpenSIPS starts. Therefore this should be done in *startup_route*, but this is not a requirement, as the function can be used in any route.
 
@@ -65,7 +65,7 @@ Here is an example of subscription for the E_PIKE_BLOCKED event at OpenSIPS star
 
 ```
 
-If the script writer wants the subscription to expire after 1200 second, the third parameter of the [subscribe_event](/docs/manual/1-8/script-corefunctions#toc154) function can be specified:
+If the script writer wants the subscription to expire after 1200 second, the third parameter of the [subscribe_event](/docs/manual/1-8/script-corefunctions#subscribe_event) function can be specified:
 
 ```c
 
@@ -84,7 +84,7 @@ There are two types of events: static/predefined events, exported by OpenSIPS co
 * [E_PIKE_BLOCKED](/docs/modules/1-8/pike#id250185) - raised when **pike** module decides an IP should be blocked.
 * [E_RTPPROXY_STATUS](/docs/modules/1-8/rtpproxy#id293504) - raised when a RTPProxy connects or disconnects.
 * [E_DISPATCHER_STATUS](/docs/modules/1-8/dispatcher#id293668) - raised by the **dispatcher** module when a destination address becomes active/inactive.
-* [E_CORE_THRESHOLD](/docs/manual/1-8/interface-coreevents#toc1) - raised when using debugging bottleneck detection and the limit is exceeded.
+* [E_CORE_THRESHOLD](/docs/manual/1-8/interface-coreevents#E_CORE_THRESHOLD) - raised when using debugging bottleneck detection and the limit is exceeded.
 
 ### Events Name
 
@@ -92,7 +92,7 @@ Although there is not a strict events naming imposed by the Event Interface, it 
 
 ### Raising an Event
 
-In order to raise an event from the script, the [raise_event](/docs/manual/1-8/script-corefunctions#toc129) function has to be used. The function receives one, two or three parameters, depending on the script writer needs. If the event has no parameters, then only the first parameter is needed - the event's name.
+In order to raise an event from the script, the [raise_event](/docs/manual/1-8/script-corefunctions#raise_event) function has to be used. The function receives one, two or three parameters, depending on the script writer needs. If the event has no parameters, then only the first parameter is needed - the event's name.
 
 If the script writer wants to attach some extra information to the event, then the second and optionally the third parameter has to be used. The extra information has to be stored in an AVP as values, for example:
 
