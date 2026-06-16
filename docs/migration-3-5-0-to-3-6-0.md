@@ -24,7 +24,7 @@ where :
 * opensips_3_5 is the existing DB name corresponding to version 3.5.x format
 * opensips_3_6 is the DB name to be created for 3.6.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -48,19 +48,19 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Prometheus module
 
-* paramameter [script_route_avp_result](/docs/modules/3-5/prometheus#param_script_route_avp_result) has been dropped, and its behavior has been replaced with the newly added return values. Check the [script_route](/docs/modules/3-6/prometheus#param_script_route) documentation for more information.
+* paramameter [script_route_avp_result](/modules/3-5/prometheus#param_script_route_avp_result) has been dropped, and its behavior has been replaced with the newly added return values. Check the [script_route](/modules/3-6/prometheus#param_script_route) documentation for more information.
 
 ### RabbitMQ module
 
-* the **rabbitmq** module has been completely merged into the [**event_rabbitmq** module](/docs/modules/3-6/event_rabbitmq). In order to migrate, you need to remove the **loadmodule "rabbitmq.so"** line and add the **loadmoule "event_rabbitmq.so"** line, in case it was not previously loaded.
+* the **rabbitmq** module has been completely merged into the [**event_rabbitmq** module](/modules/3-6/event_rabbitmq). In order to migrate, you need to remove the **loadmodule "rabbitmq.so"** line and add the **loadmoule "event_rabbitmq.so"** line, in case it was not previously loaded.
 
 ### Registrar module
 
-* for the **attr_avp**, the behavior is changed: it is still read from AVPs at **save()** time, but the contact attributes are now pushed back (at **lookup()** time) into message branch attributes `$msg.branch.attr()` - see [example here](/docs/modules/3-6/registrar#param_attr_avp).
+* for the **attr_avp**, the behavior is changed: it is still read from AVPs at **save()** time, but the contact attributes are now pushed back (at **lookup()** time) into message branch attributes `$msg.branch.attr()` - see [example here](/modules/3-6/registrar#param_attr_avp).
 
 ### SIPREC module
 
-* the `media_ip` parameter in the [`$siprec`](/docs/modules/3-6/siprec#pv_siprec) has been dropped, being fully replaced with the `media` parameter.
+* the `media_ip` parameter in the [`$siprec`](/modules/3-6/siprec#pv_siprec) has been dropped, being fully replaced with the `media` parameter.
 
 ## Deprecated functions / parameters
 
@@ -70,19 +70,19 @@ So heads up and consider replacing them in time:
 
 ### Core
 
-* [`$bf`](/docs/manual/3-6/script-corevar#bf), to be replaced by [`$msg.branch.flags`](/docs/manual/3-6/script-corevar#msg.branch.flags)
+* [`$bf`](/manual/3-6/script-corevar#bf), to be replaced by [`$msg.branch.flags`](/manual/3-6/script-corevar#msg.branch.flags)
 
-* [`$branch`](/docs/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch`](/docs/manual/3-6/script-corevar#msg.branch)
+* [`$branch`](/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch`](/manual/3-6/script-corevar#msg.branch)
 
-* [`$branch.fields`](/docs/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch.uri`](/docs/manual/3-6/script-corevar#msg.branch.uri)
+* [`$branch.fields`](/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch.uri`](/manual/3-6/script-corevar#msg.branch.uri)
 
-* [`$branch.flag`](/docs/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch.flag()`](/docs/manual/3-6/script-corevar#msg.branch.uri)
+* [`$branch.flag`](/manual/3-6/script-corevar#branch), to be replaced by [`$msg.branch.flag()`](/manual/3-6/script-corevar#msg.branch.uri)
 
-* [append_branch()](/docs/manual/3-6/script-corefunctions#append_branch), to be replaced by [append_msg_branch()](/docs/manual/3-6/script-corefunctions#append_msg_branch)
+* [append_branch()](/manual/3-6/script-corefunctions#append_branch), to be replaced by [append_msg_branch()](/manual/3-6/script-corefunctions#append_msg_branch)
 
 ### Modules
 
-* TM variable [`$T_branch_last_reply_code`](/docs/modules/3-6/tm#pv_T_branch_last_reply_code) to be replaced by [`$tm.branch.last_received`](/docs/modules/3-6/tm#pv_tm_branch_last_received)
+* TM variable [`$T_branch_last_reply_code`](/modules/3-6/tm#pv_T_branch_last_reply_code) to be replaced by [`$tm.branch.last_received`](/modules/3-6/tm#pv_tm_branch_last_received)
 
 ## Packaging migration
 

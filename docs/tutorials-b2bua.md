@@ -4,7 +4,7 @@ description: "OpenSIPS has many features but in the way it behaves when a media 
 ---
 
 > [!NOTE]
-> Other versions: [older than OpenSIPS 3.2](/docs/tutorials-b2bua-older-3-2), [OpenSIPS 1.6 version](/docs/tutorials-b2bua-1-6).
+> Other versions: [older than OpenSIPS 3.2](//tutorials-b2bua-older-3-2), [OpenSIPS 1.6 version](//tutorials-b2bua-1-6).
 
 ## Back-to-Back User Agent
 
@@ -46,7 +46,7 @@ change the dialog information.
 ##### Scenario Schema
 Here is the theoretical expected message trace:
 
-![top hiding schema](/images/docs/tutorials/top_hiding_schema.jpeg)
+![top hiding schema](/images//tutorials/top_hiding_schema.jpeg)
 
 #### Prepaid
 This scenario can be used by a company for prepaid users to announce them at the beginning of the call what their credit is and at the end of the call what their remaining credit is. 
@@ -60,7 +60,7 @@ What must happen at session level is:
 To establish this sessions the SIP message flow has to look like this( it is assumed that the
 same media server is used):
 
-![ppaid](/images/docs/tutorials/ppaid.jpeg)
+![ppaid](/images//tutorials/ppaid.jpeg)
 
 ##### Scenario Document
 The relevant part of an OpenSIPS config that implements this scenario is shown below:
@@ -145,7 +145,7 @@ The OpenSIPS B2BUA must connect two end points, start the call from the middle. 
 ##### Scenario Schema
 Below is the theoretical message flow that should occur for this functionality to be achieved.
 
-![marketing](/images/docs/tutorials/marketing.jpeg)
+![marketing](/images//tutorials/marketing.jpeg)
 
 ##### Scenario Document
 The relevent part of an OpenSIPS config that implements this scenario is shown below:

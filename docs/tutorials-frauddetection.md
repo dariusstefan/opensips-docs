@@ -1,12 +1,12 @@
 ---
 title: "Using the Fraud Detection module"
 subtitle: "Fraud Detection"
-subtitleHref: "/docs/modules/2-1/fraud_detection"
+subtitleHref: "/modules/2-1/fraud_detection"
 description: "Fraudulent calls have been a part of VoIP since its very beginnings. Typically, there are two ways through which a malicious user can gain permission to plac..."
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-frauddetection-2-1).
+> Other versions: [OpenSIPS 2.1 version](//tutorials-frauddetection-2-1).
 
 ## Introduction
 
@@ -78,7 +78,7 @@ Data interpretation:
 
 ### How does it work?
 
-As stated in the Chapter 1 of the [documentation](/docs/modules/3-1/fraud_detection), the module monitors 5 parameters which are updated every time the [**check_fraud()**](/docs/modules/3-1/fraud_detection#func_check_fraud) function is called. For each (username, prefix) tuple, unique values of the 5 parameters will be kept and monitored.  Each time a value is altered, it will be compared to a threshold value. There are two threshold values for each of the 5 parameters (warning and critical thresholds), thus making a total of 10 values. This threshold values along with a time interval in which they are applicable form a so-called *rule*. It's the admin's job to provide the *fraud rules* to OpenSIPs through the db interface.
+As stated in the Chapter 1 of the [documentation](/modules/3-1/fraud_detection), the module monitors 5 parameters which are updated every time the [**check_fraud()**](/modules/3-1/fraud_detection#func_check_fraud) function is called. For each (username, prefix) tuple, unique values of the 5 parameters will be kept and monitored.  Each time a value is altered, it will be compared to a threshold value. There are two threshold values for each of the 5 parameters (warning and critical thresholds), thus making a total of 10 values. This threshold values along with a time interval in which they are applicable form a so-called *rule*. It's the admin's job to provide the *fraud rules* to OpenSIPs through the db interface.
 
 ## Example script
 

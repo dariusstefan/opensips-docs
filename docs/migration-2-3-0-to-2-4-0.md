@@ -48,66 +48,66 @@ The following is the full list of backwards-incompatible syntax or functional ch
 Removed the concept of **core keywords**. Some keywords were dropped entirely (as they were redundant) and others were replaced as functionality by other means (
 new core function, new core variable etc.).
 
-* removed **myself**, use the new [is_myself()](/docs/manual/3-0/script-corefunctions) core function instead.
+* removed **myself**, use the new [is_myself()](/manual/3-0/script-corefunctions) core function instead.
 
 > [!NOTE]
 > The meaning of **is_myself()** is slightly different. Rather than comparing against a SIP URI as before, *is_myself()* now compares against a hostname, alias or IP which is given as a parameter. For example, **!(uri == myself)** is now equivalent to **!is_myself("`$rd`")**. This little migration detail may save you hours of script troubleshooting :)
-* removed **af** keyword along with *INET*, *INET6* core values, use the new [`$af`](/docs/manual/3-0/script-corevar) core variable instead and test it's value against "INET" or "INET6" string values;
-* removed **dst_ip** and **src_ip**, use [`$Ri`](/docs/manual/3-0/script-corevar) and [`$si`](/docs/manual/3-0/script-corevar) core variables instead;
-* removed **dst_port** and **src_port**, use [`$Rp`](/docs/manual/3-0/script-corevar) and [`$sp`](/docs/manual/3-0/script-corevar) core variables instead;
-* removed **uri**, **from_uri** and **to_uri**,  use [`$ru`](/docs/manual/3-0/script-corevar), [`$fu`](/docs/manual/3-0/script-corevar) and [`$tu`](/docs/manual/3-0/script-corevar) core variables instead;
-* removed **method**, use [`$rm`](/docs/manual/3-0/script-corevar) core variable instead;
-* removed **status**, use [`$rs`](/docs/manual/3-0/script-corevar) core variable instead;
-* removed **proto** keyword along with *UDP*, *TCP*, *WS*, etc. core values, use [`$pr`/`$proto`](/docs/manual/3-0/script-corevar) core variable instead and test it's value against "udp", "tcp", "ws" etc. string values;
-* removed **msg:len** keyword along with *max_len* core value, use [`$ml`](/docs/manual/3-0/script-corevar) core variable instead.
+* removed **af** keyword along with *INET*, *INET6* core values, use the new [`$af`](/manual/3-0/script-corevar) core variable instead and test it's value against "INET" or "INET6" string values;
+* removed **dst_ip** and **src_ip**, use [`$Ri`](/manual/3-0/script-corevar) and [`$si`](/manual/3-0/script-corevar) core variables instead;
+* removed **dst_port** and **src_port**, use [`$Rp`](/manual/3-0/script-corevar) and [`$sp`](/manual/3-0/script-corevar) core variables instead;
+* removed **uri**, **from_uri** and **to_uri**,  use [`$ru`](/manual/3-0/script-corevar), [`$fu`](/manual/3-0/script-corevar) and [`$tu`](/manual/3-0/script-corevar) core variables instead;
+* removed **method**, use [`$rm`](/manual/3-0/script-corevar) core variable instead;
+* removed **status**, use [`$rs`](/manual/3-0/script-corevar) core variable instead;
+* removed **proto** keyword along with *UDP*, *TCP*, *WS*, etc. core values, use [`$pr`/`$proto`](/manual/3-0/script-corevar) core variable instead and test it's value against "udp", "tcp", "ws" etc. string values;
+* removed **msg:len** keyword along with *max_len* core value, use [`$ml`](/manual/3-0/script-corevar) core variable instead.
 
 ### Core MI commands
 
 * the output format of **MI cache_fetch** has changed. It is easier to parse now, but backwards-incompatible nevertheless!
 
 ### Statistics migration
-Following the rework of the LOAD reporting, the old load related statistics **tcp-load** and  **udp:int_ip:int_port-load** should be replaced with [load](/docs/manual/3-0/interface-corestatistics#load) or [load-all](/docs/manual/3-0/interface-corestatistics#load-all) statistics.
+Following the rework of the LOAD reporting, the old load related statistics **tcp-load** and  **udp:int_ip:int_port-load** should be replaced with [load](/manual/3-0/interface-corestatistics#load) or [load-all](/manual/3-0/interface-corestatistics#load-all) statistics.
 
 ## Module migration
 
 ### CACHEDB_REDIS
 
-* OpenSIPS startup no longer gets aborted if any of the Redis servers are down. To restore the old behavior, set the new **[shutdown_on_error](/docs/modules/2-4/cachedb_redis#idp5504688)** modparam to 1.
+* OpenSIPS startup no longer gets aborted if any of the Redis servers are down. To restore the old behavior, set the new **[shutdown_on_error](/modules/2-4/cachedb_redis#idp5504688)** modparam to 1.
 
 ### CGRATES
 
-* The old `$cgrret` variable has been deprecated - it's behavior has been replaces by the newly added [`$cgr_ret(name)`](/docs/modules/2-4/cgrates#idp5675504) variable. Replace in your script all `$cgrret` tokens with `$cgr_ret`.
-* The new module uses by default the **SessionSv1** cgrates interface. In order to use the old **SMGenericV1** interface, you must set the [compat_mode](/docs/modules/2-4/cgrates#idp5583008) parameter to **1**.
+* The old `$cgrret` variable has been deprecated - it's behavior has been replaces by the newly added [`$cgr_ret(name)`](/modules/2-4/cgrates#idp5675504) variable. Replace in your script all `$cgrret` tokens with `$cgr_ret`.
+* The new module uses by default the **SessionSv1** cgrates interface. In order to use the old **SMGenericV1** interface, you must set the [compat_mode](/modules/2-4/cgrates#idp5583008) parameter to **1**.
 
 ### CLUSTERER
 
 * the **ls_seq_no** and **top_seq_no** columns from the clusterer table were removed and are no longer required for the topology establishing mechanism.
 
 ### DIALOG
-* **[match_dialog()](/docs/modules/2-4/dialog#func_match_dialog)** does **NOT** do DID_FALLBACK matching by default anymore, and will inherit the matching behavior of the [dlg_match_mode](/docs/modules/2-4/dialog#param_dlg_match_mode) modparam
+* **[match_dialog()](/modules/2-4/dialog#func_match_dialog)** does **NOT** do DID_FALLBACK matching by default anymore, and will inherit the matching behavior of the [dlg_match_mode](/modules/2-4/dialog#param_dlg_match_mode) modparam
 * reduce the dialog replication related module parameters: **accept_replicated_dialogs** and **replicate_dialogs_to** to a single parameter:
- **[dialog_replication_cluster](/docs/modules/2-4/dialog#idp5744576)**.
+ **[dialog_replication_cluster](/modules/2-4/dialog#idp5744576)**.
 * reduce the profile replication related module parameters: **accept_replicated_profiles** and **replicate_profiles_to** to a single parameter:
- **[profile_replication_cluster](/docs/modules/2-4/dialog#idp5749600)**.
+ **[profile_replication_cluster](/modules/2-4/dialog#idp5749600)**.
 
 ### DROUTING
 
 * gateway type **0** has been fixed: it no longer erroneously matches all types. This is relevant for you if you use something like *is_from_gw(partition, type)*
-* reduce the replication related module parameters: **accept_replicated_status** and **replicate_status_to** to a single parameter: **[status_replication_cluster](/docs/modules/2-4/drouting#idp6071344)**.
+* reduce the replication related module parameters: **accept_replicated_status** and **replicate_status_to** to a single parameter: **[status_replication_cluster](/modules/2-4/drouting#idp6071344)**.
 
 ### FRAUD_DETECTION
-* the module now uses local time instead of UTC time. The former behavior can be restored by enabling **[use_utc_time](/docs/modules/2-4/fraud_detection#param_use_utc_time)**.
+* the module now uses local time instead of UTC time. The former behavior can be restored by enabling **[use_utc_time](/modules/2-4/fraud_detection#param_use_utc_time)**.
 
 ### LOAD_BALANCER
 
-* reduce the replication related module parameters: **accept_replicated_status** and **replicate_status_to** to a single parameter: **[status_replication_cluster](/docs/modules/2-4/load_balancer#idp5913456)**.
+* reduce the replication related module parameters: **accept_replicated_status** and **replicate_status_to** to a single parameter: **[status_replication_cluster](/modules/2-4/load_balancer#idp5913456)**.
 
 ### RATELIMIT
 
-* reduce the replication related module parameters: **accept_pipes_from** and **replicate_pipes_to** to a single parameter: **[pipe_replication_cluster](/docs/modules/2-4/ratelimit#idp5552304)**.
+* reduce the replication related module parameters: **accept_pipes_from** and **replicate_pipes_to** to a single parameter: **[pipe_replication_cluster](/modules/2-4/ratelimit#idp5552304)**.
 
 ### TOPOLOGY_HIDING
-* * **[topology_hiding_match()](/docs/modules/2-4/topology_hiding#func_topology_hiding_match)** does **NOT** do DID_FALLBACK matching by default anymore, and will inherit the matching behavior of the [dlg_match_mode](/docs/modules/2-4/dialog#param_dlg_match_mode) modparam
+* * **[topology_hiding_match()](/modules/2-4/topology_hiding#func_topology_hiding_match)** does **NOT** do DID_FALLBACK matching by default anymore, and will inherit the matching behavior of the [dlg_match_mode](/modules/2-4/dialog#param_dlg_match_mode) modparam
 
 ### STATISTICS
 

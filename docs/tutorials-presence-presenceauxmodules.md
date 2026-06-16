@@ -13,5 +13,5 @@ description: "Please refer to the documentation of the modules: Presence XML Pre
 ## Module Readme
 
 Please refer to the documentation of the modules:
-* [Presence XML](/docs/modules/1-11/presence_xml)
-* [Presence MWI](/docs/modules/1-11/presence_mwi)
+* [Presence XML](/modules/1-11/presence_xml)
+* [Presence MWI](/modules/1-11/presence_mwi)

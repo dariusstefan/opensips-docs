@@ -13,16 +13,16 @@ The idea is to be able to store (cache) custom values for later usage. The main 
 
 ## OpenSIPS MemCache Design
 
-The **Memory Caching** support in **OpenSIPS** has a flexible and expendable design. The idea is to have a simple and transparent way of operating (in the same time) with multiple implementations / forms of memory caching. A memory caching system can be via the local shared memory (see [Local Cache module](/docs/modules/1-5/localcache)) or via the System V shared memory (mem cache shared across independent applications) or via the [MemCache server](http://www.danga.com/memcached/).
+The **Memory Caching** support in **OpenSIPS** has a flexible and expendable design. The idea is to have a simple and transparent way of operating (in the same time) with multiple implementations / forms of memory caching. A memory caching system can be via the local shared memory (see [Local Cache module](/modules/1-5/localcache)) or via the System V shared memory (mem cache shared across independent applications) or via the [MemCache server](http://www.danga.com/memcached/).
 
 The **OpenSIPS** core offers an API for operating with any memory caching system from the script. This API is composed out of three functions that allow the basic operations with a memory cache:
-* store - [cache_store()](/docs/manual/devel/script-corefunctions)
-* fetch - [cache_fetch()](/docs/manual/devel/script-corefunctions)
-* remove - [cache_remove()](/docs/manual/devel/script-corefunctions)
+* store - [cache_store()](/manual/devel/script-corefunctions)
+* fetch - [cache_fetch()](/manual/devel/script-corefunctions)
+* remove - [cache_remove()](/manual/devel/script-corefunctions)
 
 The MemCache design from  **OpenSIPS** allow to set a lifetime (timeout) to an attribute when inserting it in the cache. This provides support for auto-removal of attributes (for re-fetching or clean-up purposes) from the cache.
 
-The implementations for the memory caching support are provided by the **OpenSIPS** modules. Right now there is a single implementation (see [Local Cache module](/docs/modules/1-5/localcache)) that caches the data into the shared memory of **OpenSIPS**. In the future release, more implementations are planned to be added.
+The implementations for the memory caching support are provided by the **OpenSIPS** modules. Right now there is a single implementation (see [Local Cache module](/modules/1-5/localcache)) that caches the data into the shared memory of **OpenSIPS**. In the future release, more implementations are planned to be added.
 
 ---
 
@@ -118,8 +118,8 @@ route[x]{
 ```
 
 References:
-* auth module - see [functions and parameters](/docs/modules/1-5/auth)
-* auth_db module - see [functions and parameters](/docs/modules/1-5/auth_db)
+* auth module - see [functions and parameters](/modules/1-5/auth)
+* auth_db module - see [functions and parameters](/modules/1-5/auth_db)
 
 ---
 
@@ -129,7 +129,7 @@ You can easily add 2 improvements to the previous script.
 
 #### Force password re-fetching
 
-When PV authentication (based on cached password) fails because of invalid password (see the [error codes of the pv_www_authorize() function](/docs/modules/devel/auth#id271238)). So, if the function returns "-2" (invalid password) it may mean that the password may changed (in DB), so you need to re-fresh. 
+When PV authentication (based on cached password) fails because of invalid password (see the [error codes of the pv_www_authorize() function](/modules/devel/auth#id271238)). So, if the function returns "-2" (invalid password) it may mean that the password may changed (in DB), so you need to re-fresh. 
 
 In such a case, you can simple remove the cached password and try to do DB authentication (that will use the DB password). Of course, after such a re-load, store into the cache the new value.
 

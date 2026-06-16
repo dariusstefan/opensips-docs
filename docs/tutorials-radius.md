@@ -126,7 +126,7 @@ The **aaa_url** contains the name of the AAA protocol used, in this case RADIUS 
 configuration file of this protocol, separated by “:”.
 
 There are other optional flags and parameters you may want to use, depending on your purpose. For example, you may want to do accounting for a specific **SIP** message, or for a whole transaction. 
-For more information about that and more, check [ACC AAA flags](/docs/modules/devel/acc#id271395) .
+For more information about that and more, check [ACC AAA flags](/modules/devel/acc#id271395) .
 
 A special feature of the accounting module is the optional **aaa_extra** parameter. Its functionality is to account extra values via AAA (in our case, RADIUS). This functionality is a limited version of the custom RADIUS queries, which will be presented later on. You can set this parameter like this:
 
@@ -170,7 +170,7 @@ modparam("auth_aaa", "aaa_url", "radius:/etc/radiusclient-ng/radiusclient.conf")
 
 ```
 
-There are other optional flags and parameters you may want to use, depending on your purpose. For more information about them, check [AUTH_AAA flags](/docs/modules/devel/auth_aaa#id227283).
+There are other optional flags and parameters you may want to use, depending on your purpose. For more information about them, check [AUTH_AAA flags](/modules/devel/auth_aaa#id227283).
 
 #### OpenSIPS authentication module usage
 
@@ -235,7 +235,7 @@ set_name = ( attribute_name1 = var1 [, attribute_name2 = var2 ]* )
 ```
 
 The left-hand side of the assignment must be an attribute name known by the RADIUS dictionary. 
-The right-hand side of the assignment must be a script pseudo variable or a script AVP. For more information about them see [Documentation - Scripting Variables](/docs/manual/devel).
+The right-hand side of the assignment must be a script pseudo variable or a script AVP. For more information about them see [Documentation - Scripting Variables](/manual/devel).
 For example:
 
 ```c
@@ -281,11 +281,11 @@ radius_send_auth(“set1”,”set2”);
 
 http://wiki.freeradius.org/
 
-http://www.opensips.org/html/docs/modules/devel/aaa_radius.html
+http://www.opensips.org/html/modules/devel/aaa_radius.html
 
-http://www.opensips.org/html/docs/modules/devel/acc.html
+http://www.opensips.org/html/modules/devel/acc.html
 
-http://www.opensips.org/html/docs/modules/devel/auth_aaa.html
+http://www.opensips.org/html/modules/devel/auth_aaa.html
 
 http://www.ietf.org/rfc/rfc2865.txt
 

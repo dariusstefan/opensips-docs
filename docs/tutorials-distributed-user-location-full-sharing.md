@@ -10,7 +10,7 @@ description: "The \"full sharing\" clustering strategy for the OpenSIPS 2.4+ use
 
   
 
- ![full sharing](/images/docs/tutorials/full-sharing.png)
+ ![full sharing](/images//tutorials/full-sharing.png)
 
   
 
@@ -28,7 +28,7 @@ The *"full sharing"* clustering strategy for the OpenSIPS 2.4+ user location ser
 
   
 
-Building upon this setup, the [federated user location](/docs/tutorials-distributed-user-location-federation) clustering strategy ensures similar features as above, except it will not replicate user location data across different points of presence, allowing you to scale each POP according to the size of its subscriber pool.
+Building upon this setup, the [federated user location](//tutorials-distributed-user-location-federation) clustering strategy ensures similar features as above, except it will not replicate user location data across different points of presence, allowing you to scale each POP according to the size of its subscriber pool.
 
 ## Active/passive "full sharing" setup
 
@@ -97,7 +97,7 @@ modparam("nathelper", "max_pings_lost", 5)
 
 ```
 
-We then enable these branch flags for some or all contacts before calling [save()](/docs/modules/2-4/registrar#func_save):
+We then enable these branch flags for some or all contacts before calling [save()](/modules/2-4/registrar#func_save):
 
 ```text
 
@@ -113,7 +113,7 @@ We then enable these branch flags for some or all contacts before calling [save(
 
   
 
-To prevent any "permission denied" error logs on the passive node that's trying to originate NAT pings, make sure to hook the [nh_enable_ping](/docs/modules/2-4/nathelper#mi_nh_enable_ping) MI command into your active->passive and passive->active transitions of the VIP:
+To prevent any "permission denied" error logs on the passive node that's trying to originate NAT pings, make sure to hook the [nh_enable_ping](/modules/2-4/nathelper#mi_nh_enable_ping) MI command into your active->passive and passive->active transitions of the VIP:
 
 ```bash
 
@@ -221,7 +221,7 @@ modparam("usrloc", "shared_pinging", 1)
 
 ```
 
-We then enable these branch flags for some or all contacts before calling [save()](/docs/modules/2-4/registrar#func_save):
+We then enable these branch flags for some or all contacts before calling [save()](/modules/2-4/registrar#func_save):
 
 ```text
 

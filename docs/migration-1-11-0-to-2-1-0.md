@@ -30,13 +30,13 @@ where:
 > [!NOTE]
 > The migration tool is only available for MYSQL databases!
 
-In order to migrate other SQL backends, the complete list of structural changes may be found below. However, if possible, we recommend re-creating the databases from scratch using the [DB deployment tutorial](/docs/manual/2-1/install-dbdeployment).
+In order to migrate other SQL backends, the complete list of structural changes may be found below. However, if possible, we recommend re-creating the databases from scratch using the [DB deployment tutorial](/manual/2-1/install-dbdeployment).
 
 ## Config Script Migration
 The following is the full list of backwards-incompatible syntax or functional changes in the OpenSIPS configuration script (some of them are fixes):
 
 * In 2.1, for each type of listener, you must load its corresponding module (e.g. **loadmodule "proto_tcp.so"** if you are using TCP listeners or **loadmodule "proto_udp.so"** if you are using UDP listeners). Additional info [here](http://www.opensips.org/About/Version-2-1-0#toc3)...
-* All **tcp_xxx** and **tls_xxx** core parameters have been moved to their respective modules ([proto_tcp](/docs/modules/2-1/proto_tcp), respectively [proto_tls](/docs/modules/2-1/proto_tls))
+* All **tcp_xxx** and **tls_xxx** core parameters have been moved to their respective modules ([proto_tcp](/modules/2-1/proto_tcp), respectively [proto_tls](/modules/2-1/proto_tls))
 > [!WARNING]
 > All tcp_ and tls_ global timeout parameters are now given in milliseconds, instead of seconds/useconds.
 * Fix: **"opensips fifo t_uac_dlg"** and **t_new_request()** now properly handle any **force_send_socket()** operation done inside the local_route ([d37ae66](https://github.com/OpenSIPS/opensips/commit/d37ae66))

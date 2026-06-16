@@ -18,7 +18,7 @@ The module may also handle *SIP call forking*. Both serial/parallel forking can 
 
 #### Scenario
 
-![mid registrar platform before](/images/docs/tutorials/mid-registrar-platform-before.png)
+![mid registrar platform before](/images//tutorials/mid-registrar-platform-before.png)
 
   
 
@@ -38,7 +38,7 @@ By adding this inexpensive mid-registrar traffic conversion front-end for our se
 
   
 
-![mid registrar platform after](/images/docs/tutorials/mid-registrar-platform-after.png)
+![mid registrar platform after](/images//tutorials/mid-registrar-platform-after.png)
 
 #### OpenSIPS script
 
@@ -93,7 +93,7 @@ We first load the *mid_registrar* module and set its parameters. Going through e
 
   
 
-For all registrations, we make sure to call *mid_registrar_save()*. As stated in its [documentation](/docs/modules/2-3/mid_registrar), it will not process the contacts immediately, but rather do the necessary changes to the REGISTER request before it is relayed to the main registrar, while also preparing to transparently handle its replies. The above code stays the same regardless of the module's working mode or insertion mode. We are now done with REGISTER request handling!
+For all registrations, we make sure to call *mid_registrar_save()*. As stated in its [documentation](/modules/2-3/mid_registrar), it will not process the contacts immediately, but rather do the necessary changes to the REGISTER request before it is relayed to the main registrar, while also preparing to transparently handle its replies. The above code stays the same regardless of the module's working mode or insertion mode. We are now done with REGISTER request handling!
 
 ##### INVITE handling
 
@@ -120,7 +120,7 @@ Next, we proceed with contact lookup during calls or instant messages:
 
   
 
-Contact lookup is almost identical to the stock OpenSIPS script. The only big difference is that we are using *mid_registrar_lookup()* instead of *lookup()*. Note that *mid_registrar_lookup()* will behave according to the insertion and working modes. In our case, it will only populate the Request-URI variable (see [`$ru`](/docs/manual/2-3/script-corevar)) since the module is in working *"mode = 1"*.
+Contact lookup is almost identical to the stock OpenSIPS script. The only big difference is that we are using *mid_registrar_lookup()* instead of *lookup()*. Note that *mid_registrar_lookup()* will behave according to the insertion and working modes. In our case, it will only populate the Request-URI variable (see [`$ru`](/manual/2-3/script-corevar)) since the module is in working *"mode = 1"*.
 
 ##### Call flow (throttling registrations by Contact)
 
@@ -128,7 +128,7 @@ The diagram below shows two devices of the same user (**A** and **B**) periodica
 
   
 
-![mid registrar contact throttling](/images/docs/tutorials/mid-registrar-contact-throttling.png)
+![mid registrar contact throttling](/images//tutorials/mid-registrar-contact-throttling.png)
 
   
 
@@ -157,11 +157,11 @@ Additional explanations:
 
   
 
-Although the rest of the script stays the same, the *mid_registrar_save()* and *mid_registrar_lookup()* functions will behave differently. For example, when saving  contacts, all Contact header fields of REGISTER requests will be aggregated into a single one. When looking up contacts, the entire branch set will be populated (see [`$branch`](/docs/manual/2-3/script-corevar)), thus preparing to fork calls in parallel.
+Although the rest of the script stays the same, the *mid_registrar_save()* and *mid_registrar_lookup()* functions will behave differently. For example, when saving  contacts, all Contact header fields of REGISTER requests will be aggregated into a single one. When looking up contacts, the entire branch set will be populated (see [`$branch`](/manual/2-3/script-corevar)), thus preparing to fork calls in parallel.
 
 ##### Call flow (throttling registrations by AOR)
 
-![mid registrar aor throttling](/images/docs/tutorials/mid-registrar-aor-throttling.png)
+![mid registrar aor throttling](/images//tutorials/mid-registrar-aor-throttling.png)
 
   
 
@@ -169,7 +169,7 @@ In *AOR throttling* mode, the mid-registrar is aggregating both Alice's contacts
 
 ##### Call flow (parallel forking)
 
-![mid registrar parallel forking](/images/docs/tutorials/mid-registrar-parallel-forking.png)
+![mid registrar parallel forking](/images//tutorials/mid-registrar-parallel-forking.png)
 
   
 

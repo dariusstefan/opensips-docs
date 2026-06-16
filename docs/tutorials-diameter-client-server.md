@@ -41,7 +41,7 @@ While the *freeDiameter* library is very robust, this also means it will be very
 
   
 
-This means that before we can build and send a generic request, we must make sure to *define the request in the freeDiameter dictionary*.  You can achieve this by attaching an **;extra-avps-file:`<path-to-dictionary.opensips>`** option to the [aaa_url](/docs/modules/3-5/aaa_diameter#param_aaa_url) modparam of **aaa_diameter**.  In order to define Apps and Command AVP structure, we have extended the classic, AAA **dictionary.opensips** AVP definitions file to support this.  See [dm_send_request](/docs/modules/3-5/aaa_diameter#func_dm_send_request) for full examples.
+This means that before we can build and send a generic request, we must make sure to *define the request in the freeDiameter dictionary*.  You can achieve this by attaching an **;extra-avps-file:`<path-to-dictionary.opensips>`** option to the [aaa_url](/modules/3-5/aaa_diameter#param_aaa_url) modparam of **aaa_diameter**.  In order to define Apps and Command AVP structure, we have extended the classic, AAA **dictionary.opensips** AVP definitions file to support this.  See [dm_send_request](/modules/3-5/aaa_diameter#func_dm_send_request) for full examples.
 
   
 
@@ -156,7 +156,7 @@ $var(payload) = "[
 
   
 
-... and, finally, send the request out (in a blocking fashion, for async support, see [async dm_send_request()](/docs/modules/3-5/aaa_diameter#idp5591744)):
+... and, finally, send the request out (in a blocking fashion, for async support, see [async dm_send_request()](/modules/3-5/aaa_diameter#idp5591744)):
 
   
 
@@ -168,7 +168,7 @@ dm_send_request(42, 92001, $var(payload), $var(rpl_avps));
 
   
 
-In this example, the Diameter Application ID is **42**, and the Command's Code is **92001**.  Finally, the response AVPs are available under `$var(rpl_avps)`.  Just use the OpenSIPS [JSON module](/docs/modules/3-5/json) in order to parse & access them:
+In this example, the Diameter Application ID is **42**, and the Command's Code is **92001**.  Finally, the response AVPs are available under `$var(rpl_avps)`.  Just use the OpenSIPS [JSON module](/modules/3-5/json) in order to parse & access them:
 
   
 
@@ -189,7 +189,7 @@ Starting with OpenSIPS **3.5**, there is the option of acting as a **Diameter Se
 
   
 
-First, make sure the [event_route](/docs/modules/3-5/event_route) module is loaded.  It is required in order to gain access to the **event_route**, which will be triggered with a **E_DM_REQUEST** event on each incoming Diameter request:
+First, make sure the [event_route](/modules/3-5/event_route) module is loaded.  It is required in order to gain access to the **event_route**, which will be triggered with a **E_DM_REQUEST** event on each incoming Diameter request:
 
   
 
@@ -223,7 +223,7 @@ Notice there are several pieces of information provided through the event's *par
 
   
 
-Next, the request must be processed according to the application specifications.  Effectively, the result will be a set of AVPs to be included in the answer.  Make sure to pack them as a JSON Array (similar to the input of [dm_send_request()](/docs/modules/3-5/aaa_diameter#func_dm_send_request)), before finally calling [dm_send_answer()](/docs/modules/3-5/aaa_diameter#func_dm_send_answer):
+Next, the request must be processed according to the application specifications.  Effectively, the result will be a set of AVPs to be included in the answer.  Make sure to pack them as a JSON Array (similar to the input of [dm_send_request()](/modules/3-5/aaa_diameter#func_dm_send_request)), before finally calling [dm_send_answer()](/modules/3-5/aaa_diameter#func_dm_send_answer):
 
   
 

@@ -24,7 +24,7 @@ where :
 * opensips_4_0 is the existing DB name corresponding to version 4.0.x format
 * opensips_4_1 is the DB name to be created for 4.1.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all

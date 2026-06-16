@@ -15,35 +15,35 @@ description: "You can see a configuration file example for this case here."
 ## Architecture
 
 **Presence Diagram** (click to enlarge) 
-[http://www.opensips.org/images/presence-schema-small.jpg](/docs/tutorials-presence-presencediagram)
+[http://www.opensips.org/images/presence-schema-small.jpg](//tutorials-presence-presencediagram)
 
 ---
 
 ## Module Description
 
-* [PRESENCE module](/docs/tutorials-presence-presencemodule) - a general, event package independent Subscribe, Publish handler – Notify generator according to RFCs 3265 and 3903
-* [PRESENCE_XML and PRESENCE_MWI modules](/docs/tutorials-presence-presenceauxmodules) - clients for PRESENCE module; register specific events to be handled by PRESENCE module:
+* [PRESENCE module](//tutorials-presence-presencemodule) - a general, event package independent Subscribe, Publish handler – Notify generator according to RFCs 3265 and 3903
+* [PRESENCE_XML and PRESENCE_MWI modules](//tutorials-presence-presenceauxmodules) - clients for PRESENCE module; register specific events to be handled by PRESENCE module:
   * presence_xml: 'presence'( RFC 3856) , 'presence.winfo' (RFC 3857), 'dialog;sla' (draft-anil-sipping- bla-03.txt)
   * presence_mwi: 'message-summary' (RFC 3842)
-* [XCAP_CLIENT module](/docs/tutorials-presence-xcapclient) -  an XCAP client interface with data retrieving functionality only, for OpenSIPS modules.
+* [XCAP_CLIENT module](//tutorials-presence-xcapclient) -  an XCAP client interface with data retrieving functionality only, for OpenSIPS modules.
 
 ---
 
 ## Configuration
-The architecture in the [diagram](/docs/tutorials-presence-presencediagram) corresponds to a full configuration, when no restrictions are imposed, with privacy permission rules handling enabled and the use of a general XCAP server. 
+The architecture in the [diagram](//tutorials-presence-presencediagram) corresponds to a full configuration, when no restrictions are imposed, with privacy permission rules handling enabled and the use of a general XCAP server. 
 There is the possibility to simplify the scheme according to the needs and resources. This can be done by configuring the modules so that some connections are removed or  others appear.
 
 ### Basic Presence Server
 The most simple configuration is a presence server without privacy rules, when anybody is allowed to see the presence status of anybody and there is no need for an xcap server. In this case the xcap part disappears from the scheme.. This mode of operation is configured by setting the flag **force_active** which is a module parameter for **presence_xml** module.  
 
-You can see a [configuration file example for this case here](/docs/tutorials-presence-simplepresconfig).
+You can see a [configuration file example for this case here](//tutorials-presence-simplepresconfig).
 
 ### Presence Server with integrated XCAP
 If you want presence privacy rules enabled and you use a XCAP server, but one that communicates with the OpenSIPS Presence Server through a database table ( like OpenXCAP) than you can configure the presence server to work in an integrated xcap sever mode. For this you have to set the **integrated_xcap_server** parameter from **presence_xml** module. In this case the scheme simplifies by removing the xcap_client module and having the presence_xml module communicates only with the database.  
 
 You will notice in the configuration file that the mi_xmlrpc module is also loaded. The MI interface needs to be activated, so that OpenXCAP can signal to OpenSIPS when a change occurs in the presence rules documents. In this way the changes be effective immediately.The MI command that is sent in this case is 'refreshWatchers'.  
 
-See [configuration file example](/docs/tutorials-presence-openxcappresconfig) here.
+See [configuration file example](//tutorials-presence-openxcappresconfig) here.
 
 ### Presence Server with external XCAP
 If you decide to have a presence server with privacy authorization and not use an integrated xcap server, an improvement can be made in this case also. For a non integrated XCAp server, xcap_client module has to be used and the address of the server( or servers) must be set using the **presence_xml** modules parameter - **xcap_server**. The xcap_client module has the task to retrieve XCAP documents from XCAP servers and store them in database. Also the module can be asked to synchronize documents saved in database with those on the server. For this a mean of detecting an update is required. The general mean, that apply to every XCAP server is periodical query. There is however the possibility for the server to signal an update to the module. For this the module has to be able to send **refreshXcapDoc** MI command when an update occurs. If you are using a XCAP server able to send this command then you can configure the server to work in no periodical query mode. For this you have to unset the **xcap_client** module parameter **periodical_query** ( set it to 0). 

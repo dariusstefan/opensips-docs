@@ -1,7 +1,7 @@
 ---
 title: "Topology Hiding with OpenSIPS"
 subtitle: "Topology Hiding"
-subtitleHref: "/docs/modules/2-1/topology_hiding"
+subtitleHref: "/modules/2-1/topology_hiding"
 description: "The purpose of this tutorial is to help you understand how the topology_hiding module works and also how it should be used."
 ---
 
@@ -25,7 +25,7 @@ Also, the topology_hiding module can help ease integration by propagating variou
 
   
 
-See the [full module README](/docs/modules/2-1/topology_hiding) for all the available parameters and functions.
+See the [full module README](/modules/2-1/topology_hiding) for all the available parameters and functions.
 
 ## How It Works
 

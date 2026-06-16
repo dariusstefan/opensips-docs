@@ -24,7 +24,7 @@ where :
 * opensips_3_0 is the existing DB name corresponding to version 3.0.x format
 * opensips_3_1 is the DB name to be created for 3.1.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -36,11 +36,11 @@ See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/bl
 The following is the full list of backwards-incompatible syntax or functional changes in the OpenSIPS configuration script:
 * the **listen** parameter was renamed as **socket** parameter, with the same definition and behavior.
 * the **tcp_listen_backlog** parameter was renamed as **tcp_socket_backlog** parameter, with the same definition and behavior.
-* script variable [`$fs`](/docs/manual/3-1/script-corevar#fs) to be replaced with [`$socket_out`](/docs/manual/3-1/script-corevar#socket_out)
-* script variable [`$Ri`](/docs/manual/3-1/script-corevar#Ri) to be replaced with [`$socket_in(ip)`](/docs/manual/3-1/script-corevar#socket_in)
-* script variable [`$Rp`](/docs/manual/3-1/script-corevar#Rp) to be replaced with [`$socket_in(port)`](/docs/manual/3-1/script-corevar#socket_in)
-* script variable [`$af`](/docs/manual/3-1/script-corevar#af) to be replaced with [`$socket_in(af)`](/docs/manual/3-1/script-corevar#socket_in)
-* script variables [`$proto`/`$pr`](/docs/manual/3-1/script-corevar#proto) to be replaced with [`$socket_in(proto)`](/docs/manual/3-1/script-corevar#socket_in)
+* script variable [`$fs`](/manual/3-1/script-corevar#fs) to be replaced with [`$socket_out`](/manual/3-1/script-corevar#socket_out)
+* script variable [`$Ri`](/manual/3-1/script-corevar#Ri) to be replaced with [`$socket_in(ip)`](/manual/3-1/script-corevar#socket_in)
+* script variable [`$Rp`](/manual/3-1/script-corevar#Rp) to be replaced with [`$socket_in(port)`](/manual/3-1/script-corevar#socket_in)
+* script variable [`$af`](/manual/3-1/script-corevar#af) to be replaced with [`$socket_in(af)`](/manual/3-1/script-corevar#socket_in)
+* script variables [`$proto`/`$pr`](/manual/3-1/script-corevar#proto) to be replaced with [`$socket_in(proto)`](/manual/3-1/script-corevar#socket_in)
 
 ### Global Parameters
 
@@ -55,17 +55,17 @@ The following is the full list of backwards-incompatible syntax or functional ch
   * **rewriteuserpass()** for **setuserpass()**
   * **rewriteport()** for **setport()**
   * **rewriteuri()** for **seturi()**
-* **[cache_raw_query()](/docs/manual/3-1/script-corefunctions)**'s last parameter is now an unquoted variable
-* **[construct_uri()](/docs/manual/3-1/script-corefunctions)**'s *user*, *port* and *extra* are now optional parameters
-* **[isflagset()](/docs/manual/3-1/script-corefunctions)`s,** [resetflag()](/docs/manual/3-1/script-corefunctions)`s and **[setflag()](/docs/manual/3-1/script-corefunctions)**'s parameter is now a quoted string
-* **[isbflagset()](/docs/manual/3-1/script-corefunctions)`s,** [resetbflagset()](/docs/manual/3-1/script-corefunctions)`s and **[setbflagset()](/docs/manual/3-1/script-corefunctions)**'s *flag* parameter is now a quoted string
-* the order of **[isbflagset()](/docs/manual/3-1/script-corefunctions)`s,** [resetbflagset()](/docs/manual/3-1/script-corefunctions)`s and **[setbflagset()](/docs/manual/3-1/script-corefunctions)**'s *flag* and *branch_idx* parameters has been inverted
-* **[raise_event()](/docs/manual/3-1/script-corefunctions)**'s third parameter should now be always provided if you want the raised event to include attributes (eg. `raise_event("E_MY_EVENT", $avp(attr-val))` calls should be replaced with `raise_event("E_MY_EVENT", , $avp(attr-val))` calls)
-* the migration requirements caused by the the changes in the core functions parameter interface have been described above; nevertheless you can also check the 2-4 to 3-0 module functions migration guidelines described [here](/docs/migration-2-4-0-to-3-0-0) as the changes are similar.
+* **[cache_raw_query()](/manual/3-1/script-corefunctions)**'s last parameter is now an unquoted variable
+* **[construct_uri()](/manual/3-1/script-corefunctions)**'s *user*, *port* and *extra* are now optional parameters
+* **[isflagset()](/manual/3-1/script-corefunctions)`s,** [resetflag()](/manual/3-1/script-corefunctions)`s and **[setflag()](/manual/3-1/script-corefunctions)**'s parameter is now a quoted string
+* **[isbflagset()](/manual/3-1/script-corefunctions)`s,** [resetbflagset()](/manual/3-1/script-corefunctions)`s and **[setbflagset()](/manual/3-1/script-corefunctions)**'s *flag* parameter is now a quoted string
+* the order of **[isbflagset()](/manual/3-1/script-corefunctions)`s,** [resetbflagset()](/manual/3-1/script-corefunctions)`s and **[setbflagset()](/manual/3-1/script-corefunctions)**'s *flag* and *branch_idx* parameters has been inverted
+* **[raise_event()](/manual/3-1/script-corefunctions)**'s third parameter should now be always provided if you want the raised event to include attributes (eg. `raise_event("E_MY_EVENT", $avp(attr-val))` calls should be replaced with `raise_event("E_MY_EVENT", , $avp(attr-val))` calls)
+* the migration requirements caused by the the changes in the core functions parameter interface have been described above; nevertheless you can also check the 2-4 to 3-0 module functions migration guidelines described [here](//migration-2-4-0-to-3-0-0) as the changes are similar.
 ## Module migration
 
 ### AUTH module
-* the "qop" parameter of the [www_challenge()](/docs/modules/3-1/auth#func_www_challenge) and [proxy_challenge()](/docs/modules/3-1/auth#func_proxy_challenge) functions is now optional and accepts the values: `auth`, `auth-int` or both (separated by ',').
+* the "qop" parameter of the [www_challenge()](/modules/3-1/auth#func_www_challenge) and [proxy_challenge()](/modules/3-1/auth#func_proxy_challenge) functions is now optional and accepts the values: `auth`, `auth-int` or both (separated by ',').
 
 ### B2B_ENTITIES module
 * dropped the **replication_mode** module parameter.
@@ -96,12 +96,12 @@ The following is the full list of backwards-incompatible syntax or functional ch
 * The event payload is now formated as a JSON-RPC notification instead of the custom OpenSIPS line oriented formatting, so you have to change the parsing of the event in your external applications. 
 
 ### PRESENCE module
-* switch to string values instead of integers for the [cluster_federation_mode](/docs/modules/3-1/presence#param_cluster_federation_mode) module parameter (`disabled` instead of `0` and `on-demand-sharing` instead of `1`)
-* the [server_address](/docs/modules/3-0/presence#param_server_address) module parameter has been dropped - its functionality was replaced by the new [contact_user](/docs/modules/3-1/presence#idp5574560) parameter.
+* switch to string values instead of integers for the [cluster_federation_mode](/modules/3-1/presence#param_cluster_federation_mode) module parameter (`disabled` instead of `0` and `on-demand-sharing` instead of `1`)
+* the [server_address](/modules/3-0/presence#param_server_address) module parameter has been dropped - its functionality was replaced by the new [contact_user](/modules/3-1/presence#idp5574560) parameter.
 
 ### PROTO_TLS module
 
-* the **tls_handshake_timeout** and **tls_send_timeout** parameters have been moved from the **tls_mgm** module to the **proto_tls** module. Check out the new documentation [here](/docs/modules/3-1/proto_tls#param_tls_handshake_timeout)]. To migrate your script, you should replace any of your lines as it follows:
+* the **tls_handshake_timeout** and **tls_send_timeout** parameters have been moved from the **tls_mgm** module to the **proto_tls** module. Check out the new documentation [here](/modules/3-1/proto_tls#param_tls_handshake_timeout)]. To migrate your script, you should replace any of your lines as it follows:
 ```c
 
     # Before 3.1 was modparam("tls_mgm", "tls_handshake_timeout", 200)
@@ -113,7 +113,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### PROTO_WSS module
 
-* the `tls_handshake_timeout` and `tls_send_timeout` from the **tls_mgm** module have been removed, thus they can no longer be used to tune the **proto_wss** module. Instead of those parameters, we've added the [`wss_tls_handshake_timeout`](/docs/modules/3-1/proto_wss#param_wss_tls_handshake_timeout) and [`wss_send_timeout`](/docs/modules/3-1/proto_wss#param_wss_send_timeout), that are now part of the **proto_wss** module. To migrate your script, you should replace any of your lines as it follows:
+* the `tls_handshake_timeout` and `tls_send_timeout` from the **tls_mgm** module have been removed, thus they can no longer be used to tune the **proto_wss** module. Instead of those parameters, we've added the [`wss_tls_handshake_timeout`](/modules/3-1/proto_wss#param_wss_tls_handshake_timeout) and [`wss_send_timeout`](/modules/3-1/proto_wss#param_wss_send_timeout), that are now part of the **proto_wss** module. To migrate your script, you should replace any of your lines as it follows:
 ```c
 
     # Before 3.1 was modparam("tls_mgm", "tls_handshake_timeout", 200)
@@ -124,11 +124,11 @@ The following is the full list of backwards-incompatible syntax or functional ch
 ```
 
 ### RLS module
-* the [server_address](/docs/modules/3-0/rls#param_server_address) module parameter has been dropped - its functionality was replaced by the new [contact_user](/docs/modules/3-1/rls#idp5574560) parameter.
+* the [server_address](/modules/3-0/rls#param_server_address) module parameter has been dropped - its functionality was replaced by the new [contact_user](/modules/3-1/rls#idp5574560) parameter.
 
 ### TLS_MGM module
 
-* the default [`tls_method`](/docs/modules/3-1/tls_mgm#param_tls_method) has been changed from `SSLv23` to `TLSv1_2`. Therefore if you were not setting the `tls_method` parameter in your script, you will now have to explicitly set it: `modparam("tls_mgm", "tls_method", "[default]SSLv23")`
+* the default [`tls_method`](/modules/3-1/tls_mgm#param_tls_method) has been changed from `SSLv23` to `TLSv1_2`. Therefore if you were not setting the `tls_method` parameter in your script, you will now have to explicitly set it: `modparam("tls_mgm", "tls_method", "[default]SSLv23")`
 
 ### TM module
-* **fr_timer** and **fr_inv_timer** are now completely removed (not just deprecated).  Use [fr_timeout](/docs/modules/3-1/tm#param_fr_timeout) and [fr_inv_timeout](/docs/modules/3-1/tm#param_fr_inv_timeout) instead!
+* **fr_timer** and **fr_inv_timer** are now completely removed (not just deprecated).  Use [fr_timeout](/modules/3-1/tm#param_fr_timeout) and [fr_inv_timeout](/modules/3-1/tm#param_fr_inv_timeout) instead!

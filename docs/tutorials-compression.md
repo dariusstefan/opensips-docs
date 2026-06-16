@@ -1,7 +1,7 @@
 ---
 title: "Using the Compression module"
 subtitle: "Compression"
-subtitleHref: "/docs/modules/2-1/compression"
+subtitleHref: "/modules/2-1/compression"
 description: "The purpose of this tutorial is to help you understand how the **compression** module works and also how it should be used. After reading this tutorial..."
 ---
 
@@ -12,7 +12,7 @@ this tutorial you should understand which functions this module provides and als
 
 ## Current features
 
-As stated in the [documentation](/docs/modules/2-1/compression), the module currently features:
+As stated in the [documentation](/modules/2-1/compression), the module currently features:
 * **Message compaction**
   * headers not specified in the given whitelist will be removed (excepting the mandatory ones like Via, To, From)
   * some headers which have a compact form (not all of them) will be reduced to short form( eg. Via --> 'v'; Content-Length --> 'l)

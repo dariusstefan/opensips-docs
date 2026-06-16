@@ -1,16 +1,16 @@
 ---
 title: "WebSocket Transport using OpenSIPS"
 subtitle: "WebSocket Transport"
-subtitleHref: "/docs/modules/2-2/proto_ws"
+subtitleHref: "/modules/2-2/proto_ws"
 description: "This document describes how to use OpenSIPS as the core component of a SIP platform that connects both SIP clients (over UDP, TCP or TLS) as well as browser..."
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 2.1 version](/docs/tutorials-websocket-2-1), [older than OpenSIPS 2.1](/docs/tutorials-websocket-older).
+> Other versions: [OpenSIPS 2.1 version](//tutorials-websocket-2-1), [older than OpenSIPS 2.1](//tutorials-websocket-older).
 
 ## Tutorial Overview
 
-[WebSocket](http://tools.ietf.org/html/rfc6455) is a protocol that provides full-duplex communication between web clients and servers over TCP connections. Using the WebSocket protocol, browsers can connect to web servers and exchange data, regardless the type or nature of the application protocol. [RFC 7118](https://tools.ietf.org/html/rfc7118) leveraged this protocol in order to allow browsers to make VoIP calls using the SIP protocol. [WebSocketSecure](/docs/modules/2-2/proto_wss) (WSS) overlays TLS onto the Websocket protocol making the connection secure, a requirement for many browsers if you want to do WebRTC.
+[WebSocket](http://tools.ietf.org/html/rfc6455) is a protocol that provides full-duplex communication between web clients and servers over TCP connections. Using the WebSocket protocol, browsers can connect to web servers and exchange data, regardless the type or nature of the application protocol. [RFC 7118](https://tools.ietf.org/html/rfc7118) leveraged this protocol in order to allow browsers to make VoIP calls using the SIP protocol. [WebSocketSecure](/modules/2-2/proto_wss) (WSS) overlays TLS onto the Websocket protocol making the connection secure, a requirement for many browsers if you want to do WebRTC.
 
 This document describes how to use **OpenSIPS** as the core component of a SIP platform that connects both SIP clients (over UDP, TCP or TLS) as well as browser based clients using SIP over WebSockets and WebSocketsSecure. While OpenSIPS handles the SIP signalling part, media is handled by [RTPengine](https://github.com/sipwise/rtpengine), a high performance media proxy that is able to handle both RTP and SRTP media streams, as well as bridging between them.
 
@@ -24,7 +24,7 @@ The RTPengine consists of two main components: a kernel module used to efficient
 
 You must generate certificates to use with TLS and WSS.  For this example we are generating certificates using [LetsEncrypt](https://letsencrypt.org/) 
 
-Also important to note that as of 2.2, certificate management has been split out into a new module, [TLS_MGM](/docs/modules/2-2/tls_mgm).  Setting appropriate modparams for the tls_mgm module is how we will manage our certificates for both WSS and TLS.
+Also important to note that as of 2.2, certificate management has been split out into a new module, [TLS_MGM](/modules/2-2/tls_mgm).  Setting appropriate modparams for the tls_mgm module is how we will manage our certificates for both WSS and TLS.
 
 #### Usage
 
@@ -73,7 +73,7 @@ dmesg
 
 ### OpenSIPS
 
-In order to use WebSocket and WebSocketSecure in OpenSIPS, one has to load the [proto_ws](/docs/modules/2-2/proto_ws) and [proto_wss](/docs/modules/2-2/proto_wss) into its configuration file and define a listener for the WebSocket and WebSocketSecure protocol.  We also must load the [tls_mgm](/docs/modules/2-2/tls_mgm) module in order to manage our certificates.
+In order to use WebSocket and WebSocketSecure in OpenSIPS, one has to load the [proto_ws](/modules/2-2/proto_ws) and [proto_wss](/modules/2-2/proto_wss) into its configuration file and define a listener for the WebSocket and WebSocketSecure protocol.  We also must load the [tls_mgm](/modules/2-2/tls_mgm) module in order to manage our certificates.
 
 ```c
 
@@ -98,7 +98,7 @@ modparam("tls_mgm", "private_key","/etc/letsencrypt/live/acme.com/privkey.pem")
 
 ```
 
-Next, the [rtpengine](/docs/modules/2-2/rtpengine) module has to be loaded and configured to communicate with the `rtpengine` daemon.
+Next, the [rtpengine](/modules/2-2/rtpengine) module has to be loaded and configured to communicate with the `rtpengine` daemon.
 ```c
 
 loadmodule "rtpengine.so"
@@ -106,7 +106,7 @@ modparam("rtpengine", "rtpengine_sock", "udp:127.0.0.1:60000")
 
 ```
 
-Note that the [rtpengine_sock](/docs/modules/2-2/rtpengine#rtpengine.p.rtpengine_sock) parameter should be the same as the `-n` parameter sent to the `rtpengine` daemon, and OpenSIPS should have IP connectivity to that socket.
+Note that the [rtpengine_sock](/modules/2-2/rtpengine#rtpengine.p.rtpengine_sock) parameter should be the same as the `-n` parameter sent to the `rtpengine` daemon, and OpenSIPS should have IP connectivity to that socket.
 
 Next, the routing logic has to be changed in order to treat different the clients that use DTLS-SRTP, from the ones that use plain RTP and enable bridging if necessary. To do that, one can check if the request message was received over the WebSocket protocol. This can be achieved using the following code:
 
@@ -117,7 +117,7 @@ if (proto == WS || proto == WSS)
 
 ```
 
-In case the request is a REGISTER, we want to store this information in the *location* table, so that we know then the user is called. To do that, we can set a branch flag before calling the [save()](/docs/modules/2-2/registrar#id294034) function. This way, when the [lookup()](/docs/modules/2-2/registrar#id294366) method returns, we will be able to determine whether the client uses WebSocket or not.
+In case the request is a REGISTER, we want to store this information in the *location* table, so that we know then the user is called. To do that, we can set a branch flag before calling the [save()](/modules/2-2/registrar#id294034) function. This way, when the [lookup()](/modules/2-2/registrar#id294366) method returns, we will be able to determine whether the client uses WebSocket or not.
 
 ```text
 
@@ -134,7 +134,7 @@ In case the request is a REGISTER, we want to store this information in the *loc
 
 ```
 
-When a call is placed, based on the two flags (`STR_WS` and `DST_WS`) we can determine what our caller and callee can "speak" (either RTP or DTLS-SRTP) and instruct the `rtpengine` daemon how to handle the call. We can do that by tuning the parameters passed to the  [rtpengine_offer()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_offer) function.
+When a call is placed, based on the two flags (`STR_WS` and `DST_WS`) we can determine what our caller and callee can "speak" (either RTP or DTLS-SRTP) and instruct the `rtpengine` daemon how to handle the call. We can do that by tuning the parameters passed to the  [rtpengine_offer()](/modules/2-2/rtpengine#rtpengine.f.rtpengine_offer) function.
 ```text
 
     if (isflagset(SRC_WS) && isbflagset(DST_WS))
@@ -150,7 +150,7 @@ When a call is placed, based on the two flags (`STR_WS` and `DST_WS`) we can det
 
 ```
 
-The [rtpengine_answer()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_answer) function logic should look like this:
+The [rtpengine_answer()](/modules/2-2/rtpengine#rtpengine.f.rtpengine_answer) function logic should look like this:
 
 ```text
 
@@ -167,7 +167,7 @@ The [rtpengine_answer()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_answe
 
 ```
 
-Now, all we have to do is to close the RTP/SRTP session when the call is ended. To do that, we use the [rtpengine_delete()](/docs/modules/2-2/rtpengine#rtpengine.f.rtpengine_delete) function:
+Now, all we have to do is to close the RTP/SRTP session when the call is ended. To do that, we use the [rtpengine_delete()](/modules/2-2/rtpengine#rtpengine.f.rtpengine_delete) function:
 
 ```text
 
@@ -182,7 +182,7 @@ Having done all these settings should provide a full setup for interconnecting S
 
 ### Normal SDP negotiation
 
-The [following](http://www.opensips.org/pub/docs/tutorials/websockets/opensips.cfg) configuration file is a minimal working example of a Residential script that can handle clients connections over both UDP and Websocket transports.  This example assumes that the SDP offer is present in the INVITE from the UAC and the SDP answer is in the 200 OK from the UAS.
+The [following](http://www.opensips.org/pub//tutorials/websockets/opensips.cfg) configuration file is a minimal working example of a Residential script that can handle clients connections over both UDP and Websocket transports.  This example assumes that the SDP offer is present in the INVITE from the UAC and the SDP answer is in the 200 OK from the UAS.
 
 > [!NOTE]
 > the default port for WSS (443) is privileged, so if you are running this script, you should start OpenSIPS with super-user rights (as user root).
@@ -194,7 +194,7 @@ The [following](http://www.opensips.org/pub/docs/tutorials/websockets/opensips.c
 #     by OpenSIPS Solutions <team@opensips-solutions.com>
 #
 # Please refer to the Core CookBook at:
-#      http://www.opensips.org/Resources/DocsCookbooks
+#      http://www.opensips.org/Resources/Cookbooks
 # for a explanation of possible statements, functions and parameters.
 #
 
@@ -457,4 +457,4 @@ onreply_route[handle_nat] {
 
 ### Late SDP negotiation
 
-[Here](http://www.opensips.org/pub/docs/tutorials/websockets/opensips-late.cfg) you can find a more complex configuration file, that also includes support for late SDP negotiation (SDP is exchanged between 200 OK and ACK).
+[Here](http://www.opensips.org/pub//tutorials/websockets/opensips-late.cfg) you can find a more complex configuration file, that also includes support for late SDP negotiation (SDP is exchanged between 200 OK and ACK).

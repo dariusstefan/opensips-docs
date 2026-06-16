@@ -24,7 +24,7 @@ where :
 * opensips_3_1 is the existing DB name corresponding to version 3.1.x format
 * opensips_3_2 is the DB name to be created for 3.2.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -43,7 +43,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Core Variables
 
-* (only for 3.2.4 or earlier) the `$rT` pseudo-variable (topmost route type) has been replaced by [`$route`](/docs/manual/3-2/script-corevar#route) (route call stack).  The equivalent syntax is `$(route[-1]{s.select,0,[})`.  The `$rT` variable has been re-introduced starting with 3.2.5, for backwards-compatibility reasons.
+* (only for 3.2.4 or earlier) the `$rT` pseudo-variable (topmost route type) has been replaced by [`$route`](/manual/3-2/script-corevar#route) (route call stack).  The equivalent syntax is `$(route[-1]{s.select,0,[})`.  The `$rT` variable has been re-introduced starting with 3.2.5, for backwards-compatibility reasons.
 
 ### Core keywords
 
@@ -68,29 +68,29 @@ The following is the full list of backwards-incompatible syntax or functional ch
 * The **acc_created_avp_name** parameter has been completely dropped, as it was no longer being used.
 
 ### PROTO_TLS module
-* one of the [**tls_wolfssl**](/docs/modules/3-2/tls_wolfssl) or [**tls_openssl**](/docs/modules/3-2/tls_openssl) TLS library modules has to be loaded before *tls_mgm*
+* one of the [**tls_wolfssl**](/modules/3-2/tls_wolfssl) or [**tls_openssl**](/modules/3-2/tls_openssl) TLS library modules has to be loaded before *tls_mgm*
 
 ### PROTO_WSS module
-* one of the [**tls_wolfssl**](/docs/modules/3-2/tls_wolfssl) or [**tls_openssl**](/docs/modules/3-2/tls_openssl) TLS library modules has to be loaded before *tls_mgm*
+* one of the [**tls_wolfssl**](/modules/3-2/tls_wolfssl) or [**tls_openssl**](/modules/3-2/tls_openssl) TLS library modules has to be loaded before *tls_mgm*
 
 ### TLS_MGM module
-* if the *tls_mgm* module is only used for the management of TLS certificates and parameters by modules like [**db_mysql**](/docs/modules/3-2/db_mysql), [**rabbitmq**](/docs/modules/3-2/rabbitmq) etc. (and not for TLS operations by transport modules like [**proto_tls**](/docs/modules/3-2/proto_tls) etc.) then the new [**tls_library**](/docs/modules/3-2/tls_mgm#param_tls_library) module parameter must be set to *none*. Otherwise, *tls_mgm* will not start unless you also load [**tls_openssl**](/docs/modules/3-2/tls_openssl) or [**tls_wolfssl**](/docs/modules/3-2/tls_wolfssl), even though they are not actually used in this case.
+* if the *tls_mgm* module is only used for the management of TLS certificates and parameters by modules like [**db_mysql**](/modules/3-2/db_mysql), [**rabbitmq**](/modules/3-2/rabbitmq) etc. (and not for TLS operations by transport modules like [**proto_tls**](/modules/3-2/proto_tls) etc.) then the new [**tls_library**](/modules/3-2/tls_mgm#param_tls_library) module parameter must be set to *none*. Otherwise, *tls_mgm* will not start unless you also load [**tls_openssl**](/modules/3-2/tls_openssl) or [**tls_wolfssl**](/modules/3-2/tls_wolfssl), even though they are not actually used in this case.
 
 ### B2B_LOGIC module
-* the B2B scenario logic is now implemented via OpenSIPS scripting instead of XML files. Check this [**tutorial**](/docs/tutorials-b2bua-3-2) for more details and examples of XML scenarios and their equivalent OpenSIPS script implementation. 
+* the B2B scenario logic is now implemented via OpenSIPS scripting instead of XML files. Check this [**tutorial**](//tutorials-b2bua-3-2) for more details and examples of XML scenarios and their equivalent OpenSIPS script implementation. 
 * In order to simplify the migration effort, you have the option to use a legacy **b2b_logic_xml** module, that will be **obsoleted** with the next OpenSIPS 3.3 release. Use this only as a temporary solution until you properly migrate to the new variant of the b2b_logic_module.
 
 ### CFGUTILS module
-* the **time_string** parameter of [check_time_rec()](/docs/modules/3-2/cfgutils#func_check_time_rec) has been extended with a leading *timezone* field.  Although we made strings such as "20200101T...|..." **backwards-compatible** with the current implementation, strings such as "|20200101T..." **will now break your logic** unless you prepend your input with the **"timezone |"** string.  To use the system timezone, just prepend an empty-string timezone followed by the delimiter, i.e. **"|"**.
+* the **time_string** parameter of [check_time_rec()](/modules/3-2/cfgutils#func_check_time_rec) has been extended with a leading *timezone* field.  Although we made strings such as "20200101T...|..." **backwards-compatible** with the current implementation, strings such as "|20200101T..." **will now break your logic** unless you prepend your input with the **"timezone |"** string.  To use the system timezone, just prepend an empty-string timezone followed by the delimiter, i.e. **"|"**.
 * time recurrences: the **byyearday**, **bymonth** and **byweekno** integers are now **1-indexed** instead of **0-indexed** (per RFC 5545)!  Make sure to convert any such data accordingly, otherwise your time recurrence strings will no longer match as expected following an upgrade to 3.2
 
 ### DIALPLAN module
-* the *timerec* column syntax has been normalized.  Firstly, the **"dtend"** field has been added, so the final column value has been made compatible with the input of [check_time_rec()](/docs/modules/3-2/cfgutils#func_check_time_rec).  Secondly, the leading **"timezone"** field has been added, so it must be prepended accordingly -- in order to keep using the system timezone, just prepend a **"|"** string.
+* the *timerec* column syntax has been normalized.  Firstly, the **"dtend"** field has been added, so the final column value has been made compatible with the input of [check_time_rec()](/modules/3-2/cfgutils#func_check_time_rec).  Secondly, the leading **"timezone"** field has been added, so it must be prepended accordingly -- in order to keep using the system timezone, just prepend a **"|"** string.
 * time recurrences: the **byyearday**, **bymonth** and **byweekno** integers are now **1-indexed** instead of **0-indexed** (per RFC 5545)!  Make sure to convert any such data accordingly, otherwise your time recurrence strings will no longer match as expected following an upgrade to 3.2
 
 ### Dialog module
 * the *E_DLG_STATE_CHANGED* parameters have changed. The **hash_id** and **hash_entry** parameters were replaced by **id** and **db_id**, to be more consistent with the output of **dlg_list** and what OpenSIPS advertises in the Record-Route header. If you are listening for this event in your external application, or directly in OpenSIPS script using the EVI interface, make sure you adapt the `$param` names to the new format.
 
 ### DROUTING module
-* the *timerec* column syntax has been normalized.  Firstly, the **"dtend"** field has been added, so the final column value has been made compatible with the input of [check_time_rec()](/docs/modules/3-2/cfgutils#func_check_time_rec).  Secondly, the leading **"timezone"** field has been added, so it must be prepended accordingly -- in order to keep using the system timezone, just prepend a **"|"** string.
+* the *timerec* column syntax has been normalized.  Firstly, the **"dtend"** field has been added, so the final column value has been made compatible with the input of [check_time_rec()](/modules/3-2/cfgutils#func_check_time_rec).  Secondly, the leading **"timezone"** field has been added, so it must be prepended accordingly -- in order to keep using the system timezone, just prepend a **"|"** string.
 * time recurrences: the **byyearday**, **bymonth** and **byweekno** integers are now **1-indexed** instead of **0-indexed** (i.e. week 0 becomes week 1, per RFC 5545)!  Make sure to convert any such data accordingly, otherwise your time recurrence strings will no longer match as expected following an upgrade to 3.2

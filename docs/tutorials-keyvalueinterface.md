@@ -26,17 +26,17 @@ Modules that offer actual back-end connection will use the Key-Value interface i
 
 The OpenSIPS core offers an API for operating with any memory caching system from the script. This API is composed out of the following functions: 
 
-* store - [cache_store()](/docs/manual/devel/script-corefunctions)
-* fetch - [cache_fetch()](/docs/manual/devel/script-corefunctions)
-* remove - [cache_remove()](/docs/manual/devel/script-corefunctions)
-* add - [cache_add()](/docs/manual/devel/script-corefunctions)
-* sub - [cache_sub()](/docs/manual/devel/script-corefunctions)
+* store - [cache_store()](/manual/devel/script-corefunctions)
+* fetch - [cache_fetch()](/manual/devel/script-corefunctions)
+* remove - [cache_remove()](/manual/devel/script-corefunctions)
+* add - [cache_add()](/manual/devel/script-corefunctions)
+* sub - [cache_sub()](/manual/devel/script-corefunctions)
 
 Each of the above functions in the API receive as first parameter the ENGINE_ID of the targeted cache system, a plain-text string.
 The three modules previously listed that offer the actual implementation behave in the following way, in regards to providing the ENGINE_ID :
 * cachedb_local : the ENGINE_ID is always "local"
-* cachedb_memcached : The Memcached module exports a parameter to script, [cachedb_url](/docs/modules/devel/cachedb_memcached#id249176) . The prefix part of the URL provided ( the part before :// ) will be the ENGINE_ID identifier that will be provided to the functions in the API
-* cachedb_redis : Similar to the memcached module, the Redis module exports a parameter to script, [cachedb_url](/docs/modules/devel/cachedb_redis#id249095) . The prefix part of the URL provided ( the part before :// ) will be the ENGINE_ID identifier that will be provided to the functions in the API
+* cachedb_memcached : The Memcached module exports a parameter to script, [cachedb_url](/modules/devel/cachedb_memcached#id249176) . The prefix part of the URL provided ( the part before :// ) will be the ENGINE_ID identifier that will be provided to the functions in the API
+* cachedb_redis : Similar to the memcached module, the Redis module exports a parameter to script, [cachedb_url](/modules/devel/cachedb_redis#id249095) . The prefix part of the URL provided ( the part before :// ) will be the ENGINE_ID identifier that will be provided to the functions in the API
 
 ---
 
@@ -132,8 +132,8 @@ route[x]{
 ```
 
 References:
-* auth module - see [functions and parameters](/docs/modules/1-5/auth)
-* auth_db module - see [functions and parameters](/docs/modules/1-5/auth_db)
+* auth module - see [functions and parameters](/modules/1-5/auth)
+* auth_db module - see [functions and parameters](/modules/1-5/auth_db)
 
 #### Performance improvement
 

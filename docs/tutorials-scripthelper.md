@@ -1,7 +1,7 @@
 ---
 title: "Using the Script Helper module"
 subtitle: "Script Helper"
-subtitleHref: "/docs/modules/1-12/script_helper"
+subtitleHref: "/modules/1-12/script_helper"
 description: "The purpose of this new module is to help you start in an easy way with the OpenSIPS script. The learning curve gets milder as the beginner..."
 ---
 
@@ -11,7 +11,7 @@ The purpose of this new module is to help you start in an easy way with the Open
 
 ## Current features
 
-As stated in the [documentation](/docs/modules/1-12/script_helper), the module currently features:
+As stated in the [documentation](/modules/1-12/script_helper), the module currently features:
 * **transparent handling of SIP sequential requests**
   * sequential requests are properly and silently handled - they will not hit the script at all anymore
   * for initial SIP requests, the module performs record-routing (i.e. OpenSIPS adds itself in the signaling path using a *Record-Route* header), after which the main route is triggered, just as before

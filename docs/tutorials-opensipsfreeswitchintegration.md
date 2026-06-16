@@ -689,7 +689,7 @@ Then you put the correct FreeSWITCH IP address where it redirects to VM (marked 
 #   re-generating the scenario with different options.#
 #
 # Please refer to the Core CookBook at:
-#      http://www.opensips.org/Resources/DocsCookbooks
+#      http://www.opensips.org/Resources/Cookbooks
 # for a explanation of possible statements, functions and parameters.
 #
 

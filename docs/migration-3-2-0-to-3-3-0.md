@@ -24,7 +24,7 @@ where :
 * opensips_3_2 is the existing DB name corresponding to version 3.2.x format
 * opensips_3_3 is the DB name to be created for 3.3.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -39,16 +39,16 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Global Parameters
 
-* the **tcp_listen_backlog** has been dropped and completely removed by the [**tcp_socket_backlog**](/docs/manual/3-3/script-coreparameters) parameter.
+* the **tcp_listen_backlog** has been dropped and completely removed by the [**tcp_socket_backlog**](/manual/3-3/script-coreparameters) parameter.
 
 ### Core Variables
 
-* The `$Ri` variable has been dropped, replaced by the [`$socket_in(ip)`](/docs/manual/3-3/script-corevar#socket_in) variable.
-* The `$Rp` variable has been dropped, replaced by the [`$socket_in(port)`](/docs/manual/3-3/script-corevar#socket_in) variable.
-* The `$pr` and `$proto` variables have been dropped, replaced by the [`$socket_in(proto)`](/docs/manual/3-3/script-corevar#socket_in) variable.
-* The `$af` variable has been dropped, replaced by the [`$socket_in(af)`](/docs/manual/3-3/script-corevar#socket_in) variable.
-* The `$fs` variable has been dropped, replaced by the [`$socket_out`](/docs/manual/3-3/script-corevar#socket_out) variable.
-* The `$rT` (top route type) variable has been dropped, replaced by the [`$route.type`](/docs/manual/3-3/script-corevar#route.type) variable.  Equivalent syntax is: `$(route.type[-1])`
+* The `$Ri` variable has been dropped, replaced by the [`$socket_in(ip)`](/manual/3-3/script-corevar#socket_in) variable.
+* The `$Rp` variable has been dropped, replaced by the [`$socket_in(port)`](/manual/3-3/script-corevar#socket_in) variable.
+* The `$pr` and `$proto` variables have been dropped, replaced by the [`$socket_in(proto)`](/manual/3-3/script-corevar#socket_in) variable.
+* The `$af` variable has been dropped, replaced by the [`$socket_in(af)`](/manual/3-3/script-corevar#socket_in) variable.
+* The `$fs` variable has been dropped, replaced by the [`$socket_out`](/manual/3-3/script-corevar#socket_out) variable.
+* The `$rT` (top route type) variable has been dropped, replaced by the [`$route.type`](/manual/3-3/script-corevar#route.type) variable.  Equivalent syntax is: `$(route.type[-1])`
 
 ### Core keywords
 
@@ -56,12 +56,12 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Core functions
 
-* the **rewritehost** function has been dropped and completely replaced by the [**sethost**](/docs/manual/3-3/script-corefunctions) function.
-* the **rewritehostport** function has been dropped and completely replaced by the [**sethostport**](/docs/manual/3-3/script-corefunctions) function.
-* the **rewriteuser** function has been dropped and completely replaced by the [**setuser**](/docs/manual/3-3/script-corefunctions) function.
-* the **rewriteuserpass** function has been dropped and completely replaced by the [**setuserpass**](/docs/manual/3-3/script-corefunctions) function.
-* the **rewriteport** function has been dropped and completely replaced by the [**setport**](/docs/manual/3-3/script-corefunctions) function.
-* the **rewriteuri** function has been dropped and completely replaced by the [**seturi**](/docs/manual/3-3/script-corefunctions) function.
+* the **rewritehost** function has been dropped and completely replaced by the [**sethost**](/manual/3-3/script-corefunctions) function.
+* the **rewritehostport** function has been dropped and completely replaced by the [**sethostport**](/manual/3-3/script-corefunctions) function.
+* the **rewriteuser** function has been dropped and completely replaced by the [**setuser**](/manual/3-3/script-corefunctions) function.
+* the **rewriteuserpass** function has been dropped and completely replaced by the [**setuserpass**](/manual/3-3/script-corefunctions) function.
+* the **rewriteport** function has been dropped and completely replaced by the [**setport**](/manual/3-3/script-corefunctions) function.
+* the **rewriteuri** function has been dropped and completely replaced by the [**seturi**](/manual/3-3/script-corefunctions) function.
 
 ### Core MI commands
 
@@ -74,42 +74,42 @@ The following is the full list of backwards-incompatible syntax or functional ch
 ## Module migration
 
 ### B2B_LOGIC_XML module
-* The **b2b_logic_xml** module has been dropped - replace it with [**b2b_logic**](/docs/modules/3-3/b2b_logic) module.
+* The **b2b_logic_xml** module has been dropped - replace it with [**b2b_logic**](/modules/3-3/b2b_logic) module.
 
 ### CGRateS module
-* The `$cgrret` variable has been dropped, replaced by the [`$cgr_ret`](/docs/modules/3-3/cgrates#pv_cgr_ret) variable.
+* The `$cgrret` variable has been dropped, replaced by the [`$cgr_ret`](/modules/3-3/cgrates#pv_cgr_ret) variable.
 
 ### DIALOG module
-* the default [replicate_profiles_timer](/docs/modules/3-3/dialog#param_replicate_profiles_timer) has been increased to **200 ms**, up from **10 ms**.
+* the default [replicate_profiles_timer](/modules/3-3/dialog#param_replicate_profiles_timer) has been increased to **200 ms**, up from **10 ms**.
 
 ### DIALPLAN module
-* the "attrs_pvar" output variable of [dp_translate()](/docs/modules/3-3/dialplan#func_dp_translate) is now **always** set on a successful translation, helping avoid both unwanted bugs and boilerplate script code.  See the updated docs for more details.
+* the "attrs_pvar" output variable of [dp_translate()](/modules/3-3/dialplan#func_dp_translate) is now **always** set on a successful translation, helping avoid both unwanted bugs and boilerplate script code.  See the updated docs for more details.
 
 ### DISPATCHER module
-* if you are using the clustering support without a sharing tag and relying on the fact that all the nodes will ping all the destinations, in order to maintain this behavior you will have now to set the [**cluster_probing_mode**](/docs/modules/3-3/dispatcher#param_cluster_probing_mode) modparam to "all".
+* if you are using the clustering support without a sharing tag and relying on the fact that all the nodes will ping all the destinations, in order to maintain this behavior you will have now to set the [**cluster_probing_mode**](/modules/3-3/dispatcher#param_cluster_probing_mode) modparam to "all".
 
 ### DROUTING module
-* The **W** flag of the [do_routing](/docs/modules/3-3/drouting#func_do_routing) function has been completely dropped. Its functionality has been replaced by the new **sort_alg** column of the ***dr_rules*** or ***dr_carriers*** tables. See the [Dynamic Routing DB schema](/docs/manual/3-3/install-dbschema#AEN5138) for more details.
-* if using [**is_from_gw()**](/docs/modules/3-3/drouting#func_is_from_gw) / [**goes_to_gw()**](/docs/modules/3-3/drouting#func_goes_to_gw)  / [**dr_is_gw()**](/docs/modules/3-3/drouting#func_dr_is_gw) functions note that there is a new extra parameter "carrier_attrs_pvar" before the last "partition" parameter. If you use the partitions, you will have to insert one extra empty param before the "partition" parameter!!
-* if using [**route_to_gw()**](/docs/modules/3-3/drouting#func_route_to_gw) functions note that there is a new extra parameter "carrier_attrs_pvar" before the last "partition" parameter. If you use the partitions, you will have to insert one extra empty param before the "partition" parameter!!
-* if you are using the clustering support without a sharing tag and relying on the fact that all the nodes will ping all the gateways, in order to maintain this behavior you will have now to set the [**cluster_probing_mode**](/docs/modules/3-3/drouting#param_cluster_probing_mode) modparam to "all".
+* The **W** flag of the [do_routing](/modules/3-3/drouting#func_do_routing) function has been completely dropped. Its functionality has been replaced by the new **sort_alg** column of the ***dr_rules*** or ***dr_carriers*** tables. See the [Dynamic Routing DB schema](/manual/3-3/install-dbschema#AEN5138) for more details.
+* if using [**is_from_gw()**](/modules/3-3/drouting#func_is_from_gw) / [**goes_to_gw()**](/modules/3-3/drouting#func_goes_to_gw)  / [**dr_is_gw()**](/modules/3-3/drouting#func_dr_is_gw) functions note that there is a new extra parameter "carrier_attrs_pvar" before the last "partition" parameter. If you use the partitions, you will have to insert one extra empty param before the "partition" parameter!!
+* if using [**route_to_gw()**](/modules/3-3/drouting#func_route_to_gw) functions note that there is a new extra parameter "carrier_attrs_pvar" before the last "partition" parameter. If you use the partitions, you will have to insert one extra empty param before the "partition" parameter!!
+* if you are using the clustering support without a sharing tag and relying on the fact that all the nodes will ping all the gateways, in order to maintain this behavior you will have now to set the [**cluster_probing_mode**](/modules/3-3/drouting#param_cluster_probing_mode) modparam to "all".
 
 ### GROUP module
-* The **is_user_in** function has been dropped, replaced by the [**db_is_user_in**](/docs/modules/3-3/group#func_db_is_user_in) function.
-* The **get_user_group** function has been dropped, replaced by the [**db_get_user_group**](/docs/modules/3-3/group#func_db_get_user_group) function.
+* The **is_user_in** function has been dropped, replaced by the [**db_is_user_in**](/modules/3-3/group#func_db_is_user_in) function.
+* The **get_user_group** function has been dropped, replaced by the [**db_get_user_group**](/modules/3-3/group#func_db_get_user_group) function.
 
 ### MEDIA_EXCHANGE module
-* Media exchange forking mode no longer works through the [**rtpproxy**](/docs/modules/3-3/rtpproxy) module, but has been integrated with the [**rtp_relay**](/docs/modules/3-3/rtp_relay) module. Therefore, if you were using media exchange forking capabilities, you need to convert your script to engage RTP Relay sessions on your calls.
+* Media exchange forking mode no longer works through the [**rtpproxy**](/modules/3-3/rtpproxy) module, but has been integrated with the [**rtp_relay**](/modules/3-3/rtp_relay) module. Therefore, if you were using media exchange forking capabilities, you need to convert your script to engage RTP Relay sessions on your calls.
 
 ### RATELIMIT module
-* The **ratelimit** pipes replication module has been changed - instead of replicating all pipes, the [**rl_check**](/docs/modules/3-3/ratelimit#func_rl_check) function can receive a **/b** prefix, indicating that the pipe should be replicated over bin, or **/r** if it should be replicated over cachedb.
-* the default [repl_timer_interval](/docs/modules/3-3/ratelimit#param_repl_timer_interval) has been increased to **200 ms**, up from **10 ms**.
+* The **ratelimit** pipes replication module has been changed - instead of replicating all pipes, the [**rl_check**](/modules/3-3/ratelimit#func_rl_check) function can receive a **/b** prefix, indicating that the pipe should be replicated over bin, or **/r** if it should be replicated over cachedb.
+* the default [repl_timer_interval](/modules/3-3/ratelimit#param_repl_timer_interval) has been increased to **200 ms**, up from **10 ms**.
 
 ### RTPPROXY module
-* The **rtpproxy_tout** parameter has been dropped, completely replaced by the [**rtpproxy_timetout**](/docs/modules/3-3/rtpproxy#param_rtpproxy_timeout) parameter.
+* The **rtpproxy_tout** parameter has been dropped, completely replaced by the [**rtpproxy_timetout**](/modules/3-3/rtpproxy#param_rtpproxy_timeout) parameter.
 
 ### SIPREC module
-* [**siprec_start_recording**](/docs/modules/3-3/siprec#func_siprec_start_recording) function no longer receives a set of data as parameters - the **group**, **caller**, **callee**, **media_ip**, **headers** parameters have been pulled out and are now provisioned through the new [`$siprec`](/docs/modules/3-3/siprec#pv_siprec) variable. If you were passing any of these optional arguments to the function, you should move them as `$siprec(param)`. Note that the **media_ip** parameter has been deprecated in the favor of a more flexible **media** parameter.
-* if you were forcing a custom socket to the SIPREC SRS using the `$fs` or **force_send_socket** command, you need to set the new socket through the [`$siprec(socket)`](/docs/modules/3-3/siprec#pv_siprec) variable.
-* the **rtpproxy_sock** parameter has been completely dropped, as the media node is taken automatically from the **rtp_relay** context. In order to migrate, simply remove the parameter from the [**siprec_start_recording**](/docs/modules/3-3/siprec#func_siprec_start_recording) call.
-* the [**media_port_min**](/docs/modules/3-2/siprec#param_media_port_min) and [**media_port_max**](/docs/modules/3-2/siprec#param_media_port_max) parameters have been moved to the [RTPProxy module](/docs/modules/3-3/rtpproxy) under the name of [**generated_sdp_port_min**](/docs/modules/3-2/rtpproxy#param_generated_sdp_port_min) and [**generated_sdp_port_max**](/docs/modules/3-2/rtpproxy#param_generated_sdp_port_max) accordingly.
+* [**siprec_start_recording**](/modules/3-3/siprec#func_siprec_start_recording) function no longer receives a set of data as parameters - the **group**, **caller**, **callee**, **media_ip**, **headers** parameters have been pulled out and are now provisioned through the new [`$siprec`](/modules/3-3/siprec#pv_siprec) variable. If you were passing any of these optional arguments to the function, you should move them as `$siprec(param)`. Note that the **media_ip** parameter has been deprecated in the favor of a more flexible **media** parameter.
+* if you were forcing a custom socket to the SIPREC SRS using the `$fs` or **force_send_socket** command, you need to set the new socket through the [`$siprec(socket)`](/modules/3-3/siprec#pv_siprec) variable.
+* the **rtpproxy_sock** parameter has been completely dropped, as the media node is taken automatically from the **rtp_relay** context. In order to migrate, simply remove the parameter from the [**siprec_start_recording**](/modules/3-3/siprec#func_siprec_start_recording) call.
+* the [**media_port_min**](/modules/3-2/siprec#param_media_port_min) and [**media_port_max**](/modules/3-2/siprec#param_media_port_max) parameters have been moved to the [RTPProxy module](/modules/3-3/rtpproxy) under the name of [**generated_sdp_port_min**](/modules/3-2/rtpproxy#param_generated_sdp_port_min) and [**generated_sdp_port_max**](/modules/3-2/rtpproxy#param_generated_sdp_port_max) accordingly.

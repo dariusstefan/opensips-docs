@@ -36,7 +36,7 @@ It seems freeDiameter is strongly tied to DNS hostnames, so let's add entries to
 
 ### Packages
 
-The [*aaa_diameter*](/docs/modules/3-2/aaa_diameter) OpenSIPS connector module makes use of the *libfdcore.so* and *libfdproto.so* shared libraries.  These libraries can be installed via:
+The [*aaa_diameter*](/modules/3-2/aaa_diameter) OpenSIPS connector module makes use of the *libfdcore.so* and *libfdproto.so* shared libraries.  These libraries can be installed via:
 
 ```text
 

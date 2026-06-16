@@ -24,7 +24,7 @@ where :
 * opensips_3_4 is the existing DB name corresponding to version 3.4.x format
 * opensips_3_5 is the DB name to be created for 3.5.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -38,7 +38,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Global Parameters
 
-* The [`mpath`](/docs/manual/3-5/script-coreparameters) parameter can take several values. This means that if your script contains several declarations, and you rely on the fact that only the last one is being used, you need to completely delete (or comment) the previous ones, otherwise they will be taken into account in the modules search algorithm, and moreover, they will be prioritized.
+* The [`mpath`](/manual/3-5/script-coreparameters) parameter can take several values. This means that if your script contains several declarations, and you rely on the fact that only the last one is being used, you need to completely delete (or comment) the previous ones, otherwise they will be taken into account in the modules search algorithm, and moreover, they will be prioritized.
 
 ### Core Variables
 
@@ -50,7 +50,7 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### Core functions
 
-* consider using the new [set_via_handling()](/docs/manual/3-5/script-corefunctions#set_via_handling) instead of force_rport(), add_local_report() or force_tcp_alias() (which are to be deprecated in the future)
+* consider using the new [set_via_handling()](/manual/3-5/script-corefunctions#set_via_handling) instead of force_rport(), add_local_report() or force_tcp_alias() (which are to be deprecated in the future)
 
 ### Core MI commands
 
@@ -64,16 +64,16 @@ The following is the full list of backwards-incompatible syntax or functional ch
 
 ### AVPOPS module
 This module does not exist anymore. All its functions were re-distributed and replaced as follows:
-* **avp_db_load/store/delete()** functions were moved and renamed as **sql_avp_load/store_delete()** in the [sqlops module](/docs/modules/3-5/sqlops)
-* **avp_db_query()** function was moved and renamed as **sql_query()** in the [sqlops module](/docs/modules/3-5/sqlops)
+* **avp_db_load/store/delete()** functions were moved and renamed as **sql_avp_load/store_delete()** in the [sqlops module](/modules/3-5/sqlops)
+* **avp_db_query()** function was moved and renamed as **sql_query()** in the [sqlops module](/modules/3-5/sqlops)
 * **avp_remove()** function was removed, as it can be replaced with scripting `$avp(x):=NULL`
 * **avp_pushto()** function was removed, as it can be replaced with scripting assignment operation
 * **avp_check()** function was removed, as it can be replaced with scripting testing operators
 * **avp_copy()** function was removed, as it can be replaced with scripting assignment operation
-* **avp_subst()** function was removed, as it can be replaced with scripting [`{re.subst}`](/docs/manual/3-5/script-tran#re.subst) transformation
+* **avp_subst()** function was removed, as it can be replaced with scripting [`{re.subst}`](/manual/3-5/script-tran#re.subst) transformation
 * **avp_op()** function was removed, as it can be replaced with scripting operations
 * **is_avp_set()** function was removed, as it can be replaced with scripting `if ($avp(x)==NULL) {}`
-* **avp_shuffle()** function was moved under the [shuffle_avps()](/docs/modules/3-5/cfgutils#func_shuffle_avps) name into the **cfgutils** module
+* **avp_shuffle()** function was moved under the [shuffle_avps()](/modules/3-5/cfgutils#func_shuffle_avps) name into the **cfgutils** module
 * **avp_print()** function was moved to the OpenSIPS core under the same name
 
 ### SQL_CACHER module

@@ -6,7 +6,7 @@ description: "Configuring TLS can sometimes be time consuming, most times becaus
 
 ## Introduction
 
-Configuring TLS can sometimes be time consuming, most times because of badly generated or used certificates. What this tutorial is trying to do is providing a basic TLS configuration for OpenSIPS which we know for sure that will work and be the entry point for future, more complicated, TLS setups. At first we will be trying to do the most important thing of all: generating some certificates which we can use to later configure OpenSIPS. If all you want to do is testing the TLS, you can always skip to section [**2.4 Using OpenSIPS built-in certificates**](/docs/tutorials-tls-2-1). The next step will be writing a script for OpenSIPS which will use TLS. After starting OpenSIPS, what we must do is testing that OpenSIPS works fine listening for TLS connections from UACs and creating new connections with UACs and debugging the handshake.
+Configuring TLS can sometimes be time consuming, most times because of badly generated or used certificates. What this tutorial is trying to do is providing a basic TLS configuration for OpenSIPS which we know for sure that will work and be the entry point for future, more complicated, TLS setups. At first we will be trying to do the most important thing of all: generating some certificates which we can use to later configure OpenSIPS. If all you want to do is testing the TLS, you can always skip to section [**2.4 Using OpenSIPS built-in certificates**](//tutorials-tls-2-1). The next step will be writing a script for OpenSIPS which will use TLS. After starting OpenSIPS, what we must do is testing that OpenSIPS works fine listening for TLS connections from UACs and creating new connections with UACs and debugging the handshake.
 
 ## Generating certificates
 ### Overview
@@ -97,13 +97,13 @@ modparam("proto_tls", "verify_cert", "0")
 modparam("proto_tls", "require_cert", "0") 
 ```
 
-We will need to specify the TLS method which will specify what type of protocol we will use. In this tutorial we will use “TLSv1”, but you can always use another one, see the full list in the **[module’s documentation section](/docs/modules/2-1/proto_tls#id294154)**. 
+We will need to specify the TLS method which will specify what type of protocol we will use. In this tutorial we will use “TLSv1”, but you can always use another one, see the full list in the **[module’s documentation section](/modules/2-1/proto_tls#id294154)**. 
 
 ```c
 modparam("proto_tls", "tls_method", "TLSv1")
 ```
 
-Also, in order for OpenSIPS to start, we need to configure some "global" certificates. We need to do this because we need a default match, if no domain is matched, we will need a default case, something to match everything, just like **0.0.0.0** route in routing tables. You can always jump over the following section [**3.4 Setting up TLS domains**](/docs/tutorials-tls-2-1) directly to [**3.5 Full script example**](/docs/tutorials-tls-2-1), because they represent a more specific type of scripting, but it is recommended to read about **server domains** which allow you to use different settings on different listening interfaces. 
+Also, in order for OpenSIPS to start, we need to configure some "global" certificates. We need to do this because we need a default match, if no domain is matched, we will need a default case, something to match everything, just like **0.0.0.0** route in routing tables. You can always jump over the following section [**3.4 Setting up TLS domains**](//tutorials-tls-2-1) directly to [**3.5 Full script example**](//tutorials-tls-2-1), because they represent a more specific type of scripting, but it is recommended to read about **server domains** which allow you to use different settings on different listening interfaces. 
 
 ```c
  modparam("proto_tls", "certificate", "$CERT_DIR/rootCA/cacert.pem")           
@@ -114,7 +114,7 @@ Also, in order for OpenSIPS to start, we need to configure some "global" certifi
 
 ### Setting up TLS domains
 
-As specified in section [**3.1 Overview**](/docs/tutorials-tls-2-1), our scenario includes two TLS connections, one from the UAC to OpenSIPS and the second one from OpenSIPS to the UAS. Whereas in the first connection OpenSIPS will be the server side of the connection, in the second one it will be the client side so we need to define two different TLS domains.
+As specified in section [**3.1 Overview**](//tutorials-tls-2-1), our scenario includes two TLS connections, one from the UAC to OpenSIPS and the second one from OpenSIPS to the UAS. Whereas in the first connection OpenSIPS will be the server side of the connection, in the second one it will be the client side so we need to define two different TLS domains.
 
 ```c
  #first the  server domain

@@ -4,7 +4,7 @@ description: "This tutorial applied for OpenSIP versions 1.9"
 ---
 
 > [!NOTE]
-> This tutorial applies to OpenSIPS 1.9. For older setups, see the [OpenSIPS 1.5, 1.6 and 1.7 version](/docs/tutorials-loadbalancing-older-1-9).
+> This tutorial applies to OpenSIPS 1.9. For older setups, see the [OpenSIPS 1.5, 1.6 and 1.7 version](//tutorials-loadbalancing-older-1-9).
 
 ## Load Balancing in **OpenSIPS**
 
@@ -134,12 +134,12 @@ The Load Balancer modules provides couple of functionalities to help in dealing 
 Once a destination is detected at failed, in script, you can mark it as disabled via the **lb_disable()** function - once marked as disabled, the destination will not be used anymore in the LB process (it will not be considered a possible destination when routing calls).
 
 For a destination to be set back as enabled, there are two options:
-* use the MI command [lb_status](/docs/modules/1-9/load_balancer#id248919) to do it manually, from outside OpenSIPS
-* based on probing - the destination must have the SIP probing/pinging enabled - once the destination starts replying with 200 OK replies to the SIP pings (see the [probing_reply_codes](/docs/modules/1-9/load_balancer#id250116) option.
+* use the MI command [lb_status](/modules/1-9/load_balancer#id248919) to do it manually, from outside OpenSIPS
+* based on probing - the destination must have the SIP probing/pinging enabled - once the destination starts replying with 200 OK replies to the SIP pings (see the [probing_reply_codes](/modules/1-9/load_balancer#id250116) option.
 
-To enable pinging, you need first to set [probing_interval](/docs/modules/1-9/load_balancer#id249996) to a non zero value - how often the pinging should be done. The pinging will be done by periodically sending a **OPTIONS** SIP request to the destination - see [probing_method](/docs/modules/1-9/load_balancer#id250037) option.
+To enable pinging, you need first to set [probing_interval](/modules/1-9/load_balancer#id249996) to a non zero value - how often the pinging should be done. The pinging will be done by periodically sending a **OPTIONS** SIP request to the destination - see [probing_method](/modules/1-9/load_balancer#id250037) option.
 
-To control which and when a destination is pinged, there is the **probe_mode** column in the **load_balancer** table - see [table definition](http://www.opensips.org/html/docs/db/db-schema-1.9.x.html#AEN3971). Possible options are:
+To control which and when a destination is pinged, there is the **probe_mode** column in the **load_balancer** table - see [table definition](http://www.opensips.org/html//db/db-schema-1.9.x.html#AEN3971). Possible options are:
 * **0** no pinging at any time
 * **1** ping only if in disabled state (used for auto re-enabling of destinations)
 * **2** ping all the time - it will disable destination if fails to answer to pings and enable it back when starts answering again.
@@ -149,13 +149,13 @@ To control which and when a destination is pinged, there is the **probe_mode** c
 The Load Balancer module provides several MI functions to allow you to do runtime changes and to get realtime information from it.
 
 Pushing changes at runtime:
-* **lb_reload** - force reloading the entire configuration data from DB - see [more..](/docs/modules/1-9/load_balancer#id292737)
-* **lb_resize** - change the capacity of a resource for a destination - see [more..](/docs/modules/1-9/load_balancer#id292759)
-* **lb_status** - change the status of a destination (enable/disable) - see [more..](/docs/modules/1-9/load_balancer#id248919)
+* **lb_reload** - force reloading the entire configuration data from DB - see [more..](/modules/1-9/load_balancer#id292737)
+* **lb_resize** - change the capacity of a resource for a destination - see [more..](/modules/1-9/load_balancer#id292759)
+* **lb_status** - change the status of a destination (enable/disable) - see [more..](/modules/1-9/load_balancer#id248919)
 
 For fetching realtime information :
-* **lb_list** - list the load on all destinations (per resource) - see [more..](/docs/modules/1-9/load_balancer#id292782)
-* **lb_status** - see the status of a destination (enable/disable) - see [more..](/docs/modules/1-9/load_balancer#id248919)
+* **lb_list** - list the load on all destinations (per resource) - see [more..](/modules/1-9/load_balancer#id292782)
+* **lb_status** - see the status of a destination (enable/disable) - see [more..](/modules/1-9/load_balancer#id248919)
 
 ---
 

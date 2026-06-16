@@ -4,7 +4,7 @@ author: "by Liviu Chircu"
 description: "This tutorial illustrates the required steps in order to perform audio transcoding with the D-series cards manufactured by Sangoma, using the sngtc_server da..."
 ---
 
-![tc setup](/images/docs/tutorials/tc-setup.png)
+![tc setup](/images//tutorials/tc-setup.png)
 
 ## Tutorial Overview
 
@@ -13,7 +13,7 @@ This tutorial illustrates the required steps in order to perform audio transcodi
   
 
 > [!WARNING]
-> As mentioned in the [module documentation](/docs/modules/2-2/sngtc), transcoding may only be done if the UAC performs early SDP negotiation and the UAS supports late SDP negotiation.
+> As mentioned in the [module documentation](/modules/2-2/sngtc), transcoding may only be done if the UAC performs early SDP negotiation and the UAS supports late SDP negotiation.
 
 ---
 
@@ -39,7 +39,7 @@ By default it logs to /var/log/sngtc_server.log
 
 Due to the limitations of the transcoding library, transcoding sessions can only be created if both codec A and codec B are known. Since this cannot be accomplished with a standard SIP call flow, the module *restricts* the receiving UA to perform *late SDP negotiation*. The diagram below explains this better:
 
-![dialog establish tc](/images/docs/tutorials/dialog-establish-tc.png)
+![dialog establish tc](/images//tutorials/dialog-establish-tc.png)
 
 ---
 
@@ -50,7 +50,7 @@ The **sngtc module** exports 3 functions. They are called upon receiving INVITE,
 * sngtc_callee_answer - called at 200 OK responses, intersects codec offers, creates transcoding sessions if necessary
 * sngtc_caller_answer - called at ACK requests, adds an SDP body to the ACK request
 
-All functions properly handle retransmissions. More details can be found in the [module documentation](/docs/modules/devel/uri). A basic configuration file is shown below:
+All functions properly handle retransmissions. More details can be found in the [module documentation](/modules/devel/uri). A basic configuration file is shown below:
 
   
 

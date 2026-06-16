@@ -24,7 +24,7 @@ where :
 * opensips_3_3 is the existing DB name corresponding to version 3.3.x format
 * opensips_3_4 is the DB name to be created for 3.4.x format
 
-See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/docs/modules/database.md#database-migration-mysql-only) for more details.
+See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/blob/master/modules/database.md#database-migration-mysql-only) for more details.
 
 > [!NOTE]
 > * the old database will not be deleted, altered or changed - it will not be touched at all
@@ -38,9 +38,9 @@ See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/bl
 
 ### Global Parameters
 
-* [log_facility](/docs/manual/3-4/script-coreparameters#log_facility) has been deprecated and replaced with [syslog_facility](/docs/manual/3-4/script-coreparameters#syslog_facility).
-* [log_name](/docs/manual/3-4/script-coreparameters#log_name) has been deprecated and replaced with [syslog_name](/docs/manual/3-4/script-coreparameters#syslog_name).
-* [log_stderror](/docs/manual/3-4/script-coreparameters#log_stderror) has been deprecated and is now equivalent with setting the new  [stderror_enabled](/docs/manual/3-4/script-coreparameters#stderror_enabled) and [syslog_enabled](/docs/manual/3-4/script-coreparameters#syslog_enabled) parameters as following:
+* [log_facility](/manual/3-4/script-coreparameters#log_facility) has been deprecated and replaced with [syslog_facility](/manual/3-4/script-coreparameters#syslog_facility).
+* [log_name](/manual/3-4/script-coreparameters#log_name) has been deprecated and replaced with [syslog_name](/manual/3-4/script-coreparameters#syslog_name).
+* [log_stderror](/manual/3-4/script-coreparameters#log_stderror) has been deprecated and is now equivalent with setting the new  [stderror_enabled](/manual/3-4/script-coreparameters#stderror_enabled) and [syslog_enabled](/manual/3-4/script-coreparameters#syslog_enabled) parameters as following:
   * *log_stderror=yes* - *stderror_enabled=yes* and *syslog_enabled=no* (default)
   * *log_stderror=no* - *stderror_enabled=no* and *syslog_enabled=yes*.
 
@@ -58,7 +58,7 @@ See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/bl
 
 ### Core MI commands
 
-* the output of the [list_blacklists](/docs/manual/3-4/interface-coremi#list_blacklists) rules have changed to improve readability:
+* the output of the [list_blacklists](/manual/3-4/interface-coremi#list_blacklists) rules have changed to improve readability:
   * *owner* - now a string
   * *expire* - indicates the number of seconds until the rule expires
   * *proto* - printed as string protocol, or "any"
@@ -70,36 +70,36 @@ See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/bl
 ## Module migration
 
 ### B2B_LOGIC module
-* The flags of the [b2b_bridge()](/docs/modules/3-4/b2b_logic#func_b2b_bridge) function have been renamed as following:
+* The flags of the [b2b_bridge()](/modules/3-4/b2b_logic#func_b2b_bridge) function have been renamed as following:
   * **n** to **notify**
   * **f** to **rollback-failed**
   * **t[nn]** to **max_duration=[int]**.
-* The flags of the [b2b_init_request()](/docs/modules/3-4/b2b_logic#func_b2b_init_request) function have been renamed as following:
+* The flags of the [b2b_init_request()](/modules/3-4/b2b_logic#func_b2b_init_request) function have been renamed as following:
   * **a** to **transparent-auth**
   * **p** to **preserve-to**
   * **t[nn]** to **setup-timeout=[nn]**
-* The **init_sdp_body** and **init_sdp_ctype** parameters of the [b2b_init_request()](/docs/modules/3-4/b2b_logic#func_b2b_init_request) function have been dropped.
+* The **init_sdp_body** and **init_sdp_ctype** parameters of the [b2b_init_request()](/modules/3-4/b2b_logic#func_b2b_init_request) function have been dropped.
 * The **use_init_sdp** module parameter has been dropped.
 
 ### CFGUTILS module
-* the [ts_usec_delta()](/docs/modules/3-4/cfgutils#func_ts_usec_delta) 5th parameter has changed:  it is now a **string** instead of an **integer**, allowing arbitrary-sized diffs to be performed (no longer limited to max 2147 seconds).
+* the [ts_usec_delta()](/modules/3-4/cfgutils#func_ts_usec_delta) 5th parameter has changed:  it is now a **string** instead of an **integer**, allowing arbitrary-sized diffs to be performed (no longer limited to max 2147 seconds).
 
 ### DIALOG module
-* The **val** parameter of [store_dlg_value()](/docs/modules/3-4/dialog#func_store_dlg_value) is now a variable.
-* the first parameter, **idx** of the [set_dlg_flag()](/docs/modules/3-4/dialog#func_set_dlg_flag), [test_and_set_dlg_flag()](/docs/modules/3-4/dialog#func_test_and_set_dlg_flag), [reset_dlg_flag()](/docs/modules/3-4/dialog#func_reset_dlg_flag), [is_dlg_flag_set()](/docs/modules/3-4/dialog#func_is_dlg_flag_set) functions is now a static string.
-* The [`$DLG_flags`](/docs/modules/3-4/dialog#pv_DLG_flags) variable now returns a list of flag names separted by space instead of a single integer value.
+* The **val** parameter of [store_dlg_value()](/modules/3-4/dialog#func_store_dlg_value) is now a variable.
+* the first parameter, **idx** of the [set_dlg_flag()](/modules/3-4/dialog#func_set_dlg_flag), [test_and_set_dlg_flag()](/modules/3-4/dialog#func_test_and_set_dlg_flag), [reset_dlg_flag()](/modules/3-4/dialog#func_reset_dlg_flag), [is_dlg_flag_set()](/modules/3-4/dialog#func_is_dlg_flag_set) functions is now a static string.
+* The [`$DLG_flags`](/modules/3-4/dialog#pv_DLG_flags) variable now returns a list of flag names separted by space instead of a single integer value.
 
 ### MID_REGISTRAR module
-* Check the module docs for the **flags** parameters of the [mid_registrar_save()](/docs/modules/3-4/mid_registrar#func_mid_registrar_save) and [mid_registrar_lookup()](/docs/modules/3-4/mid_registrar#func_mid_registrar_lookup) functions for the mapping between the old and new flag names.
+* Check the module docs for the **flags** parameters of the [mid_registrar_save()](/modules/3-4/mid_registrar#func_mid_registrar_save) and [mid_registrar_lookup()](/modules/3-4/mid_registrar#func_mid_registrar_lookup) functions for the mapping between the old and new flag names.
 
 ### NATHELPER module
-* Check the module docs for the **flags** parameters of the [fix_nated_sdp()](/docs/modules/3-4/nathelper#func_fix_nated_sdp) and [nat_uac_test()](/docs/modules/3-4/nathelper#func_nat_uac_test) functions for the mapping between the old and new flag names.
+* Check the module docs for the **flags** parameters of the [fix_nated_sdp()](/modules/3-4/nathelper#func_fix_nated_sdp) and [nat_uac_test()](/modules/3-4/nathelper#func_nat_uac_test) functions for the mapping between the old and new flag names.
 
 ### REGISTRAR module
-* Check the module docs for the **flags** parameters of the [save()](/docs/modules/3-4/registrar#func_save) and [lookup()](/docs/modules/3-4/registrar#func_lookup) functions for the mapping between the old and new flag names.
+* Check the module docs for the **flags** parameters of the [save()](/modules/3-4/registrar#func_save) and [lookup()](/modules/3-4/registrar#func_lookup) functions for the mapping between the old and new flag names.
 
 ### TM module
-* Check the module docs for the **flags** parameter of the [t_relay()](/docs/modules/3-4/tm#func_t_relay) function for the mapping between the old and new flag names.
+* Check the module docs for the **flags** parameter of the [t_relay()](/modules/3-4/tm#func_t_relay) function for the mapping between the old and new flag names.
 
 ## Command line options migration
 
@@ -108,4 +108,4 @@ See [the opensips-cli documentation](https://github.com/OpenSIPS/opensips-cli/bl
 ## Packaging migration
 
 ### AUTH modules
-* NEW package available in the repos: **opensips-auth-modules**, containing both the **[auth](/docs/modules/3-4/auth)** and **[uac_auth](/docs/modules/3-4/uac_auth)** modules, mainly due to their extra dependency on a TLS library to be present on the system (e.g. OpenSSL or WolfSSL)
+* NEW package available in the repos: **opensips-auth-modules**, containing both the **[auth](/modules/3-4/auth)** and **[uac_auth](/modules/3-4/uac_auth)** modules, mainly due to their extra dependency on a TLS library to be present on the system (e.g. OpenSSL or WolfSSL)

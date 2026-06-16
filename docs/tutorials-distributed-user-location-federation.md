@@ -19,11 +19,11 @@ The "federation" clustering strategy for the OpenSIPS user location is a complet
 
   
 
-Instead of full-mesh replicating user location data to the entire cluster (i.e. just like the ["full sharing"](/docs/tutorials-distributed-user-location-full-sharing) clustering strategy does), the nodes will only publish some light, metadata "AoR availability" records into a shared NoSQL database, as in this picture:
+Instead of full-mesh replicating user location data to the entire cluster (i.e. just like the ["full sharing"](//tutorials-distributed-user-location-full-sharing) clustering strategy does), the nodes will only publish some light, metadata "AoR availability" records into a shared NoSQL database, as in this picture:
 
   
 
-![federation basic](/images/docs/tutorials/federation-basic.jpg)
+![federation basic](/images//tutorials/federation-basic.jpg)
 
   
 
@@ -31,7 +31,7 @@ This setup also supports a "hot backup" node for each member of the cluster, all
 
   
 
-![federation ha](/images/docs/tutorials/federation-ha.jpg)
+![federation ha](/images//tutorials/federation-ha.jpg)
 
   
 
@@ -124,7 +124,7 @@ INSERT INTO clusterer(id, cluster_id, node_id, url, state, no_ping_retries, prio
 
   
 
-To achieve HA, notice how we group nodes in pairs using the "sip_addr" column.  It now contains the Virtual IP address sitting in front of each pair.  In federation mode, the user location will only replicate contact information to nodes with equal "sip_addr" values, in order to achieve the "hot backup" feature.  Next, the "flags" column is set to "seed" on the active node, and NULL on the backup.  This allows you to restart the backup node and automatically have it sync'ed up via cluster transfer.  The "flags" column is ignored when using a local SQL database for [restart persistency](/docs/modules/2-4/usrloc#param_restart_persistency).
+To achieve HA, notice how we group nodes in pairs using the "sip_addr" column.  It now contains the Virtual IP address sitting in front of each pair.  In federation mode, the user location will only replicate contact information to nodes with equal "sip_addr" values, in order to achieve the "hot backup" feature.  Next, the "flags" column is set to "seed" on the active node, and NULL on the backup.  This allows you to restart the backup node and automatically have it sync'ed up via cluster transfer.  The "flags" column is ignored when using a local SQL database for [restart persistency](/modules/2-4/usrloc#param_restart_persistency).
 
 #### Registration flows
 
@@ -133,11 +133,11 @@ The registration flow has two steps:
 * UAs register to their configured registrar
 * if a new AoR is created, the registrar publishes the AoR's availability in the NoSQL cluster
 
-We need not change anything in the default script in order to achieve the above. The [working_mode_preset](/docs/modules/2-4/usrloc#param_working_mode_preset) or [cluster_mode](/docs/modules/2-4/usrloc#param_cluster_mode) module parameters take care of this.
+We need not change anything in the default script in order to achieve the above. The [working_mode_preset](/modules/2-4/usrloc#param_working_mode_preset) or [cluster_mode](/modules/2-4/usrloc#param_cluster_mode) module parameters take care of this.
 
   
 
-![federation registration](/images/docs/tutorials/federation-registration.jpg)
+![federation registration](/images//tutorials/federation-registration.jpg)
 
   
 
@@ -145,8 +145,8 @@ We need not change anything in the default script in order to achieve the above.
 
 When looking up an AoR, we have two options:
 
-* local lookup, using [lookup("location")](/docs/modules/2-4/registrar#func_lookup)
-* global lookup, using [lookup("location", "g")](/docs/modules/2-4/registrar#func_lookup)
+* local lookup, using [lookup("location")](/modules/2-4/registrar#func_lookup)
+* global lookup, using [lookup("location", "g")](/modules/2-4/registrar#func_lookup)
 
   
 
@@ -154,11 +154,11 @@ The "g" (global) flag indicates that the lookup() will not only perform the loca
 
   
 
-![federation forking](/images/docs/tutorials/federation-forking.jpg)
+![federation forking](/images//tutorials/federation-forking.jpg)
 
   
 
-At OpenSIPS script level, we can easily distinguish calls coming in from fellow cluster nodes using [cluster_check_addr()](/docs/modules/2-4/clusterer#func_cluster_check_addr):
+At OpenSIPS script level, we can easily distinguish calls coming in from fellow cluster nodes using [cluster_check_addr()](/modules/2-4/clusterer#func_cluster_check_addr):
 
   
 
@@ -201,7 +201,7 @@ modparam("nathelper", "max_pings_lost", 5)
 
 ```
 
-We then enable these branch flags for some or all contacts before calling [save()](/docs/modules/2-4/registrar#func_save):
+We then enable these branch flags for some or all contacts before calling [save()](/modules/2-4/registrar#func_save):
 
 ```text
 
@@ -230,7 +230,7 @@ May 30 06:09:58 localhost /usr/sbin/opensips[18833]: ERROR:nathelper:nh_timer: s
 
 ```
 
-To silence these errors, you can hook the [nh_enable_ping](/docs/modules/2-4/nathelper#mi_nh_enable_ping) MI command into your active->backup and backup->active transitions of the VIP:
+To silence these errors, you can hook the [nh_enable_ping](/modules/2-4/nathelper#mi_nh_enable_ping) MI command into your active->backup and backup->active transitions of the VIP:
 
 ```bash
 

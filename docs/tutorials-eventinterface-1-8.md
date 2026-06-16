@@ -14,8 +14,8 @@ The OpenSIPS Event Interface provides an easy way to notify external application
 ## Overview
 
 OpenSIPS can notify an external application using different transport protocols:
-* [event_datagram](/docs/modules/1-8/event_datagram) - sends Datagrams over UDP or UNIX sockets
-* [event_rabbitmq](/docs/modules/1-8/event_rabbitmq) - sends an AMQP message to a RabbitMQ server
+* [event_datagram](/modules/1-8/event_datagram) - sends Datagrams over UDP or UNIX sockets
+* [event_rabbitmq](/modules/1-8/event_rabbitmq) - sends an AMQP message to a RabbitMQ server
 
 In order to receive an event notification, an external application has to subscribe for a specific event to the Event interface. This can be done either using an MI command, or can be done directly from the OpenSIPS script. The subscription command has to specify the event that the external application wants to register to, and a socket where the notification has to be sent. The format of the socket is different, depending on the transport module used (you can find more information about this in the module's documentation page). 
 
@@ -29,7 +29,7 @@ As mentioned above, an external application can subscribe for an event either us
 
 ### MI Subscription
 
-An external application should subscribe for an event using MI commands when the subscription nature is very dynamic: it subscribes for a short period, receives notifications, then decides to unsubscribe and so on. The MI function used to subscribe for an event is [event_subscribe](/docs/manual/1-8/interface-coremi#event_subscribe).
+An external application should subscribe for an event using MI commands when the subscription nature is very dynamic: it subscribes for a short period, receives notifications, then decides to unsubscribe and so on. The MI function used to subscribe for an event is [event_subscribe](/manual/1-8/interface-coremi#event_subscribe).
 
 For example, to subscribe for the E_PIKE_BLOCKED event for only 1200 seconds, an external application that listens on localhost, UDP port 8888, has to issue the following MI command:
 
@@ -39,7 +39,7 @@ For example, to subscribe for the E_PIKE_BLOCKED event for only 1200 seconds, an
 
 ```
 
-The first parameter is the name of the event (see [here](/docs/tutorials-eventinterface-1-8#events)), the second parameter is the listening socket name (the format depends on the transport module used) and the last parameter is the expiration period expressed in seconds. Note that if the last parameter is missing, a default subscription period of 3600s (1h) is assumed.
+The first parameter is the name of the event (see [here](//tutorials-eventinterface-1-8#events)), the second parameter is the listening socket name (the format depends on the transport module used) and the last parameter is the expiration period expressed in seconds. Note that if the last parameter is missing, a default subscription period of 3600s (1h) is assumed.
 
 In order to unsubscribe for an event, the external application has to use the same event and socket used at subscription time, but specify an expiration time of 0. The following command unsubscribes the previously registered application.
 
@@ -51,7 +51,7 @@ In order to unsubscribe for an event, the external application has to use the sa
 
 ### Script Subscription
 
-The Event Interface allows the script writer to subscribe for an event directly from the OpenSIPS configuration script. This is usually used when a subscription is permanent, that never expires. For example a server that is continuously listening from events from OpenSIPS and process them accordingly. The command used to subscribe for an event from script is [subscribe_event](/docs/manual/1-8/script-corefunctions#subscribe_event).
+The Event Interface allows the script writer to subscribe for an event directly from the OpenSIPS configuration script. This is usually used when a subscription is permanent, that never expires. For example a server that is continuously listening from events from OpenSIPS and process them accordingly. The command used to subscribe for an event from script is [subscribe_event](/manual/1-8/script-corefunctions#subscribe_event).
 
 Usually these kind of subscriptions are permanent, therefore they should be registered at when OpenSIPS starts. Therefore this should be done in *startup_route*, but this is not a requirement, as the function can be used in any route.
 
@@ -65,7 +65,7 @@ Here is an example of subscription for the E_PIKE_BLOCKED event at OpenSIPS star
 
 ```
 
-If the script writer wants the subscription to expire after 1200 second, the third parameter of the [subscribe_event](/docs/manual/1-8/script-corefunctions#subscribe_event) function can be specified:
+If the script writer wants the subscription to expire after 1200 second, the third parameter of the [subscribe_event](/manual/1-8/script-corefunctions#subscribe_event) function can be specified:
 
 ```c
 
@@ -81,10 +81,10 @@ If the script writer wants the subscription to expire after 1200 second, the thi
 
 There are two types of events: static/predefined events, exported by OpenSIPS code and modules, and documented by each module, and dynamic events that can be raised by the script writer directly from the script. A few examples of predefined events:
 
-* [E_PIKE_BLOCKED](/docs/modules/1-8/pike#id250185) - raised when **pike** module decides an IP should be blocked.
-* [E_RTPPROXY_STATUS](/docs/modules/1-8/rtpproxy#id293504) - raised when a RTPProxy connects or disconnects.
-* [E_DISPATCHER_STATUS](/docs/modules/1-8/dispatcher#id293668) - raised by the **dispatcher** module when a destination address becomes active/inactive.
-* [E_CORE_THRESHOLD](/docs/manual/1-8/interface-coreevents#E_CORE_THRESHOLD) - raised when using debugging bottleneck detection and the limit is exceeded.
+* [E_PIKE_BLOCKED](/modules/1-8/pike#id250185) - raised when **pike** module decides an IP should be blocked.
+* [E_RTPPROXY_STATUS](/modules/1-8/rtpproxy#id293504) - raised when a RTPProxy connects or disconnects.
+* [E_DISPATCHER_STATUS](/modules/1-8/dispatcher#id293668) - raised by the **dispatcher** module when a destination address becomes active/inactive.
+* [E_CORE_THRESHOLD](/manual/1-8/interface-coreevents#E_CORE_THRESHOLD) - raised when using debugging bottleneck detection and the limit is exceeded.
 
 ### Events Name
 
@@ -92,7 +92,7 @@ Although there is not a strict events naming imposed by the Event Interface, it 
 
 ### Raising an Event
 
-In order to raise an event from the script, the [raise_event](/docs/manual/1-8/script-corefunctions#raise_event) function has to be used. The function receives one, two or three parameters, depending on the script writer needs. If the event has no parameters, then only the first parameter is needed - the event's name.
+In order to raise an event from the script, the [raise_event](/manual/1-8/script-corefunctions#raise_event) function has to be used. The function receives one, two or three parameters, depending on the script writer needs. If the event has no parameters, then only the first parameter is needed - the event's name.
 
 If the script writer wants to attach some extra information to the event, then the second and optionally the third parameter has to be used. The extra information has to be stored in an AVP as values, for example:
 
@@ -159,10 +159,10 @@ There are several transport modules that can be used to notify an external appli
 
 External applications can be notified when OpenSIPS internal events are triggered using either UDP or UNIX datagrams. This allows programmers to write a simple UDP server that receives the notification and process it in the preferred programming language.
 
-In order to support this type of communication, the [event_datagram](/docs/modules/1-8/event_datagram) module has to be loaded. Consult the module's documentation page for more information about subscription socket and encapsulation format.
+In order to support this type of communication, the [event_datagram](/modules/1-8/event_datagram) module has to be loaded. Consult the module's documentation page for more information about subscription socket and encapsulation format.
 
 ### RabbitMQ Messages
 
 OpenSIPS can also communicate with a [RabbitMQ](http://www.rabbitmq.com/) server using the AMQP (Advanced Message Queuing Protocol) messages. This type of communication leverages all the features the queuing server has.
 
-The [event_rabbitmq](/docs/modules/1-8/event_rabbitmq) module provides this functionality. Note that in this case, the "external application" is the RabbitMQ server, so you do not have the possibility to subscribe for events from it. Therefore the programmer should either use a different application to subscribe for the event, or subscribes for it directly from the OpenSIPS script (as discussed [here](/docs/tutorials-eventinterface-1-8#script-subscription)). For more information please visit the module's documentation page.
+The [event_rabbitmq](/modules/1-8/event_rabbitmq) module provides this functionality. Note that in this case, the "external application" is the RabbitMQ server, so you do not have the possibility to subscribe for events from it. Therefore the programmer should either use a different application to subscribe for the event, or subscribes for it directly from the OpenSIPS script (as discussed [here](//tutorials-eventinterface-1-8#script-subscription)). For more information please visit the module's documentation page.
