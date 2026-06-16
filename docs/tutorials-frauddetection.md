@@ -6,7 +6,7 @@ description: "Fraudulent calls have been a part of VoIP since its very beginning
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 2.1 version](//tutorials-frauddetection-2-1).
+> Other versions: [OpenSIPS 2.1 version](/tutorials-frauddetection-2-1).
 
 ## Introduction
 

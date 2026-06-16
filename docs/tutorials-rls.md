@@ -98,7 +98,7 @@ Due to a performance considerations, the RLS server will not send immediate RL N
 ## Configuration
 The server is implemented in **rls** module. To understand the parameters required by this module, read the [modules readme here](/modules/1-11/rls).
 
-See a [configuration file example](//tutorials-rlsconfig).
+See a [configuration file example](/tutorials-rlsconfig).
 
 ---
 

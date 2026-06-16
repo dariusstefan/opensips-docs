@@ -6,7 +6,7 @@ description: "This document describes how to use OpenSIPS as the core component 
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 2.1 version](//tutorials-websocket-2-1), [older than OpenSIPS 2.1](//tutorials-websocket-older).
+> Other versions: [OpenSIPS 2.1 version](/tutorials-websocket-2-1), [older than OpenSIPS 2.1](/tutorials-websocket-older).
 
 ## Tutorial Overview
 

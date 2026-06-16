@@ -4,7 +4,7 @@ description: "The OpenSIPS Event Interface provides an easy way to notify extern
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 1.8 version](//tutorials-eventinterface-1-8).
+> Other versions: [OpenSIPS 1.8 version](/tutorials-eventinterface-1-8).
 
 **This tutorial is for OpenSIPS trunk/devel version**
 
@@ -45,7 +45,7 @@ For example, to subscribe for the E_PIKE_BLOCKED event for only 1200 seconds, an
 
 ```
 
-The first parameter is the name of the event (see [here](//tutorials-eventinterface#events-name)), the second parameter is the listening socket name (the format depends on the transport module used) and the last parameter is the expiration period expressed in seconds. Note that if the last parameter is missing, a default subscription period of 3600s (1h) is assumed.
+The first parameter is the name of the event (see [here](/tutorials-eventinterface#events-name)), the second parameter is the listening socket name (the format depends on the transport module used) and the last parameter is the expiration period expressed in seconds. Note that if the last parameter is missing, a default subscription period of 3600s (1h) is assumed.
 
 In order to unsubscribe for an event, the external application has to use the same event and socket used at subscription time, but specify an expiration time of 0. The following command unsubscribes the previously registered application.
 
@@ -226,7 +226,7 @@ In order to support this type of communication, the [event_datagram](/modules/de
 
 OpenSIPS can also communicate with a [RabbitMQ](http://www.rabbitmq.com/) server using the AMQP (Advanced Message Queuing Protocol) messages. This type of communication leverages all the features the queuing server has.
 
-The [event_rabbitmq](/modules/devel/event_rabbitmq) module provides this functionality. Note that in this case, the "external application" is the RabbitMQ server, so you do not have the possibility to subscribe for events from it. Therefore the programmer should either use a different application to subscribe for the event, or subscribes for it directly from the OpenSIPS script (as discussed [here](//tutorials-eventinterface#script-subscription)). For more information please visit the module's documentation page.
+The [event_rabbitmq](/modules/devel/event_rabbitmq) module provides this functionality. Note that in this case, the "external application" is the RabbitMQ server, so you do not have the possibility to subscribe for events from it. Therefore the programmer should either use a different application to subscribe for the event, or subscribes for it directly from the OpenSIPS script (as discussed [here](/tutorials-eventinterface#script-subscription)). For more information please visit the module's documentation page.
 
 ### XMLRPC Commands
 

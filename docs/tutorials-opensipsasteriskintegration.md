@@ -4,7 +4,7 @@ description: "This tutorial presents the concept and implementation of a realtim
 ---
 
 > [!NOTE]
-> Other versions: [older than OpenSIPS 1.8](//tutorials-opensipsasteriskintegration-older-1-8).
+> Other versions: [older than OpenSIPS 1.8](/tutorials-opensipsasteriskintegration-older-1-8).
 
 ## Realtime **OpenSIPS - Asterisk** Integration
 

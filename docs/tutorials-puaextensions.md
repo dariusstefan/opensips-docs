@@ -35,7 +35,7 @@ recorded aor
 You can filter for which users or phones to have this feature enabled. In the configuration file you must call the 
 function **pua_set_publish** exported by the module when a Register for one ot the users is being processed. 
 
-See here a [configuration file example](//tutorials-presence-puausrlocconfig).
+See here a [configuration file example](/tutorials-presence-puausrlocconfig).
 
 It is not a must for the presence server to run on the same machine as the pua_usrloc extension, as the 
 communication is through PUBLISH SIP messages. 
@@ -112,7 +112,7 @@ This is achieved by calling the following functions in the script:
 * **pua_xmpp_notify()**
 * **pua_xmpp_req_winfo(char* request_uri, char* expires)**
 
-See a [configuration example here](//tutorials-presence-puaxmppconfig).
+See a [configuration example here](/tutorials-presence-puaxmppconfig).
 
 You can read the [module readme here](/modules/1-11/pua_xmpp).
 
@@ -142,7 +142,7 @@ To configure the pua_bla module you can set these parameters:
 To achieved the functionalities described above, the following functions exported by the pua_bla module have to be used in the script:
 * **bla_set_flag**: should be called upon receiving a Register message for those registrations that are addressed to a BLA
 * **bla_handle_notify**: Should be called when receiving a Notify with a BLA information ( event: dialog;sla).
-See here a [configuration file example](//tutorials-presence-puablaconfig).
+See here a [configuration file example](/tutorials-presence-puablaconfig).
 
 You can read the [module readme here](/modules/1-11/pua_bla).
 
@@ -154,6 +154,6 @@ This module enables BLF feature in the server by monitoring and publishing dialo
 
 Then, the rest of the job is done by the presence server. To enable handling for this event in the presence server you need to load the 'presence_dialoginfo' module that will register the 'dialog-info' event to the presence server. The presence server will receive Subscribe messages from the UA's and generate Notifies with the information received in Publish messages sent by the pua_dialoginfo module. 
 
-See here a [configuration file example](//tutorials-presence-puadialoinfoconfig).
+See here a [configuration file example](/tutorials-presence-puadialoinfoconfig).
 
 You can read the [modules readme here](/modules/1-11/pua_dialoginfo).

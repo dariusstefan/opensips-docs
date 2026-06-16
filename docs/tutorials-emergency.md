@@ -6,7 +6,7 @@ description: "The emergency module provides emergency call treatment for OpenSIP
 ---
 
 > [!NOTE]
-> Other versions: [OpenSIPS 2.1 version](//tutorials-emergency-2-1).
+> Other versions: [OpenSIPS 2.1 version](/tutorials-emergency-2-1).
 
 **Authors**
 
